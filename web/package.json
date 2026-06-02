@@ -1,0 +1,17 @@
+{
+  "name": "flat-out-f1-web",
+  "version": "1.0.0",
+  "description": "Static dashboard for flat_out_f1_v2 predictions",
+  "type": "module",
+  "scripts": {
+    "sync-data": "node scripts/sync-data.mjs",
+    "dev": "npm run sync-data && node server.mjs",
+    "start": "npm run dev",
+    "build": "npm run sync-data"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {}
+}

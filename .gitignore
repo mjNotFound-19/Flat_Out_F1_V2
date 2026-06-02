@@ -1,0 +1,24 @@
+# Python runtime artifacts
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+
+# Virtual environments
+.venv/
+venv/
+
+# JavaScript dependencies/build output
+node_modules/
+dist/
+build/
+
+# FastF1 cache artifacts and local databases
+fastf1_cache/
+v2_side_models/fastf1_cache/
+*.sqlite
+*.sqlite-*
+
+# Local OS/editor files
+.DS_Store
+Thumbs.db

@@ -1,0 +1,258 @@
+{
+  "_description": "Self-tuning hyperparameters - updated after each race by f1_learn.py",
+  "_version": 15,
+  "_last_updated": "2026-04-16T12:36:32.806411",
+  "_last_round": 3,
+  "tier_weights": {
+    "_note": "Base tier multipliers before season progression adjustment",
+    "fp_base": 0.4,
+    "season_base": 0.0,
+    "testing_base": 0.25,
+    "history_base": 0.2,
+    "team_base": 0.1
+  },
+  "grid_model": {
+    "_note": "Position-dependent grid penalty/bonus in Monte Carlo",
+    "clean_air_bonus_per_slot": 1.050000000000001,
+    "p4_p10_penalty_per_slot": 0.1999999999999998,
+    "p11_p15_penalty_per_slot": 0.3999999999999997,
+    "p16_plus_penalty_per_slot": 0.6999999999999997,
+    "grid_blend_pct": 0.15
+  },
+  "circuit_profiles": {
+    "_note": "Per-circuit overtaking difficulty, learned from races",
+    "_default": {
+      "overtaking_factor": 1.0,
+      "safety_car_prob": 0.025,
+      "tyre_deg_factor": 1.0,
+      "drs_effectiveness": 1.0
+    },
+    "Australian": {
+      "overtaking_factor": 0.79,
+      "safety_car_prob": 0.025,
+      "tyre_deg_factor": 2.715,
+      "drs_effectiveness": 1.0,
+      "n_races": 5,
+      "last_round": 1
+    }
+  },
+  "uncertainty": {
+    "base_unc": 2.3499999999999988,
+    "fp_reduction": 0.85,
+    "fp_reduction_rookie": 0.92,
+    "grid_reduction": 0.85,
+    "season_data_reduction": 0.9,
+    "out_of_position_boost": 1.5
+  },
+  "lap_classification": {
+    "quali_push_pct": 1.5,
+    "race_pace_pct": 4.0,
+    "cooldown_pct": 8.0,
+    "slow_pct": 10.0
+  },
+  "learning_rates": {
+    "_note": "How aggressively to update params after each race",
+    "tier_lr": 0.05,
+    "grid_lr": 0.03,
+    "circuit_lr": 0.1,
+    "uncertainty_lr": 0.05
+  },
+  "performance_log": [
+    {
+      "round": 1,
+      "mae": 3.048,
+      "tau": 0.61,
+      "tier_weights": {
+        "_note": "Base tier multipliers before season progression adjustment",
+        "fp_base": 0.4,
+        "season_base": 0.0,
+        "testing_base": 0.25,
+        "history_base": 0.2,
+        "team_base": 0.1
+      },
+      "grid_blend": 0.15
+    },
+    {
+      "round": 1,
+      "mae": 3.238,
+      "tau": 0.59,
+      "tier_weights": {
+        "_note": "Base tier multipliers before season progression adjustment",
+        "fp_base": 0.4,
+        "season_base": 0.0,
+        "testing_base": 0.25,
+        "history_base": 0.2,
+        "team_base": 0.1
+      },
+      "grid_blend": 0.15
+    },
+    {
+      "round": 2,
+      "mae": 4.455,
+      "tau": 0.472,
+      "tier_weights": {
+        "_note": "Base tier multipliers before season progression adjustment",
+        "fp_base": 0.4,
+        "season_base": 0.0,
+        "testing_base": 0.25,
+        "history_base": 0.2,
+        "team_base": 0.1
+      },
+      "grid_blend": 0.15
+    },
+    {
+      "round": 2,
+      "mae": 4.455,
+      "tau": 0.472,
+      "tier_weights": {
+        "_note": "Base tier multipliers before season progression adjustment",
+        "fp_base": 0.4,
+        "season_base": 0.0,
+        "testing_base": 0.25,
+        "history_base": 0.2,
+        "team_base": 0.1
+      },
+      "grid_blend": 0.15
+    },
+    {
+      "round": 2,
+      "mae": 4.545,
+      "tau": 0.455,
+      "tier_weights": {
+        "_note": "Base tier multipliers before season progression adjustment",
+        "fp_base": 0.4,
+        "season_base": 0.0,
+        "testing_base": 0.25,
+        "history_base": 0.2,
+        "team_base": 0.1
+      },
+      "grid_blend": 0.15
+    },
+    {
+      "round": 1,
+      "mae": 2.762,
+      "tau": 0.657,
+      "tier_weights": {
+        "_note": "Base tier multipliers before season progression adjustment",
+        "fp_base": 0.4,
+        "season_base": 0.0,
+        "testing_base": 0.25,
+        "history_base": 0.2,
+        "team_base": 0.1
+      },
+      "grid_blend": 0.15
+    },
+    {
+      "round": 2,
+      "mae": 4.545,
+      "tau": 0.455,
+      "tier_weights": {
+        "_note": "Base tier multipliers before season progression adjustment",
+        "fp_base": 0.4,
+        "season_base": 0.0,
+        "testing_base": 0.25,
+        "history_base": 0.2,
+        "team_base": 0.1
+      },
+      "grid_blend": 0.15
+    },
+    {
+      "round": 2,
+      "mae": 4.545,
+      "tau": 0.455,
+      "tier_weights": {
+        "_note": "Base tier multipliers before season progression adjustment",
+        "fp_base": 0.4,
+        "season_base": 0.0,
+        "testing_base": 0.25,
+        "history_base": 0.2,
+        "team_base": 0.1
+      },
+      "grid_blend": 0.15
+    },
+    {
+      "round": 1,
+      "mae": 2.952,
+      "tau": 0.629,
+      "tier_weights": {
+        "_note": "Base tier multipliers before season progression adjustment",
+        "fp_base": 0.4,
+        "season_base": 0.0,
+        "testing_base": 0.25,
+        "history_base": 0.2,
+        "team_base": 0.1
+      },
+      "grid_blend": 0.15
+    },
+    {
+      "round": 2,
+      "mae": 4.364,
+      "tau": 0.498,
+      "tier_weights": {
+        "_note": "Base tier multipliers before season progression adjustment",
+        "fp_base": 0.4,
+        "season_base": 0.0,
+        "testing_base": 0.25,
+        "history_base": 0.2,
+        "team_base": 0.1
+      },
+      "grid_blend": 0.15
+    },
+    {
+      "round": 3,
+      "mae": 2.364,
+      "tau": 0.714,
+      "tier_weights": {
+        "_note": "Base tier multipliers before season progression adjustment",
+        "fp_base": 0.4,
+        "season_base": 0.0,
+        "testing_base": 0.25,
+        "history_base": 0.2,
+        "team_base": 0.1
+      },
+      "grid_blend": 0.15
+    },
+    {
+      "round": 1,
+      "mae": 2.81,
+      "tau": 0.657,
+      "tier_weights": {
+        "_note": "Base tier multipliers before season progression adjustment",
+        "fp_base": 0.4,
+        "season_base": 0.0,
+        "testing_base": 0.25,
+        "history_base": 0.2,
+        "team_base": 0.1
+      },
+      "grid_blend": 0.15
+    },
+    {
+      "round": 2,
+      "mae": 5.0,
+      "tau": 0.411,
+      "tier_weights": {
+        "_note": "Base tier multipliers before season progression adjustment",
+        "fp_base": 0.4,
+        "season_base": 0.0,
+        "testing_base": 0.25,
+        "history_base": 0.2,
+        "team_base": 0.1
+      },
+      "grid_blend": 0.15
+    },
+    {
+      "round": 3,
+      "mae": 2.273,
+      "tau": 0.714,
+      "tier_weights": {
+        "_note": "Base tier multipliers before season progression adjustment",
+        "fp_base": 0.4,
+        "season_base": 0.0,
+        "testing_base": 0.25,
+        "history_base": 0.2,
+        "team_base": 0.1
+      },
+      "grid_blend": 0.15
+    }
+  ]
+}

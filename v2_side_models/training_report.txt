@@ -1,0 +1,36 @@
+FLAT OUT F1 — HISTORICAL MLP TRAINING REPORT
+============================================================
+
+Data: 1620 rows, 4 seasons
+Era filter: >= 2 (2=ground effect, 3=2026)
+Final n_features: 90
+
+TIME-SERIES CV:
+  2023: MAE 2.532  tau 0.556  (n=426)
+  2024: MAE 2.177  tau 0.595  (n=462)
+  2025: MAE 2.612  tau 0.573  (n=461)
+  AVERAGE: MAE 2.440  tau 0.575
+
+Internal val MAE (final model, 85/15 split): 1.958
+
+TOP 20 FEATURES BY PERMUTATION IMPORTANCE:
+  grid_pos                                 +1.3472
+  start_pos_prior                          +0.4685
+  pos_std_prior                            +0.1385
+  n_stops_prior                            +0.0990
+  race_pace_mean_prior                     +0.0946
+  pit_timing_delta_prior                   +0.0869
+  overtake_ratio_prior                     +0.0865
+  n_compounds_prior                        +0.0726
+  track_temp                               +0.0690
+  first_pit_lap_prior                      +0.0677
+  race_pace_std_prior                      +0.0615
+  Team_Ferrari                             +0.0596
+  Circuit_Australian                       +0.0586
+  finish_pos_prior                         +0.0582
+  air_temp                                 +0.0577
+  gap_r2_prior                             +0.0539
+  lap1_gain_prior                          +0.0424
+  Team_Red Bull Racing                     +0.0423
+  Circuit_Belgian                          +0.0406
+  Driver_VER                               +0.0398

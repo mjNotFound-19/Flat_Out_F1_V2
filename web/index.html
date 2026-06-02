@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flat Out F1 | Prediction Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="bg gradient-1"></div>
+  <div class="bg gradient-2"></div>
+  <div class="bg grid"></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="mark">Flat&nbsp;Out</span>
+      <div class="brand-copy">
+        <div class="title">F1 Prediction Dashboard</div>
+        <div class="subtitle">Live from project outputs · v2 CSVs</div>
+      </div>
+    </div>
+    <div class="top-actions">
+      <div class="pill">Data: <span class="pill-accent">v2_prediction_results.csv</span></div>
+      <div class="pill">Updated on page load</div>
+      <div class="mode-toggle" id="mode-toggle">
+        <button class="mode-btn active" data-mode="simple">Simple</button>
+        <button class="mode-btn" data-mode="complex">Complex</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-left">
+        <p class="eyebrow">Race Insights</p>
+        <h1>See who is projected to lead — or surprise — in a glance.</h1>
+        <p class="lede">Simple mode shows the predicted finishing order. Complex mode opens the full breakdown: win & podium odds, finish spread, and the model signals driving the forecast.</p>
+        <div class="badges">
+          <span class="chip ghost">Simple = order only</span>
+          <span class="chip ghost">Complex = distribution, ranges, feature weights</span>
+        </div>
+      </div>
+      <div class="hero-stats" id="hero-stats">
+        <!-- populated by app.js -->
+      </div>
+    </section>
+
+    <section id="simple-view" class="view active">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Simple Mode</p>
+          <h2>Predicted finishing order</h2>
+        </div>
+        <div class="section-meta">Sorted by model score → position</div>
+      </div>
+      <div id="simple-list" class="simple-list"></div>
+    </section>
+
+    <section id="complex-view" class="view">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Complex Mode</p>
+          <h2>Full breakdown</h2>
+        </div>
+        <div class="controls">
+          <input id="driver-search" type="search" placeholder="Search driver or team…" aria-label="Search drivers">
+          <select id="sort-select" aria-label="Sort drivers">
+            <option value="score">Sort: Model score</option>
+            <option value="win">Sort: Win chance</option>
+            <option value="podium">Sort: Podium chance</option>
+            <option value="median">Sort: Median finish</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="driver-grid" class="driver-grid"></div>
+
+      <div class="detail-panel" id="driver-detail">
+        <div class="panel-title">
+          <p class="eyebrow">Driver detail</p>
+          <h3>Select a driver to see their distribution</h3>
+        </div>
+      </div>
+
+      <div class="section-head mt">
+        <div>
+          <p class="eyebrow">Model Signals</p>
+          <h2>Top feature importance</h2>
+        </div>
+        <div class="section-meta">From v2_feature_importance.csv</div>
+      </div>
+      <div id="feature-bars" class="feature-bars"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div>Run inside <code>web/</code>: <code>npm install (first time)</code> then <code>npm run dev</code> and open <code>http://localhost:4173</code>.</div>
+    <div class="footer-meta">Data files are copied locally via <code>npm run sync-data</code>; nothing leaves your machine.</div>
+  </footer>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

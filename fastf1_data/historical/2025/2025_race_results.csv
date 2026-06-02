@@ -1,0 +1,480 @@
+year,round,event,driver,team,grid_position,finish_position,classified_position,points,status,time,fastest_lap_rank,position_delta,dnf,quali_position,wet_race
+2025,1,Australian Grand Prix,NOR,McLaren,1.0,1.0,1,25.0,Finished,0 days 01:42:06.304000,,0.0,0,1.0,1
+2025,1,Australian Grand Prix,VER,Red Bull Racing,3.0,2.0,2,18.0,Finished,0 days 00:00:00.895000,,1.0,0,3.0,1
+2025,1,Australian Grand Prix,RUS,Mercedes,4.0,3.0,3,15.0,Finished,0 days 00:00:08.481000,,1.0,0,4.0,1
+2025,1,Australian Grand Prix,ANT,Mercedes,16.0,4.0,4,12.0,Finished,0 days 00:00:10.135000,,12.0,0,16.0,1
+2025,1,Australian Grand Prix,ALB,Williams,6.0,5.0,5,10.0,Finished,0 days 00:00:12.773000,,1.0,0,6.0,1
+2025,1,Australian Grand Prix,STR,Aston Martin,13.0,6.0,6,8.0,Finished,0 days 00:00:17.413000,,7.0,0,13.0,1
+2025,1,Australian Grand Prix,HUL,Kick Sauber,17.0,7.0,7,6.0,Finished,0 days 00:00:18.423000,,10.0,0,17.0,1
+2025,1,Australian Grand Prix,LEC,Ferrari,7.0,8.0,8,4.0,Finished,0 days 00:00:19.826000,,-1.0,0,7.0,1
+2025,1,Australian Grand Prix,PIA,McLaren,2.0,9.0,9,2.0,Finished,0 days 00:00:20.448000,,-7.0,0,2.0,1
+2025,1,Australian Grand Prix,HAM,Ferrari,8.0,10.0,10,1.0,Finished,0 days 00:00:22.473000,,-2.0,0,8.0,1
+2025,1,Australian Grand Prix,GAS,Alpine,9.0,11.0,11,0.0,Finished,0 days 00:00:26.502000,,-2.0,0,9.0,1
+2025,1,Australian Grand Prix,TSU,Racing Bulls,5.0,12.0,12,0.0,Finished,0 days 00:00:29.884000,,-7.0,0,5.0,1
+2025,1,Australian Grand Prix,OCO,Haas F1 Team,19.0,13.0,13,0.0,Finished,0 days 00:00:33.161000,,6.0,0,19.0,1
+2025,1,Australian Grand Prix,BEA,Haas F1 Team,20.0,14.0,14,0.0,Finished,0 days 00:00:40.351000,,6.0,0,20.0,1
+2025,1,Australian Grand Prix,LAW,Red Bull Racing,18.0,15.0,R,0.0,Retired,NaT,,3.0,1,18.0,1
+2025,1,Australian Grand Prix,BOR,Kick Sauber,15.0,16.0,R,0.0,Retired,NaT,,-1.0,1,15.0,1
+2025,1,Australian Grand Prix,ALO,Aston Martin,12.0,17.0,R,0.0,Retired,NaT,,-5.0,1,12.0,1
+2025,1,Australian Grand Prix,SAI,Williams,10.0,18.0,R,0.0,Retired,NaT,,-8.0,1,10.0,1
+2025,1,Australian Grand Prix,DOO,Alpine,14.0,19.0,R,0.0,Retired,NaT,,-5.0,1,14.0,1
+2025,1,Australian Grand Prix,HAD,Racing Bulls,11.0,20.0,R,0.0,Retired,NaT,,-9.0,1,11.0,1
+2025,2,Chinese Grand Prix,PIA,McLaren,1.0,1.0,1,25.0,Finished,0 days 01:30:55.026000,,0.0,0,1.0,0
+2025,2,Chinese Grand Prix,NOR,McLaren,3.0,2.0,2,18.0,Finished,0 days 00:00:09.748000,,1.0,0,3.0,0
+2025,2,Chinese Grand Prix,RUS,Mercedes,2.0,3.0,3,15.0,Finished,0 days 00:00:11.097000,,-1.0,0,2.0,0
+2025,2,Chinese Grand Prix,VER,Red Bull Racing,4.0,4.0,4,12.0,Finished,0 days 00:00:16.656000,,0.0,0,4.0,0
+2025,2,Chinese Grand Prix,OCO,Haas F1 Team,11.0,5.0,5,10.0,Finished,0 days 00:00:49.969000,,6.0,0,11.0,0
+2025,2,Chinese Grand Prix,ANT,Mercedes,8.0,6.0,6,8.0,Finished,0 days 00:00:53.748000,,2.0,0,8.0,0
+2025,2,Chinese Grand Prix,ALB,Williams,10.0,7.0,7,6.0,Finished,0 days 00:00:56.321000,,3.0,0,10.0,0
+2025,2,Chinese Grand Prix,BEA,Haas F1 Team,17.0,8.0,8,4.0,Finished,0 days 00:01:01.303000,,9.0,0,17.0,0
+2025,2,Chinese Grand Prix,STR,Aston Martin,14.0,9.0,9,2.0,Finished,0 days 00:01:10.204000,,5.0,0,14.0,0
+2025,2,Chinese Grand Prix,SAI,Williams,15.0,10.0,10,1.0,Finished,0 days 00:01:16.387000,,5.0,0,15.0,0
+2025,2,Chinese Grand Prix,HAD,Racing Bulls,7.0,11.0,11,0.0,Finished,0 days 00:01:18.875000,,-4.0,0,7.0,0
+2025,2,Chinese Grand Prix,LAW,Red Bull Racing,20.0,12.0,12,0.0,Finished,0 days 00:01:21.147000,,8.0,0,20.0,0
+2025,2,Chinese Grand Prix,DOO,Alpine,18.0,13.0,13,0.0,Finished,0 days 00:01:28.401000,,5.0,0,18.0,0
+2025,2,Chinese Grand Prix,BOR,Kick Sauber,19.0,14.0,14,0.0,Lapped,0 days 00:00:10.756000,,5.0,0,19.0,0
+2025,2,Chinese Grand Prix,HUL,Kick Sauber,12.0,15.0,15,0.0,Lapped,0 days 00:00:20.226000,,-3.0,0,12.0,0
+2025,2,Chinese Grand Prix,TSU,Racing Bulls,9.0,16.0,16,0.0,Lapped,0 days 00:00:23.511000,,-7.0,0,9.0,0
+2025,2,Chinese Grand Prix,ALO,Aston Martin,13.0,17.0,R,0.0,Retired,NaT,,-4.0,1,13.0,0
+2025,2,Chinese Grand Prix,LEC,Ferrari,6.0,18.0,D,0.0,Disqualified,NaT,,-12.0,1,6.0,0
+2025,2,Chinese Grand Prix,HAM,Ferrari,5.0,19.0,D,0.0,Disqualified,NaT,,-14.0,1,5.0,0
+2025,2,Chinese Grand Prix,GAS,Alpine,16.0,20.0,D,0.0,Disqualified,NaT,,-4.0,1,16.0,0
+2025,3,Japanese Grand Prix,VER,Red Bull Racing,1.0,1.0,1,25.0,Finished,0 days 01:22:06.983000,,0.0,0,1.0,0
+2025,3,Japanese Grand Prix,NOR,McLaren,2.0,2.0,2,18.0,Finished,0 days 00:00:01.423000,,0.0,0,2.0,0
+2025,3,Japanese Grand Prix,PIA,McLaren,3.0,3.0,3,15.0,Finished,0 days 00:00:02.129000,,0.0,0,3.0,0
+2025,3,Japanese Grand Prix,LEC,Ferrari,4.0,4.0,4,12.0,Finished,0 days 00:00:16.097000,,0.0,0,4.0,0
+2025,3,Japanese Grand Prix,RUS,Mercedes,5.0,5.0,5,10.0,Finished,0 days 00:00:17.362000,,0.0,0,5.0,0
+2025,3,Japanese Grand Prix,ANT,Mercedes,6.0,6.0,6,8.0,Finished,0 days 00:00:18.671000,,0.0,0,6.0,0
+2025,3,Japanese Grand Prix,HAM,Ferrari,8.0,7.0,7,6.0,Finished,0 days 00:00:29.182000,,1.0,0,8.0,0
+2025,3,Japanese Grand Prix,HAD,Racing Bulls,7.0,8.0,8,4.0,Finished,0 days 00:00:37.134000,,-1.0,0,7.0,0
+2025,3,Japanese Grand Prix,ALB,Williams,9.0,9.0,9,2.0,Finished,0 days 00:00:40.367000,,0.0,0,9.0,0
+2025,3,Japanese Grand Prix,BEA,Haas F1 Team,10.0,10.0,10,1.0,Finished,0 days 00:00:54.529000,,0.0,0,10.0,0
+2025,3,Japanese Grand Prix,ALO,Aston Martin,12.0,11.0,11,0.0,Finished,0 days 00:00:57.333000,,1.0,0,13.0,0
+2025,3,Japanese Grand Prix,TSU,Red Bull Racing,14.0,12.0,12,0.0,Finished,0 days 00:00:58.401000,,2.0,0,15.0,0
+2025,3,Japanese Grand Prix,GAS,Alpine,11.0,13.0,13,0.0,Finished,0 days 00:01:02.122000,,-2.0,0,11.0,0
+2025,3,Japanese Grand Prix,SAI,Williams,15.0,14.0,14,0.0,Finished,0 days 00:01:14.129000,,1.0,0,12.0,0
+2025,3,Japanese Grand Prix,DOO,Alpine,19.0,15.0,15,0.0,Finished,0 days 00:01:21.314000,,4.0,0,19.0,0
+2025,3,Japanese Grand Prix,HUL,Kick Sauber,16.0,16.0,16,0.0,Finished,0 days 00:01:21.957000,,0.0,0,16.0,0
+2025,3,Japanese Grand Prix,LAW,Racing Bulls,13.0,17.0,17,0.0,Finished,0 days 00:01:22.734000,,-4.0,0,14.0,0
+2025,3,Japanese Grand Prix,OCO,Haas F1 Team,18.0,18.0,18,0.0,Finished,0 days 00:01:23.438000,,0.0,0,18.0,0
+2025,3,Japanese Grand Prix,BOR,Kick Sauber,17.0,19.0,19,0.0,Finished,0 days 00:01:23.897000,,-2.0,0,17.0,0
+2025,3,Japanese Grand Prix,STR,Aston Martin,20.0,20.0,20,0.0,Lapped,0 days 00:00:12.929000,,0.0,0,20.0,0
+2025,4,Bahrain Grand Prix,PIA,McLaren,1.0,1.0,1,25.0,Finished,0 days 01:35:39.435000,,0.0,0,1.0,0
+2025,4,Bahrain Grand Prix,RUS,Mercedes,3.0,2.0,2,18.0,Finished,0 days 00:00:15.499000,,1.0,0,2.0,0
+2025,4,Bahrain Grand Prix,NOR,McLaren,6.0,3.0,3,15.0,Finished,0 days 00:00:16.273000,,3.0,0,6.0,0
+2025,4,Bahrain Grand Prix,LEC,Ferrari,2.0,4.0,4,12.0,Finished,0 days 00:00:19.679000,,-2.0,0,3.0,0
+2025,4,Bahrain Grand Prix,HAM,Ferrari,9.0,5.0,5,10.0,Finished,0 days 00:00:27.993000,,4.0,0,9.0,0
+2025,4,Bahrain Grand Prix,VER,Red Bull Racing,7.0,6.0,6,8.0,Finished,0 days 00:00:34.395000,,1.0,0,7.0,0
+2025,4,Bahrain Grand Prix,GAS,Alpine,4.0,7.0,7,6.0,Finished,0 days 00:00:36.002000,,-3.0,0,5.0,0
+2025,4,Bahrain Grand Prix,OCO,Haas F1 Team,14.0,8.0,8,4.0,Finished,0 days 00:00:44.244000,,6.0,0,14.0,0
+2025,4,Bahrain Grand Prix,TSU,Red Bull Racing,10.0,9.0,9,2.0,Finished,0 days 00:00:45.061000,,1.0,0,10.0,0
+2025,4,Bahrain Grand Prix,BEA,Haas F1 Team,20.0,10.0,10,1.0,Finished,0 days 00:00:47.594000,,10.0,0,20.0,0
+2025,4,Bahrain Grand Prix,ANT,Mercedes,5.0,11.0,11,0.0,Finished,0 days 00:00:48.016000,,-6.0,0,4.0,0
+2025,4,Bahrain Grand Prix,ALB,Williams,15.0,12.0,12,0.0,Finished,0 days 00:00:48.839000,,3.0,0,15.0,0
+2025,4,Bahrain Grand Prix,HAD,Racing Bulls,12.0,13.0,13,0.0,Finished,0 days 00:00:56.314000,,-1.0,0,12.0,0
+2025,4,Bahrain Grand Prix,DOO,Alpine,11.0,14.0,14,0.0,Finished,0 days 00:00:57.806000,,-3.0,0,11.0,0
+2025,4,Bahrain Grand Prix,ALO,Aston Martin,13.0,15.0,15,0.0,Finished,0 days 00:01:00.340000,,-2.0,0,13.0,0
+2025,4,Bahrain Grand Prix,LAW,Racing Bulls,17.0,16.0,16,0.0,Finished,0 days 00:01:04.435000,,1.0,0,17.0,0
+2025,4,Bahrain Grand Prix,STR,Aston Martin,19.0,17.0,17,0.0,Finished,0 days 00:01:05.489000,,2.0,0,19.0,0
+2025,4,Bahrain Grand Prix,BOR,Kick Sauber,18.0,18.0,18,0.0,Finished,0 days 00:01:06.872000,,0.0,0,18.0,0
+2025,4,Bahrain Grand Prix,SAI,Williams,8.0,19.0,R,0.0,Retired,NaT,,-11.0,1,8.0,0
+2025,4,Bahrain Grand Prix,HUL,Kick Sauber,16.0,20.0,D,0.0,Disqualified,NaT,,-4.0,1,16.0,0
+2025,5,Saudi Arabian Grand Prix,PIA,McLaren,2.0,1.0,1,25.0,Finished,0 days 01:21:06.758000,,1.0,0,2.0,0
+2025,5,Saudi Arabian Grand Prix,VER,Red Bull Racing,1.0,2.0,2,18.0,Finished,0 days 00:00:02.843000,,-1.0,0,1.0,0
+2025,5,Saudi Arabian Grand Prix,LEC,Ferrari,4.0,3.0,3,15.0,Finished,0 days 00:00:08.104000,,1.0,0,4.0,0
+2025,5,Saudi Arabian Grand Prix,NOR,McLaren,10.0,4.0,4,12.0,Finished,0 days 00:00:09.196000,,6.0,0,10.0,0
+2025,5,Saudi Arabian Grand Prix,RUS,Mercedes,3.0,5.0,5,10.0,Finished,0 days 00:00:27.236000,,-2.0,0,3.0,0
+2025,5,Saudi Arabian Grand Prix,ANT,Mercedes,5.0,6.0,6,8.0,Finished,0 days 00:00:34.688000,,-1.0,0,5.0,0
+2025,5,Saudi Arabian Grand Prix,HAM,Ferrari,7.0,7.0,7,6.0,Finished,0 days 00:00:39.073000,,0.0,0,7.0,0
+2025,5,Saudi Arabian Grand Prix,SAI,Williams,6.0,8.0,8,4.0,Finished,0 days 00:01:04.630000,,-2.0,0,6.0,0
+2025,5,Saudi Arabian Grand Prix,ALB,Williams,11.0,9.0,9,2.0,Finished,0 days 00:01:06.515000,,2.0,0,11.0,0
+2025,5,Saudi Arabian Grand Prix,HAD,Racing Bulls,14.0,10.0,10,1.0,Finished,0 days 00:01:07.091000,,4.0,0,14.0,0
+2025,5,Saudi Arabian Grand Prix,ALO,Aston Martin,13.0,11.0,11,0.0,Finished,0 days 00:01:15.917000,,2.0,0,13.0,0
+2025,5,Saudi Arabian Grand Prix,LAW,Racing Bulls,12.0,12.0,12,0.0,Finished,0 days 00:01:18.451000,,0.0,0,12.0,0
+2025,5,Saudi Arabian Grand Prix,BEA,Haas F1 Team,15.0,13.0,13,0.0,Finished,0 days 00:01:19.194000,,2.0,0,15.0,0
+2025,5,Saudi Arabian Grand Prix,OCO,Haas F1 Team,19.0,14.0,14,0.0,Finished,0 days 00:01:39.723000,,5.0,0,19.0,0
+2025,5,Saudi Arabian Grand Prix,HUL,Kick Sauber,18.0,15.0,15,0.0,Lapped,0 days 00:00:04.609000,,3.0,0,18.0,0
+2025,5,Saudi Arabian Grand Prix,STR,Aston Martin,16.0,16.0,16,0.0,Lapped,0 days 00:00:05.527000,,0.0,0,16.0,0
+2025,5,Saudi Arabian Grand Prix,DOO,Alpine,17.0,17.0,17,0.0,Lapped,0 days 00:00:19.264000,,0.0,0,17.0,0
+2025,5,Saudi Arabian Grand Prix,BOR,Kick Sauber,20.0,18.0,18,0.0,Lapped,0 days 00:00:19.306000,,2.0,0,20.0,0
+2025,5,Saudi Arabian Grand Prix,TSU,Red Bull Racing,8.0,19.0,R,0.0,Retired,NaT,,-11.0,1,8.0,0
+2025,5,Saudi Arabian Grand Prix,GAS,Alpine,9.0,20.0,R,0.0,Retired,NaT,,-11.0,1,9.0,0
+2025,6,Miami Grand Prix,PIA,McLaren,4.0,1.0,1,25.0,Finished,0 days 01:28:51.587000,,3.0,0,4.0,1
+2025,6,Miami Grand Prix,NOR,McLaren,2.0,2.0,2,18.0,Finished,0 days 00:00:04.630000,,0.0,0,2.0,1
+2025,6,Miami Grand Prix,RUS,Mercedes,5.0,3.0,3,15.0,Finished,0 days 00:00:37.644000,,2.0,0,5.0,1
+2025,6,Miami Grand Prix,VER,Red Bull Racing,1.0,4.0,4,12.0,Finished,0 days 00:00:39.956000,,-3.0,0,1.0,1
+2025,6,Miami Grand Prix,ALB,Williams,7.0,5.0,5,10.0,Finished,0 days 00:00:48.067000,,2.0,0,7.0,1
+2025,6,Miami Grand Prix,ANT,Mercedes,3.0,6.0,6,8.0,Finished,0 days 00:00:55.502000,,-3.0,0,3.0,1
+2025,6,Miami Grand Prix,LEC,Ferrari,8.0,7.0,7,6.0,Finished,0 days 00:00:57.036000,,1.0,0,8.0,1
+2025,6,Miami Grand Prix,HAM,Ferrari,12.0,8.0,8,4.0,Finished,0 days 00:01:00.186000,,4.0,0,12.0,1
+2025,6,Miami Grand Prix,SAI,Williams,6.0,9.0,9,2.0,Finished,0 days 00:01:00.577000,,-3.0,0,6.0,1
+2025,6,Miami Grand Prix,TSU,Red Bull Racing,10.0,10.0,10,1.0,Finished,0 days 00:01:14.434000,,0.0,0,10.0,1
+2025,6,Miami Grand Prix,HAD,Racing Bulls,11.0,11.0,11,0.0,Finished,0 days 00:01:14.602000,,0.0,0,11.0,1
+2025,6,Miami Grand Prix,OCO,Haas F1 Team,9.0,12.0,12,0.0,Finished,0 days 00:01:22.006000,,-3.0,0,9.0,1
+2025,6,Miami Grand Prix,GAS,Alpine,20.0,13.0,13,0.0,Finished,0 days 00:01:30.445000,,7.0,0,18.0,1
+2025,6,Miami Grand Prix,HUL,Kick Sauber,16.0,14.0,14,0.0,Lapped,0 days 00:00:01.155000,,2.0,0,16.0,1
+2025,6,Miami Grand Prix,ALO,Aston Martin,17.0,15.0,15,0.0,Lapped,0 days 00:00:20.979000,,2.0,0,17.0,1
+2025,6,Miami Grand Prix,STR,Aston Martin,18.0,16.0,16,0.0,Lapped,0 days 00:00:25.162000,,2.0,0,19.0,1
+2025,6,Miami Grand Prix,LAW,Racing Bulls,15.0,17.0,R,0.0,Retired,NaT,,-2.0,1,15.0,1
+2025,6,Miami Grand Prix,BOR,Kick Sauber,13.0,18.0,R,0.0,Retired,NaT,,-5.0,1,13.0,1
+2025,6,Miami Grand Prix,BEA,Haas F1 Team,19.0,19.0,R,0.0,Retired,NaT,,0.0,1,20.0,1
+2025,6,Miami Grand Prix,DOO,Alpine,14.0,20.0,R,0.0,Retired,NaT,,-6.0,1,14.0,1
+2025,7,Emilia Romagna Grand Prix,VER,Red Bull Racing,2.0,1.0,1,25.0,Finished,0 days 01:31:33.199000,,1.0,0,2.0,0
+2025,7,Emilia Romagna Grand Prix,NOR,McLaren,4.0,2.0,2,18.0,Finished,0 days 00:00:06.109000,,2.0,0,4.0,0
+2025,7,Emilia Romagna Grand Prix,PIA,McLaren,1.0,3.0,3,15.0,Finished,0 days 00:00:12.956000,,-2.0,0,1.0,0
+2025,7,Emilia Romagna Grand Prix,HAM,Ferrari,12.0,4.0,4,12.0,Finished,0 days 00:00:14.356000,,8.0,0,12.0,0
+2025,7,Emilia Romagna Grand Prix,ALB,Williams,7.0,5.0,5,10.0,Finished,0 days 00:00:17.945000,,2.0,0,7.0,0
+2025,7,Emilia Romagna Grand Prix,LEC,Ferrari,11.0,6.0,6,8.0,Finished,0 days 00:00:20.774000,,5.0,0,11.0,0
+2025,7,Emilia Romagna Grand Prix,RUS,Mercedes,3.0,7.0,7,6.0,Finished,0 days 00:00:22.034000,,-4.0,0,3.0,0
+2025,7,Emilia Romagna Grand Prix,SAI,Williams,6.0,8.0,8,4.0,Finished,0 days 00:00:22.898000,,-2.0,0,6.0,0
+2025,7,Emilia Romagna Grand Prix,HAD,Racing Bulls,9.0,9.0,9,2.0,Finished,0 days 00:00:23.586000,,0.0,0,9.0,0
+2025,7,Emilia Romagna Grand Prix,TSU,Red Bull Racing,20.0,10.0,10,1.0,Finished,0 days 00:00:26.446000,,10.0,0,20.0,0
+2025,7,Emilia Romagna Grand Prix,ALO,Aston Martin,5.0,11.0,11,0.0,Finished,0 days 00:00:27.250000,,-6.0,0,5.0,0
+2025,7,Emilia Romagna Grand Prix,HUL,Kick Sauber,17.0,12.0,12,0.0,Finished,0 days 00:00:30.296000,,5.0,0,17.0,0
+2025,7,Emilia Romagna Grand Prix,GAS,Alpine,10.0,13.0,13,0.0,Finished,0 days 00:00:31.424000,,-3.0,0,10.0,0
+2025,7,Emilia Romagna Grand Prix,LAW,Racing Bulls,15.0,14.0,14,0.0,Finished,0 days 00:00:32.511000,,1.0,0,16.0,0
+2025,7,Emilia Romagna Grand Prix,STR,Aston Martin,8.0,15.0,15,0.0,Finished,0 days 00:00:32.993000,,-7.0,0,8.0,0
+2025,7,Emilia Romagna Grand Prix,COL,Alpine,16.0,16.0,16,0.0,Finished,0 days 00:00:33.411000,,0.0,0,15.0,0
+2025,7,Emilia Romagna Grand Prix,BEA,Haas F1 Team,19.0,17.0,17,0.0,Finished,0 days 00:00:33.808000,,2.0,0,19.0,0
+2025,7,Emilia Romagna Grand Prix,BOR,Kick Sauber,14.0,18.0,18,0.0,Finished,0 days 00:00:38.572000,,-4.0,0,14.0,0
+2025,7,Emilia Romagna Grand Prix,ANT,Mercedes,13.0,19.0,R,0.0,Retired,NaT,,-6.0,1,13.0,0
+2025,7,Emilia Romagna Grand Prix,OCO,Haas F1 Team,18.0,20.0,R,0.0,Retired,NaT,,-2.0,1,18.0,0
+2025,8,Monaco Grand Prix,NOR,McLaren,1.0,1.0,1,25.0,Finished,0 days 01:40:33.843000,,0.0,0,1.0,0
+2025,8,Monaco Grand Prix,LEC,Ferrari,2.0,2.0,2,18.0,Finished,0 days 00:00:03.131000,,0.0,0,2.0,0
+2025,8,Monaco Grand Prix,PIA,McLaren,3.0,3.0,3,15.0,Finished,0 days 00:00:03.658000,,0.0,0,3.0,0
+2025,8,Monaco Grand Prix,VER,Red Bull Racing,4.0,4.0,4,12.0,Finished,0 days 00:00:20.572000,,0.0,0,5.0,0
+2025,8,Monaco Grand Prix,HAM,Ferrari,7.0,5.0,5,10.0,Finished,0 days 00:00:51.387000,,2.0,0,4.0,0
+2025,8,Monaco Grand Prix,HAD,Racing Bulls,5.0,6.0,6,8.0,Lapped,0 days 00:01:05.082000,,-1.0,0,6.0,0
+2025,8,Monaco Grand Prix,OCO,Haas F1 Team,8.0,7.0,7,6.0,Lapped,0 days 00:01:06.029000,,1.0,0,8.0,0
+2025,8,Monaco Grand Prix,LAW,Racing Bulls,9.0,8.0,8,4.0,Lapped,0 days 00:01:06.746000,,1.0,0,9.0,0
+2025,8,Monaco Grand Prix,ALB,Williams,10.0,9.0,9,2.0,Lapped,0 days 00:00:11.869000,,1.0,0,10.0,0
+2025,8,Monaco Grand Prix,SAI,Williams,11.0,10.0,10,1.0,Lapped,0 days 00:00:15.232000,,1.0,0,11.0,0
+2025,8,Monaco Grand Prix,RUS,Mercedes,14.0,11.0,11,0.0,Lapped,0 days 00:00:33.844000,,3.0,0,14.0,0
+2025,8,Monaco Grand Prix,BEA,Haas F1 Team,20.0,12.0,12,0.0,Lapped,0 days 00:00:54.693000,,8.0,0,17.0,0
+2025,8,Monaco Grand Prix,COL,Alpine,18.0,13.0,13,0.0,Lapped,0 days 00:00:57.114000,,5.0,0,20.0,0
+2025,8,Monaco Grand Prix,BOR,Kick Sauber,16.0,14.0,14,0.0,Lapped,0 days 00:01:08.424000,,2.0,0,16.0,0
+2025,8,Monaco Grand Prix,STR,Aston Martin,19.0,15.0,15,0.0,Lapped,0 days 00:01:10.395000,,4.0,0,19.0,0
+2025,8,Monaco Grand Prix,HUL,Kick Sauber,13.0,16.0,16,0.0,Lapped,0 days 00:01:11.544000,,-3.0,0,13.0,0
+2025,8,Monaco Grand Prix,TSU,Red Bull Racing,12.0,17.0,17,0.0,Lapped,0 days 00:01:11.849000,,-5.0,0,12.0,0
+2025,8,Monaco Grand Prix,ANT,Mercedes,15.0,18.0,18,0.0,Lapped,0 days 00:00:08.409000,,-3.0,0,15.0,0
+2025,8,Monaco Grand Prix,ALO,Aston Martin,6.0,19.0,R,0.0,Retired,NaT,,-13.0,1,7.0,0
+2025,8,Monaco Grand Prix,GAS,Alpine,17.0,20.0,R,0.0,Retired,NaT,,-3.0,1,18.0,0
+2025,9,Spanish Grand Prix,PIA,McLaren,1.0,1.0,1,25.0,Finished,0 days 01:32:57.375000,,0.0,0,1.0,0
+2025,9,Spanish Grand Prix,NOR,McLaren,2.0,2.0,2,18.0,Finished,0 days 00:00:02.471000,,0.0,0,2.0,0
+2025,9,Spanish Grand Prix,LEC,Ferrari,7.0,3.0,3,15.0,Finished,0 days 00:00:10.455000,,4.0,0,7.0,0
+2025,9,Spanish Grand Prix,RUS,Mercedes,4.0,4.0,4,12.0,Finished,0 days 00:00:11.359000,,0.0,0,4.0,0
+2025,9,Spanish Grand Prix,HUL,Kick Sauber,15.0,5.0,5,10.0,Finished,0 days 00:00:13.648000,,10.0,0,16.0,0
+2025,9,Spanish Grand Prix,HAM,Ferrari,5.0,6.0,6,8.0,Finished,0 days 00:00:15.508000,,-1.0,0,5.0,0
+2025,9,Spanish Grand Prix,HAD,Racing Bulls,9.0,7.0,7,6.0,Finished,0 days 00:00:16.022000,,2.0,0,9.0,0
+2025,9,Spanish Grand Prix,GAS,Alpine,8.0,8.0,8,4.0,Finished,0 days 00:00:17.882000,,0.0,0,8.0,0
+2025,9,Spanish Grand Prix,ALO,Aston Martin,10.0,9.0,9,2.0,Finished,0 days 00:00:21.564000,,1.0,0,10.0,0
+2025,9,Spanish Grand Prix,VER,Red Bull Racing,3.0,10.0,10,1.0,Finished,0 days 00:00:21.826000,,-7.0,0,3.0,0
+2025,9,Spanish Grand Prix,LAW,Racing Bulls,13.0,11.0,11,0.0,Finished,0 days 00:00:25.532000,,2.0,0,13.0,0
+2025,9,Spanish Grand Prix,BOR,Kick Sauber,12.0,12.0,12,0.0,Finished,0 days 00:00:25.996000,,0.0,0,12.0,0
+2025,9,Spanish Grand Prix,TSU,Red Bull Racing,19.0,13.0,13,0.0,Finished,0 days 00:00:28.822000,,6.0,0,20.0,0
+2025,9,Spanish Grand Prix,SAI,Williams,17.0,14.0,14,0.0,Finished,0 days 00:00:29.309000,,3.0,0,18.0,0
+2025,9,Spanish Grand Prix,COL,Alpine,18.0,15.0,15,0.0,Finished,0 days 00:00:31.381000,,3.0,0,19.0,0
+2025,9,Spanish Grand Prix,OCO,Haas F1 Team,16.0,16.0,16,0.0,Finished,0 days 00:00:32.197000,,0.0,0,17.0,0
+2025,9,Spanish Grand Prix,BEA,Haas F1 Team,14.0,17.0,17,0.0,Finished,0 days 00:00:37.065000,,-3.0,0,15.0,0
+2025,9,Spanish Grand Prix,ANT,Mercedes,6.0,18.0,R,0.0,Retired,NaT,,-12.0,1,6.0,0
+2025,9,Spanish Grand Prix,ALB,Williams,11.0,19.0,R,0.0,Retired,NaT,,-8.0,1,11.0,0
+2025,10,Canadian Grand Prix,RUS,Mercedes,1.0,1.0,1,25.0,Finished,0 days 01:31:52.688000,,0.0,0,1.0,1
+2025,10,Canadian Grand Prix,VER,Red Bull Racing,2.0,2.0,2,18.0,Finished,0 days 00:00:00.228000,,0.0,0,2.0,1
+2025,10,Canadian Grand Prix,ANT,Mercedes,4.0,3.0,3,15.0,Finished,0 days 00:00:01.014000,,1.0,0,4.0,1
+2025,10,Canadian Grand Prix,PIA,McLaren,3.0,4.0,4,12.0,Finished,0 days 00:00:02.109000,,-1.0,0,3.0,1
+2025,10,Canadian Grand Prix,LEC,Ferrari,8.0,5.0,5,10.0,Finished,0 days 00:00:03.442000,,3.0,0,8.0,1
+2025,10,Canadian Grand Prix,HAM,Ferrari,5.0,6.0,6,8.0,Finished,0 days 00:00:10.713000,,-1.0,0,5.0,1
+2025,10,Canadian Grand Prix,ALO,Aston Martin,6.0,7.0,7,6.0,Finished,0 days 00:00:10.972000,,-1.0,0,6.0,1
+2025,10,Canadian Grand Prix,HUL,Kick Sauber,11.0,8.0,8,4.0,Finished,0 days 00:00:15.364000,,3.0,0,13.0,1
+2025,10,Canadian Grand Prix,OCO,Haas F1 Team,14.0,9.0,9,2.0,Lapped,0 days 00:00:01.473000,,5.0,0,15.0,1
+2025,10,Canadian Grand Prix,SAI,Williams,16.0,10.0,10,1.0,Lapped,0 days 00:00:01.886000,,6.0,0,17.0,1
+2025,10,Canadian Grand Prix,BEA,Haas F1 Team,13.0,11.0,11,0.0,Lapped,0 days 00:00:03.717000,,2.0,0,14.0,1
+2025,10,Canadian Grand Prix,TSU,Red Bull Racing,18.0,12.0,12,0.0,Lapped,0 days 00:00:05.456000,,6.0,0,11.0,1
+2025,10,Canadian Grand Prix,COL,Alpine,10.0,13.0,13,0.0,Lapped,0 days 00:00:07.018000,,-3.0,0,12.0,1
+2025,10,Canadian Grand Prix,BOR,Kick Sauber,15.0,14.0,14,0.0,Lapped,0 days 00:00:07.879000,,1.0,0,16.0,1
+2025,10,Canadian Grand Prix,GAS,Alpine,20.0,15.0,15,0.0,Lapped,0 days 00:00:07.950000,,5.0,0,20.0,1
+2025,10,Canadian Grand Prix,HAD,Racing Bulls,12.0,16.0,16,0.0,Lapped,0 days 00:00:08.737000,,-4.0,0,9.0,1
+2025,10,Canadian Grand Prix,STR,Aston Martin,17.0,17.0,17,0.0,Lapped,0 days 00:00:09.063000,,0.0,0,18.0,1
+2025,10,Canadian Grand Prix,NOR,McLaren,7.0,18.0,18,0.0,Retired,NaT,,-11.0,1,7.0,1
+2025,10,Canadian Grand Prix,LAW,Racing Bulls,19.0,19.0,R,0.0,Retired,NaT,,0.0,1,19.0,1
+2025,10,Canadian Grand Prix,ALB,Williams,9.0,20.0,R,0.0,Retired,NaT,,-11.0,1,10.0,1
+2025,11,Austrian Grand Prix,NOR,McLaren,1.0,1.0,1,25.0,Finished,0 days 01:23:47.693000,,0.0,0,1.0,0
+2025,11,Austrian Grand Prix,PIA,McLaren,3.0,2.0,2,18.0,Finished,0 days 00:00:02.695000,,1.0,0,3.0,0
+2025,11,Austrian Grand Prix,LEC,Ferrari,2.0,3.0,3,15.0,Finished,0 days 00:00:19.820000,,-1.0,0,2.0,0
+2025,11,Austrian Grand Prix,HAM,Ferrari,4.0,4.0,4,12.0,Finished,0 days 00:00:29.020000,,0.0,0,4.0,0
+2025,11,Austrian Grand Prix,RUS,Mercedes,5.0,5.0,5,10.0,Finished,0 days 00:01:02.396000,,0.0,0,5.0,0
+2025,11,Austrian Grand Prix,LAW,Racing Bulls,6.0,6.0,6,8.0,Finished,0 days 00:01:07.754000,,0.0,0,6.0,0
+2025,11,Austrian Grand Prix,ALO,Aston Martin,11.0,7.0,7,6.0,Lapped,0 days 00:00:01.437000,,4.0,0,11.0,0
+2025,11,Austrian Grand Prix,BOR,Kick Sauber,8.0,8.0,8,4.0,Lapped,0 days 00:00:01.952000,,0.0,0,8.0,0
+2025,11,Austrian Grand Prix,HUL,Kick Sauber,20.0,9.0,9,2.0,Lapped,0 days 00:00:07.720000,,11.0,0,20.0,0
+2025,11,Austrian Grand Prix,OCO,Haas F1 Team,17.0,10.0,10,1.0,Lapped,0 days 00:00:09.986000,,7.0,0,17.0,0
+2025,11,Austrian Grand Prix,BEA,Haas F1 Team,15.0,11.0,11,0.0,Lapped,0 days 00:00:24.854000,,4.0,0,15.0,0
+2025,11,Austrian Grand Prix,HAD,Racing Bulls,13.0,12.0,12,0.0,Lapped,0 days 00:00:27.957000,,1.0,0,13.0,0
+2025,11,Austrian Grand Prix,GAS,Alpine,10.0,13.0,13,0.0,Lapped,0 days 00:00:33.055000,,-3.0,0,10.0,0
+2025,11,Austrian Grand Prix,STR,Aston Martin,16.0,14.0,14,0.0,Lapped,0 days 00:00:34.462000,,2.0,0,16.0,0
+2025,11,Austrian Grand Prix,COL,Alpine,14.0,15.0,15,0.0,Lapped,0 days 00:00:42.692000,,-1.0,0,14.0,0
+2025,11,Austrian Grand Prix,TSU,Red Bull Racing,18.0,16.0,16,0.0,Lapped,0 days 00:00:02.979000,,2.0,0,18.0,0
+2025,11,Austrian Grand Prix,ALB,Williams,12.0,17.0,R,0.0,Retired,NaT,,-5.0,1,12.0,0
+2025,11,Austrian Grand Prix,VER,Red Bull Racing,7.0,18.0,R,0.0,Retired,NaT,,-11.0,1,7.0,0
+2025,11,Austrian Grand Prix,ANT,Mercedes,9.0,19.0,R,0.0,Retired,NaT,,-10.0,1,9.0,0
+2025,11,Austrian Grand Prix,SAI,Williams,19.0,20.0,W,0.0,Did not start,NaT,,-1.0,0,19.0,0
+2025,12,British Grand Prix,NOR,McLaren,3.0,1.0,1,25.0,Finished,0 days 01:37:15.735000,,2.0,0,3.0,1
+2025,12,British Grand Prix,PIA,McLaren,2.0,2.0,2,18.0,Finished,0 days 00:00:06.812000,,0.0,0,2.0,1
+2025,12,British Grand Prix,HUL,Kick Sauber,19.0,3.0,3,15.0,Finished,0 days 00:00:34.742000,,16.0,0,19.0,1
+2025,12,British Grand Prix,HAM,Ferrari,5.0,4.0,4,12.0,Finished,0 days 00:00:39.812000,,1.0,0,5.0,1
+2025,12,British Grand Prix,VER,Red Bull Racing,1.0,5.0,5,10.0,Finished,0 days 00:00:56.781000,,-4.0,0,1.0,1
+2025,12,British Grand Prix,GAS,Alpine,8.0,6.0,6,8.0,Finished,0 days 00:00:59.857000,,2.0,0,10.0,1
+2025,12,British Grand Prix,STR,Aston Martin,17.0,7.0,7,6.0,Finished,0 days 00:01:00.603000,,10.0,0,18.0,1
+2025,12,British Grand Prix,ALB,Williams,13.0,8.0,8,4.0,Finished,0 days 00:01:04.135000,,5.0,0,14.0,1
+2025,12,British Grand Prix,ALO,Aston Martin,7.0,9.0,9,2.0,Finished,0 days 00:01:05.858000,,-2.0,0,9.0,1
+2025,12,British Grand Prix,RUS,Mercedes,4.0,10.0,10,1.0,Finished,0 days 00:01:10.674000,,-6.0,0,4.0,1
+2025,12,British Grand Prix,BEA,Haas F1 Team,18.0,11.0,11,0.0,Finished,0 days 00:01:12.095000,,7.0,0,8.0,1
+2025,12,British Grand Prix,SAI,Williams,9.0,12.0,12,0.0,Finished,0 days 00:01:16.592000,,-3.0,0,11.0,1
+2025,12,British Grand Prix,OCO,Haas F1 Team,14.0,13.0,13,0.0,Finished,0 days 00:01:17.301000,,1.0,0,15.0,1
+2025,12,British Grand Prix,LEC,Ferrari,6.0,14.0,14,0.0,Finished,0 days 00:01:24.477000,,-8.0,0,6.0,1
+2025,12,British Grand Prix,TSU,Red Bull Racing,11.0,15.0,15,0.0,Lapped,0 days 00:00:32.250000,,-4.0,0,12.0,1
+2025,12,British Grand Prix,ANT,Mercedes,10.0,16.0,R,0.0,Retired,NaT,,-6.0,1,7.0,1
+2025,12,British Grand Prix,HAD,Racing Bulls,12.0,17.0,R,0.0,Retired,NaT,,-5.0,1,13.0,1
+2025,12,British Grand Prix,BOR,Kick Sauber,16.0,18.0,R,0.0,Retired,NaT,,-2.0,1,17.0,1
+2025,12,British Grand Prix,LAW,Racing Bulls,15.0,19.0,R,0.0,Retired,NaT,,-4.0,1,16.0,1
+2025,12,British Grand Prix,COL,Alpine,20.0,20.0,W,0.0,Did not start,NaT,,0.0,0,20.0,1
+2025,13,Belgian Grand Prix,PIA,McLaren,2.0,1.0,1,25.0,Finished,0 days 01:25:22.601000,,1.0,0,2.0,1
+2025,13,Belgian Grand Prix,NOR,McLaren,1.0,2.0,2,18.0,Finished,0 days 00:00:03.415000,,-1.0,0,1.0,1
+2025,13,Belgian Grand Prix,LEC,Ferrari,3.0,3.0,3,15.0,Finished,0 days 00:00:20.185000,,0.0,0,3.0,1
+2025,13,Belgian Grand Prix,VER,Red Bull Racing,4.0,4.0,4,12.0,Finished,0 days 00:00:21.731000,,0.0,0,4.0,1
+2025,13,Belgian Grand Prix,RUS,Mercedes,6.0,5.0,5,10.0,Finished,0 days 00:00:34.863000,,1.0,0,6.0,1
+2025,13,Belgian Grand Prix,ALB,Williams,5.0,6.0,6,8.0,Finished,0 days 00:00:39.926000,,-1.0,0,5.0,1
+2025,13,Belgian Grand Prix,HAM,Ferrari,18.0,7.0,7,6.0,Finished,0 days 00:00:40.679000,,11.0,0,16.0,1
+2025,13,Belgian Grand Prix,LAW,Racing Bulls,9.0,8.0,8,4.0,Finished,0 days 00:00:52.033000,,1.0,0,9.0,1
+2025,13,Belgian Grand Prix,BOR,Kick Sauber,10.0,9.0,9,2.0,Finished,0 days 00:00:56.434000,,1.0,0,10.0,1
+2025,13,Belgian Grand Prix,GAS,Alpine,13.0,10.0,10,1.0,Finished,0 days 00:01:12.714000,,3.0,0,13.0,1
+2025,13,Belgian Grand Prix,BEA,Haas F1 Team,12.0,11.0,11,0.0,Finished,0 days 00:01:13.145000,,1.0,0,12.0,1
+2025,13,Belgian Grand Prix,HUL,Kick Sauber,14.0,12.0,12,0.0,Finished,0 days 00:01:13.628000,,2.0,0,14.0,1
+2025,13,Belgian Grand Prix,TSU,Red Bull Racing,7.0,13.0,13,0.0,Finished,0 days 00:01:15.395000,,-6.0,0,7.0,1
+2025,13,Belgian Grand Prix,STR,Aston Martin,16.0,14.0,14,0.0,Finished,0 days 00:01:19.831000,,2.0,0,20.0,1
+2025,13,Belgian Grand Prix,OCO,Haas F1 Team,11.0,15.0,15,0.0,Finished,0 days 00:01:26.063000,,-4.0,0,11.0,1
+2025,13,Belgian Grand Prix,ANT,Mercedes,19.0,16.0,16,0.0,Finished,0 days 00:01:26.721000,,3.0,0,18.0,1
+2025,13,Belgian Grand Prix,ALO,Aston Martin,20.0,17.0,17,0.0,Finished,0 days 00:01:27.924000,,3.0,0,19.0,1
+2025,13,Belgian Grand Prix,SAI,Williams,17.0,18.0,18,0.0,Finished,0 days 00:01:32.024000,,-1.0,0,15.0,1
+2025,13,Belgian Grand Prix,COL,Alpine,15.0,19.0,19,0.0,Finished,0 days 00:01:35.250000,,-4.0,0,17.0,1
+2025,13,Belgian Grand Prix,HAD,Racing Bulls,8.0,20.0,20,0.0,Lapped,0 days 00:00:12.942000,,-12.0,0,8.0,1
+2025,14,Hungarian Grand Prix,NOR,McLaren,3.0,1.0,1,25.0,Finished,0 days 01:35:21.231000,,2.0,0,3.0,0
+2025,14,Hungarian Grand Prix,PIA,McLaren,2.0,2.0,2,18.0,Finished,0 days 00:00:00.698000,,0.0,0,2.0,0
+2025,14,Hungarian Grand Prix,RUS,Mercedes,4.0,3.0,3,15.0,Finished,0 days 00:00:21.916000,,1.0,0,4.0,0
+2025,14,Hungarian Grand Prix,LEC,Ferrari,1.0,4.0,4,12.0,Finished,0 days 00:00:42.560000,,-3.0,0,1.0,0
+2025,14,Hungarian Grand Prix,ALO,Aston Martin,5.0,5.0,5,10.0,Finished,0 days 00:00:59.040000,,0.0,0,5.0,0
+2025,14,Hungarian Grand Prix,BOR,Kick Sauber,7.0,6.0,6,8.0,Finished,0 days 00:01:06.169000,,1.0,0,7.0,0
+2025,14,Hungarian Grand Prix,STR,Aston Martin,6.0,7.0,7,6.0,Finished,0 days 00:01:08.174000,,-1.0,0,6.0,0
+2025,14,Hungarian Grand Prix,LAW,Racing Bulls,9.0,8.0,8,4.0,Finished,0 days 00:01:09.451000,,1.0,0,9.0,0
+2025,14,Hungarian Grand Prix,VER,Red Bull Racing,8.0,9.0,9,2.0,Finished,0 days 00:01:12.645000,,-1.0,0,8.0,0
+2025,14,Hungarian Grand Prix,ANT,Mercedes,15.0,10.0,10,1.0,Lapped,0 days 00:00:07.649000,,5.0,0,15.0,0
+2025,14,Hungarian Grand Prix,HAD,Racing Bulls,10.0,11.0,11,0.0,Lapped,0 days 00:00:08.500000,,-1.0,0,10.0,0
+2025,14,Hungarian Grand Prix,HAM,Ferrari,12.0,12.0,12,0.0,Lapped,0 days 00:00:09.861000,,0.0,0,12.0,0
+2025,14,Hungarian Grand Prix,HUL,Kick Sauber,18.0,13.0,13,0.0,Lapped,0 days 00:00:31.268000,,5.0,0,19.0,0
+2025,14,Hungarian Grand Prix,SAI,Williams,13.0,14.0,14,0.0,Lapped,0 days 00:00:33.326000,,-1.0,0,13.0,0
+2025,14,Hungarian Grand Prix,ALB,Williams,19.0,15.0,15,0.0,Lapped,0 days 00:00:38.111000,,4.0,0,20.0,0
+2025,14,Hungarian Grand Prix,OCO,Haas F1 Team,17.0,16.0,16,0.0,Lapped,0 days 00:00:45.258000,,1.0,0,18.0,0
+2025,14,Hungarian Grand Prix,TSU,Red Bull Racing,20.0,17.0,17,0.0,Lapped,0 days 00:00:46.943000,,3.0,0,16.0,0
+2025,14,Hungarian Grand Prix,COL,Alpine,14.0,18.0,18,0.0,Lapped,0 days 00:00:47.370000,,-4.0,0,14.0,0
+2025,14,Hungarian Grand Prix,GAS,Alpine,16.0,19.0,19,0.0,Lapped,0 days 00:00:56.344000,,-3.0,0,17.0,0
+2025,14,Hungarian Grand Prix,BEA,Haas F1 Team,11.0,20.0,R,0.0,Retired,NaT,,-9.0,1,11.0,0
+2025,15,Dutch Grand Prix,PIA,McLaren,1.0,1.0,1,25.0,Finished,0 days 01:38:29.849000,,0.0,0,1.0,0
+2025,15,Dutch Grand Prix,VER,Red Bull Racing,3.0,2.0,2,18.0,Finished,0 days 00:00:01.271000,,1.0,0,3.0,0
+2025,15,Dutch Grand Prix,HAD,Racing Bulls,4.0,3.0,3,15.0,Finished,0 days 00:00:03.233000,,1.0,0,4.0,0
+2025,15,Dutch Grand Prix,RUS,Mercedes,5.0,4.0,4,12.0,Finished,0 days 00:00:05.654000,,1.0,0,5.0,0
+2025,15,Dutch Grand Prix,ALB,Williams,15.0,5.0,5,10.0,Finished,0 days 00:00:06.327000,,10.0,0,15.0,0
+2025,15,Dutch Grand Prix,BEA,Haas F1 Team,20.0,6.0,6,8.0,Finished,0 days 00:00:09.044000,,14.0,0,19.0,0
+2025,15,Dutch Grand Prix,STR,Aston Martin,19.0,7.0,7,6.0,Finished,0 days 00:00:09.497000,,12.0,0,20.0,0
+2025,15,Dutch Grand Prix,ALO,Aston Martin,10.0,8.0,8,4.0,Finished,0 days 00:00:11.709000,,2.0,0,10.0,0
+2025,15,Dutch Grand Prix,TSU,Red Bull Racing,12.0,9.0,9,2.0,Finished,0 days 00:00:13.597000,,3.0,0,12.0,0
+2025,15,Dutch Grand Prix,OCO,Haas F1 Team,18.0,10.0,10,1.0,Finished,0 days 00:00:14.063000,,8.0,0,18.0,0
+2025,15,Dutch Grand Prix,COL,Alpine,16.0,11.0,11,0.0,Finished,0 days 00:00:14.511000,,5.0,0,16.0,0
+2025,15,Dutch Grand Prix,LAW,Racing Bulls,8.0,12.0,12,0.0,Finished,0 days 00:00:17.063000,,-4.0,0,8.0,0
+2025,15,Dutch Grand Prix,SAI,Williams,9.0,13.0,13,0.0,Finished,0 days 00:00:17.376000,,-4.0,0,9.0,0
+2025,15,Dutch Grand Prix,HUL,Kick Sauber,17.0,14.0,14,0.0,Finished,0 days 00:00:19.725000,,3.0,0,17.0,0
+2025,15,Dutch Grand Prix,BOR,Kick Sauber,13.0,15.0,15,0.0,Finished,0 days 00:00:21.565000,,-2.0,0,13.0,0
+2025,15,Dutch Grand Prix,ANT,Mercedes,11.0,16.0,16,0.0,Finished,0 days 00:00:22.029000,,-5.0,0,11.0,0
+2025,15,Dutch Grand Prix,GAS,Alpine,14.0,17.0,17,0.0,Finished,0 days 00:00:23.629000,,-3.0,0,14.0,0
+2025,15,Dutch Grand Prix,NOR,McLaren,2.0,18.0,18,0.0,Retired,NaT,,-16.0,1,2.0,0
+2025,15,Dutch Grand Prix,LEC,Ferrari,6.0,19.0,R,0.0,Retired,NaT,,-13.0,1,6.0,0
+2025,15,Dutch Grand Prix,HAM,Ferrari,7.0,20.0,R,0.0,Retired,NaT,,-13.0,1,7.0,0
+2025,16,Italian Grand Prix,VER,Red Bull Racing,1.0,1.0,1,25.0,Finished,0 days 01:13:24.325000,,0.0,0,1.0,0
+2025,16,Italian Grand Prix,NOR,McLaren,2.0,2.0,2,18.0,Finished,0 days 00:00:19.207000,,0.0,0,2.0,0
+2025,16,Italian Grand Prix,PIA,McLaren,3.0,3.0,3,15.0,Finished,0 days 00:00:21.351000,,0.0,0,3.0,0
+2025,16,Italian Grand Prix,LEC,Ferrari,4.0,4.0,4,12.0,Finished,0 days 00:00:25.624000,,0.0,0,4.0,0
+2025,16,Italian Grand Prix,RUS,Mercedes,5.0,5.0,5,10.0,Finished,0 days 00:00:32.881000,,0.0,0,6.0,0
+2025,16,Italian Grand Prix,HAM,Ferrari,10.0,6.0,6,8.0,Finished,0 days 00:00:37.449000,,4.0,0,5.0,0
+2025,16,Italian Grand Prix,ALB,Williams,14.0,7.0,7,6.0,Finished,0 days 00:00:50.537000,,7.0,0,14.0,0
+2025,16,Italian Grand Prix,BOR,Kick Sauber,7.0,8.0,8,4.0,Finished,0 days 00:00:58.484000,,-1.0,0,8.0,0
+2025,16,Italian Grand Prix,ANT,Mercedes,6.0,9.0,9,2.0,Finished,0 days 00:00:59.762000,,-3.0,0,7.0,0
+2025,16,Italian Grand Prix,HAD,Racing Bulls,19.0,10.0,10,1.0,Finished,0 days 00:01:03.891000,,9.0,0,16.0,0
+2025,16,Italian Grand Prix,SAI,Williams,13.0,11.0,11,0.0,Finished,0 days 00:01:04.469000,,2.0,0,13.0,0
+2025,16,Italian Grand Prix,BEA,Haas F1 Team,11.0,12.0,12,0.0,Finished,0 days 00:01:19.288000,,-1.0,0,11.0,0
+2025,16,Italian Grand Prix,TSU,Red Bull Racing,9.0,13.0,13,0.0,Finished,0 days 00:01:20.701000,,-4.0,0,10.0,0
+2025,16,Italian Grand Prix,LAW,Racing Bulls,18.0,14.0,14,0.0,Finished,0 days 00:01:22.351000,,4.0,0,20.0,0
+2025,16,Italian Grand Prix,OCO,Haas F1 Team,15.0,15.0,15,0.0,Lapped,0 days 00:00:02.135000,,0.0,0,15.0,0
+2025,16,Italian Grand Prix,GAS,Alpine,20.0,16.0,16,0.0,Lapped,0 days 00:00:05.837000,,4.0,0,19.0,0
+2025,16,Italian Grand Prix,COL,Alpine,17.0,17.0,17,0.0,Lapped,0 days 00:00:07.448000,,0.0,0,18.0,0
+2025,16,Italian Grand Prix,STR,Aston Martin,16.0,18.0,18,0.0,Lapped,0 days 00:00:09.301000,,-2.0,0,17.0,0
+2025,16,Italian Grand Prix,ALO,Aston Martin,8.0,19.0,R,0.0,Retired,NaT,,-11.0,1,9.0,0
+2025,16,Italian Grand Prix,HUL,Kick Sauber,12.0,20.0,W,0.0,Did not start,NaT,,-8.0,0,12.0,0
+2025,17,Azerbaijan Grand Prix,VER,Red Bull Racing,1.0,1.0,1,25.0,Finished,0 days 01:33:26.408000,,0.0,0,1.0,0
+2025,17,Azerbaijan Grand Prix,RUS,Mercedes,5.0,2.0,2,18.0,Finished,0 days 00:00:14.609000,,3.0,0,5.0,0
+2025,17,Azerbaijan Grand Prix,SAI,Williams,2.0,3.0,3,15.0,Finished,0 days 00:00:19.199000,,-1.0,0,2.0,0
+2025,17,Azerbaijan Grand Prix,ANT,Mercedes,4.0,4.0,4,12.0,Finished,0 days 00:00:21.760000,,0.0,0,4.0,0
+2025,17,Azerbaijan Grand Prix,LAW,Racing Bulls,3.0,5.0,5,10.0,Finished,0 days 00:00:33.290000,,-2.0,0,3.0,0
+2025,17,Azerbaijan Grand Prix,TSU,Red Bull Racing,6.0,6.0,6,8.0,Finished,0 days 00:00:33.808000,,0.0,0,6.0,0
+2025,17,Azerbaijan Grand Prix,NOR,McLaren,7.0,7.0,7,6.0,Finished,0 days 00:00:34.227000,,0.0,0,7.0,0
+2025,17,Azerbaijan Grand Prix,HAM,Ferrari,12.0,8.0,8,4.0,Finished,0 days 00:00:36.310000,,4.0,0,12.0,0
+2025,17,Azerbaijan Grand Prix,LEC,Ferrari,10.0,9.0,9,2.0,Finished,0 days 00:00:36.774000,,1.0,0,10.0,0
+2025,17,Azerbaijan Grand Prix,HAD,Racing Bulls,8.0,10.0,10,1.0,Finished,0 days 00:00:38.982000,,-2.0,0,8.0,0
+2025,17,Azerbaijan Grand Prix,BOR,Kick Sauber,13.0,11.0,11,0.0,Finished,0 days 00:01:07.606000,,2.0,0,13.0,0
+2025,17,Azerbaijan Grand Prix,BEA,Haas F1 Team,15.0,12.0,12,0.0,Finished,0 days 00:01:08.262000,,3.0,0,15.0,0
+2025,17,Azerbaijan Grand Prix,ALB,Williams,19.0,13.0,13,0.0,Finished,0 days 00:01:12.870000,,6.0,0,19.0,0
+2025,17,Azerbaijan Grand Prix,OCO,Haas F1 Team,20.0,14.0,14,0.0,Finished,0 days 00:01:17.580000,,6.0,0,20.0,0
+2025,17,Azerbaijan Grand Prix,ALO,Aston Martin,11.0,15.0,15,0.0,Finished,0 days 00:01:18.707000,,-4.0,0,11.0,0
+2025,17,Azerbaijan Grand Prix,HUL,Kick Sauber,17.0,16.0,16,0.0,Finished,0 days 00:01:20.237000,,1.0,0,17.0,0
+2025,17,Azerbaijan Grand Prix,STR,Aston Martin,14.0,17.0,17,0.0,Finished,0 days 00:01:36.392000,,-3.0,0,14.0,0
+2025,17,Azerbaijan Grand Prix,GAS,Alpine,18.0,18.0,18,0.0,Lapped,0 days 00:00:03.865000,,0.0,0,18.0,0
+2025,17,Azerbaijan Grand Prix,COL,Alpine,16.0,19.0,19,0.0,Lapped,0 days 00:00:06.325000,,-3.0,0,16.0,0
+2025,17,Azerbaijan Grand Prix,PIA,McLaren,9.0,20.0,R,0.0,Retired,NaT,,-11.0,1,9.0,0
+2025,18,Singapore Grand Prix,RUS,Mercedes,1.0,1.0,1,25.0,Finished,0 days 01:40:22.367000,,0.0,0,1.0,1
+2025,18,Singapore Grand Prix,VER,Red Bull Racing,2.0,2.0,2,18.0,Finished,0 days 00:00:05.430000,,0.0,0,2.0,1
+2025,18,Singapore Grand Prix,NOR,McLaren,5.0,3.0,3,15.0,Finished,0 days 00:00:06.066000,,2.0,0,5.0,1
+2025,18,Singapore Grand Prix,PIA,McLaren,3.0,4.0,4,12.0,Finished,0 days 00:00:08.146000,,-1.0,0,3.0,1
+2025,18,Singapore Grand Prix,ANT,Mercedes,4.0,5.0,5,10.0,Finished,0 days 00:00:33.681000,,-1.0,0,4.0,1
+2025,18,Singapore Grand Prix,LEC,Ferrari,7.0,6.0,6,8.0,Finished,0 days 00:00:45.996000,,1.0,0,7.0,1
+2025,18,Singapore Grand Prix,ALO,Aston Martin,10.0,7.0,7,6.0,Finished,0 days 00:01:20.667000,,3.0,0,10.0,1
+2025,18,Singapore Grand Prix,HAM,Ferrari,6.0,8.0,8,4.0,Finished,0 days 00:01:25.251000,,-2.0,0,6.0,1
+2025,18,Singapore Grand Prix,BEA,Haas F1 Team,9.0,9.0,9,2.0,Finished,0 days 00:01:33.527000,,0.0,0,9.0,1
+2025,18,Singapore Grand Prix,SAI,Williams,18.0,10.0,10,1.0,Lapped,0 days 00:00:10.754000,,8.0,0,20.0,1
+2025,18,Singapore Grand Prix,HAD,Racing Bulls,8.0,11.0,11,0.0,Lapped,0 days 00:00:17.335000,,-3.0,0,8.0,1
+2025,18,Singapore Grand Prix,TSU,Red Bull Racing,13.0,12.0,12,0.0,Lapped,0 days 00:00:19.269000,,1.0,0,13.0,1
+2025,18,Singapore Grand Prix,STR,Aston Martin,15.0,13.0,13,0.0,Lapped,0 days 00:00:24.490000,,2.0,0,15.0,1
+2025,18,Singapore Grand Prix,ALB,Williams,20.0,14.0,14,0.0,Lapped,0 days 00:00:25.320000,,6.0,0,19.0,1
+2025,18,Singapore Grand Prix,LAW,Racing Bulls,12.0,15.0,15,0.0,Lapped,0 days 00:00:27.145000,,-3.0,0,12.0,1
+2025,18,Singapore Grand Prix,COL,Alpine,16.0,16.0,16,0.0,Lapped,0 days 00:00:42.890000,,0.0,0,16.0,1
+2025,18,Singapore Grand Prix,BOR,Kick Sauber,14.0,17.0,17,0.0,Lapped,0 days 00:00:46.753000,,-3.0,0,14.0,1
+2025,18,Singapore Grand Prix,OCO,Haas F1 Team,17.0,18.0,18,0.0,Lapped,0 days 00:00:47.133000,,-1.0,0,17.0,1
+2025,18,Singapore Grand Prix,GAS,Alpine,19.0,19.0,19,0.0,Lapped,0 days 00:00:47.461000,,0.0,0,18.0,1
+2025,18,Singapore Grand Prix,HUL,Kick Sauber,11.0,20.0,20,0.0,Lapped,0 days 00:00:49.040000,,-9.0,0,11.0,1
+2025,19,United States Grand Prix,VER,Red Bull Racing,1.0,1.0,1,25.0,Finished,0 days 01:34:00.161000,,0.0,0,1.0,0
+2025,19,United States Grand Prix,NOR,McLaren,2.0,2.0,2,18.0,Finished,0 days 00:00:07.959000,,0.0,0,2.0,0
+2025,19,United States Grand Prix,LEC,Ferrari,3.0,3.0,3,15.0,Finished,0 days 00:00:15.373000,,0.0,0,3.0,0
+2025,19,United States Grand Prix,HAM,Ferrari,5.0,4.0,4,12.0,Finished,0 days 00:00:28.536000,,1.0,0,5.0,0
+2025,19,United States Grand Prix,PIA,McLaren,6.0,5.0,5,10.0,Finished,0 days 00:00:29.678000,,1.0,0,6.0,0
+2025,19,United States Grand Prix,RUS,Mercedes,4.0,6.0,6,8.0,Finished,0 days 00:00:33.456000,,-2.0,0,4.0,0
+2025,19,United States Grand Prix,TSU,Red Bull Racing,13.0,7.0,7,6.0,Finished,0 days 00:00:52.714000,,6.0,0,13.0,0
+2025,19,United States Grand Prix,HUL,Kick Sauber,11.0,8.0,8,4.0,Finished,0 days 00:00:57.249000,,3.0,0,11.0,0
+2025,19,United States Grand Prix,BEA,Haas F1 Team,8.0,9.0,9,2.0,Finished,0 days 00:01:04.722000,,-1.0,0,8.0,0
+2025,19,United States Grand Prix,ALO,Aston Martin,10.0,10.0,10,1.0,Finished,0 days 00:01:10.001000,,0.0,0,10.0,0
+2025,19,United States Grand Prix,LAW,Racing Bulls,12.0,11.0,11,0.0,Finished,0 days 00:01:13.209000,,1.0,0,12.0,0
+2025,19,United States Grand Prix,STR,Aston Martin,19.0,12.0,12,0.0,Finished,0 days 00:01:14.778000,,7.0,0,18.0,0
+2025,19,United States Grand Prix,ANT,Mercedes,7.0,13.0,13,0.0,Finished,0 days 00:01:15.746000,,-6.0,0,7.0,0
+2025,19,United States Grand Prix,ALB,Williams,18.0,14.0,14,0.0,Finished,0 days 00:01:20,,4.0,0,19.0,0
+2025,19,United States Grand Prix,OCO,Haas F1 Team,17.0,15.0,15,0.0,Finished,0 days 00:01:23.043000,,2.0,0,17.0,0
+2025,19,United States Grand Prix,HAD,Racing Bulls,20.0,16.0,16,0.0,Finished,0 days 00:01:32.807000,,4.0,0,20.0,0
+2025,19,United States Grand Prix,COL,Alpine,15.0,17.0,17,0.0,Lapped,0 days 00:00:02.307000,,-2.0,0,15.0,0
+2025,19,United States Grand Prix,BOR,Kick Sauber,16.0,18.0,18,0.0,Lapped,0 days 00:00:03.557000,,-2.0,0,16.0,0
+2025,19,United States Grand Prix,GAS,Alpine,14.0,19.0,19,0.0,Lapped,0 days 00:00:06.155000,,-5.0,0,14.0,0
+2025,19,United States Grand Prix,SAI,Williams,9.0,20.0,R,0.0,Retired,NaT,,-11.0,1,9.0,0
+2025,20,Mexico City Grand Prix,NOR,McLaren,1.0,1.0,1,25.0,Finished,0 days 01:37:58.574000,,0.0,0,1.0,0
+2025,20,Mexico City Grand Prix,LEC,Ferrari,2.0,2.0,2,18.0,Finished,0 days 00:00:30.324000,,0.0,0,2.0,0
+2025,20,Mexico City Grand Prix,VER,Red Bull Racing,5.0,3.0,3,15.0,Finished,0 days 00:00:31.049000,,2.0,0,5.0,0
+2025,20,Mexico City Grand Prix,BEA,Haas F1 Team,9.0,4.0,4,12.0,Finished,0 days 00:00:40.955000,,5.0,0,10.0,0
+2025,20,Mexico City Grand Prix,PIA,McLaren,7.0,5.0,5,10.0,Finished,0 days 00:00:42.065000,,2.0,0,8.0,0
+2025,20,Mexico City Grand Prix,ANT,Mercedes,6.0,6.0,6,8.0,Finished,0 days 00:00:47.837000,,0.0,0,6.0,0
+2025,20,Mexico City Grand Prix,RUS,Mercedes,4.0,7.0,7,6.0,Finished,0 days 00:00:50.287000,,-3.0,0,4.0,0
+2025,20,Mexico City Grand Prix,HAM,Ferrari,3.0,8.0,8,4.0,Finished,0 days 00:00:56.446000,,-5.0,0,3.0,0
+2025,20,Mexico City Grand Prix,OCO,Haas F1 Team,11.0,9.0,9,2.0,Finished,0 days 00:01:15.464000,,2.0,0,12.0,0
+2025,20,Mexico City Grand Prix,BOR,Kick Sauber,16.0,10.0,10,1.0,Finished,0 days 00:01:16.863000,,6.0,0,16.0,0
+2025,20,Mexico City Grand Prix,TSU,Red Bull Racing,10.0,11.0,11,0.0,Finished,0 days 00:01:19.048000,,-1.0,0,11.0,0
+2025,20,Mexico City Grand Prix,ALB,Williams,17.0,12.0,12,0.0,Lapped,0 days 00:00:02.450000,,5.0,0,17.0,0
+2025,20,Mexico City Grand Prix,HAD,Racing Bulls,8.0,13.0,13,0.0,Lapped,0 days 00:00:06.656000,,-5.0,0,9.0,0
+2025,20,Mexico City Grand Prix,STR,Aston Martin,19.0,14.0,14,0.0,Lapped,0 days 00:00:07.035000,,5.0,0,19.0,0
+2025,20,Mexico City Grand Prix,GAS,Alpine,18.0,15.0,15,0.0,Lapped,0 days 00:00:44.080000,,3.0,0,18.0,0
+2025,20,Mexico City Grand Prix,COL,Alpine,20.0,16.0,16,0.0,Lapped,0 days 00:00:44.376000,,4.0,0,20.0,0
+2025,20,Mexico City Grand Prix,SAI,Williams,12.0,17.0,17,0.0,Retired,NaT,,-5.0,1,7.0,0
+2025,20,Mexico City Grand Prix,ALO,Aston Martin,14.0,18.0,R,0.0,Retired,NaT,,-4.0,1,14.0,0
+2025,20,Mexico City Grand Prix,HUL,Kick Sauber,13.0,19.0,R,0.0,Retired,NaT,,-6.0,1,13.0,0
+2025,20,Mexico City Grand Prix,LAW,Racing Bulls,15.0,20.0,R,0.0,Retired,NaT,,-5.0,1,15.0,0
+2025,21,São Paulo Grand Prix,NOR,McLaren,1.0,1.0,1,25.0,Finished,0 days 01:32:01.596000,,0.0,0,1.0,0
+2025,21,São Paulo Grand Prix,ANT,Mercedes,2.0,2.0,2,18.0,Finished,0 days 00:00:10.388000,,0.0,0,2.0,0
+2025,21,São Paulo Grand Prix,VER,Red Bull Racing,19.0,3.0,3,15.0,Finished,0 days 00:00:10.750000,,16.0,0,16.0,0
+2025,21,São Paulo Grand Prix,RUS,Mercedes,6.0,4.0,4,12.0,Finished,0 days 00:00:15.267000,,2.0,0,6.0,0
+2025,21,São Paulo Grand Prix,PIA,McLaren,4.0,5.0,5,10.0,Finished,0 days 00:00:15.749000,,-1.0,0,4.0,0
+2025,21,São Paulo Grand Prix,BEA,Haas F1 Team,8.0,6.0,6,8.0,Finished,0 days 00:00:29.630000,,2.0,0,8.0,0
+2025,21,São Paulo Grand Prix,LAW,Racing Bulls,7.0,7.0,7,6.0,Finished,0 days 00:00:52.642000,,0.0,0,7.0,0
+2025,21,São Paulo Grand Prix,HAD,Racing Bulls,5.0,8.0,8,4.0,Finished,0 days 00:00:52.873000,,-3.0,0,5.0,0
+2025,21,São Paulo Grand Prix,HUL,Kick Sauber,10.0,9.0,9,2.0,Finished,0 days 00:00:53.324000,,1.0,0,10.0,0
+2025,21,São Paulo Grand Prix,GAS,Alpine,9.0,10.0,10,1.0,Finished,0 days 00:00:53.914000,,-1.0,0,9.0,0
+2025,21,São Paulo Grand Prix,ALB,Williams,12.0,11.0,11,0.0,Finished,0 days 00:00:54.184000,,1.0,0,12.0,0
+2025,21,São Paulo Grand Prix,OCO,Haas F1 Team,20.0,12.0,12,0.0,Finished,0 days 00:00:54.696000,,8.0,0,17.0,0
+2025,21,São Paulo Grand Prix,SAI,Williams,15.0,13.0,13,0.0,Finished,0 days 00:00:55.420000,,2.0,0,15.0,0
+2025,21,São Paulo Grand Prix,ALO,Aston Martin,11.0,14.0,14,0.0,Finished,0 days 00:00:55.766000,,-3.0,0,11.0,0
+2025,21,São Paulo Grand Prix,COL,Alpine,16.0,15.0,15,0.0,Finished,0 days 00:00:57.777000,,1.0,0,18.0,0
+2025,21,São Paulo Grand Prix,STR,Aston Martin,14.0,16.0,16,0.0,Finished,0 days 00:00:58.247000,,-2.0,0,14.0,0
+2025,21,São Paulo Grand Prix,TSU,Red Bull Racing,17.0,17.0,17,0.0,Finished,0 days 00:01:09.176000,,0.0,0,19.0,0
+2025,21,São Paulo Grand Prix,HAM,Ferrari,13.0,18.0,R,0.0,Retired,NaT,,-5.0,1,13.0,0
+2025,21,São Paulo Grand Prix,LEC,Ferrari,3.0,19.0,R,0.0,Retired,NaT,,-16.0,1,3.0,0
+2025,21,São Paulo Grand Prix,BOR,Kick Sauber,18.0,20.0,R,0.0,Retired,NaT,,-2.0,1,,0
+2025,22,Las Vegas Grand Prix,VER,Red Bull Racing,2.0,1.0,1,25.0,Finished,0 days 01:21:08.429000,,1.0,0,2.0,0
+2025,22,Las Vegas Grand Prix,RUS,Mercedes,4.0,2.0,2,18.0,Finished,0 days 00:00:23.546000,,2.0,0,4.0,0
+2025,22,Las Vegas Grand Prix,ANT,Mercedes,17.0,3.0,3,15.0,Finished,0 days 00:00:30.488000,,14.0,0,17.0,0
+2025,22,Las Vegas Grand Prix,LEC,Ferrari,9.0,4.0,4,12.0,Finished,0 days 00:00:30.678000,,5.0,0,9.0,0
+2025,22,Las Vegas Grand Prix,SAI,Williams,3.0,5.0,5,10.0,Finished,0 days 00:00:34.924000,,-2.0,0,3.0,0
+2025,22,Las Vegas Grand Prix,HAD,Racing Bulls,8.0,6.0,6,8.0,Finished,0 days 00:00:45.257000,,2.0,0,8.0,0
+2025,22,Las Vegas Grand Prix,HUL,Kick Sauber,11.0,7.0,7,6.0,Finished,0 days 00:00:51.134000,,4.0,0,11.0,0
+2025,22,Las Vegas Grand Prix,HAM,Ferrari,19.0,8.0,8,4.0,Finished,0 days 00:00:59.369000,,11.0,0,20.0,0
+2025,22,Las Vegas Grand Prix,OCO,Haas F1 Team,13.0,9.0,9,2.0,Finished,0 days 00:01:00.635000,,4.0,0,13.0,0
+2025,22,Las Vegas Grand Prix,BEA,Haas F1 Team,14.0,10.0,10,1.0,Finished,0 days 00:01:10.549000,,4.0,0,14.0,0
+2025,22,Las Vegas Grand Prix,ALO,Aston Martin,7.0,11.0,11,0.0,Finished,0 days 00:01:25.308000,,-4.0,0,7.0,0
+2025,22,Las Vegas Grand Prix,TSU,Red Bull Racing,20.0,12.0,12,0.0,Finished,0 days 00:01:26.974000,,8.0,0,19.0,0
+2025,22,Las Vegas Grand Prix,GAS,Alpine,10.0,13.0,13,0.0,Finished,0 days 00:01:31.702000,,-3.0,0,10.0,0
+2025,22,Las Vegas Grand Prix,LAW,Racing Bulls,6.0,14.0,14,0.0,Lapped,0 days 00:00:03.291000,,-8.0,0,6.0,0
+2025,22,Las Vegas Grand Prix,COL,Alpine,15.0,15.0,15,0.0,Lapped,0 days 00:00:10.459000,,0.0,0,15.0,0
+2025,22,Las Vegas Grand Prix,ALB,Williams,16.0,16.0,R,0.0,Retired,NaT,,0.0,1,16.0,0
+2025,22,Las Vegas Grand Prix,BOR,Kick Sauber,18.0,17.0,R,0.0,Retired,NaT,,1.0,1,18.0,0
+2025,22,Las Vegas Grand Prix,STR,Aston Martin,12.0,18.0,R,0.0,Retired,NaT,,-6.0,1,12.0,0
+2025,22,Las Vegas Grand Prix,NOR,McLaren,1.0,19.0,D,0.0,Disqualified,NaT,,-18.0,1,1.0,0
+2025,22,Las Vegas Grand Prix,PIA,McLaren,5.0,20.0,D,0.0,Disqualified,NaT,,-15.0,1,5.0,0
+2025,23,Qatar Grand Prix,VER,Red Bull Racing,3.0,1.0,1,25.0,Finished,0 days 01:24:38.241000,,2.0,0,3.0,0
+2025,23,Qatar Grand Prix,PIA,McLaren,1.0,2.0,2,18.0,Finished,0 days 00:00:07.995000,,-1.0,0,1.0,0
+2025,23,Qatar Grand Prix,SAI,Williams,7.0,3.0,3,15.0,Finished,0 days 00:00:22.665000,,4.0,0,7.0,0
+2025,23,Qatar Grand Prix,NOR,McLaren,2.0,4.0,4,12.0,Finished,0 days 00:00:23.315000,,-2.0,0,2.0,0
+2025,23,Qatar Grand Prix,ANT,Mercedes,5.0,5.0,5,10.0,Finished,0 days 00:00:28.317000,,0.0,0,5.0,0
+2025,23,Qatar Grand Prix,RUS,Mercedes,4.0,6.0,6,8.0,Finished,0 days 00:00:48.599000,,-2.0,0,4.0,0
+2025,23,Qatar Grand Prix,ALO,Aston Martin,8.0,7.0,7,6.0,Finished,0 days 00:00:54.045000,,1.0,0,8.0,0
+2025,23,Qatar Grand Prix,LEC,Ferrari,10.0,8.0,8,4.0,Finished,0 days 00:00:56.785000,,2.0,0,10.0,0
+2025,23,Qatar Grand Prix,LAW,Racing Bulls,12.0,9.0,9,2.0,Finished,0 days 00:01:00.073000,,3.0,0,12.0,0
+2025,23,Qatar Grand Prix,TSU,Red Bull Racing,15.0,10.0,10,1.0,Finished,0 days 00:01:01.770000,,5.0,0,16.0,0
+2025,23,Qatar Grand Prix,ALB,Williams,14.0,11.0,11,0.0,Finished,0 days 00:01:06.931000,,3.0,0,15.0,0
+2025,23,Qatar Grand Prix,HAM,Ferrari,17.0,12.0,12,0.0,Finished,0 days 00:01:17.730000,,5.0,0,18.0,0
+2025,23,Qatar Grand Prix,BOR,Kick Sauber,19.0,13.0,13,0.0,Finished,0 days 00:01:24.812000,,6.0,0,14.0,0
+2025,23,Qatar Grand Prix,COL,Alpine,20.0,14.0,14,0.0,Lapped,0 days 00:00:03.283000,,6.0,0,20.0,0
+2025,23,Qatar Grand Prix,OCO,Haas F1 Team,16.0,15.0,15,0.0,Lapped,0 days 00:00:04.253000,,1.0,0,17.0,0
+2025,23,Qatar Grand Prix,GAS,Alpine,9.0,16.0,16,0.0,Lapped,0 days 00:00:04.941000,,-7.0,0,9.0,0
+2025,23,Qatar Grand Prix,STR,Aston Martin,18.0,17.0,17,0.0,Retired,NaT,,1.0,1,19.0,0
+2025,23,Qatar Grand Prix,HAD,Racing Bulls,6.0,18.0,18,0.0,Retired,NaT,,-12.0,1,6.0,0
+2025,23,Qatar Grand Prix,BEA,Haas F1 Team,13.0,19.0,R,0.0,Retired,NaT,,-6.0,1,13.0,0
+2025,23,Qatar Grand Prix,HUL,Kick Sauber,11.0,20.0,R,0.0,Retired,NaT,,-9.0,1,11.0,0
+2025,24,Abu Dhabi Grand Prix,VER,Red Bull Racing,1.0,1.0,1,25.0,Finished,0 days 01:26:07.469000,,0.0,0,1.0,0
+2025,24,Abu Dhabi Grand Prix,PIA,McLaren,3.0,2.0,2,18.0,Finished,0 days 00:00:12.594000,,1.0,0,3.0,0
+2025,24,Abu Dhabi Grand Prix,NOR,McLaren,2.0,3.0,3,15.0,Finished,0 days 00:00:16.572000,,-1.0,0,2.0,0
+2025,24,Abu Dhabi Grand Prix,LEC,Ferrari,5.0,4.0,4,12.0,Finished,0 days 00:00:23.279000,,1.0,0,5.0,0
+2025,24,Abu Dhabi Grand Prix,RUS,Mercedes,4.0,5.0,5,10.0,Finished,0 days 00:00:48.563000,,-1.0,0,4.0,0
+2025,24,Abu Dhabi Grand Prix,ALO,Aston Martin,6.0,6.0,6,8.0,Finished,0 days 00:01:07.562000,,0.0,0,6.0,0
+2025,24,Abu Dhabi Grand Prix,OCO,Haas F1 Team,8.0,7.0,7,6.0,Finished,0 days 00:01:09.876000,,1.0,0,8.0,0
+2025,24,Abu Dhabi Grand Prix,HAM,Ferrari,16.0,8.0,8,4.0,Finished,0 days 00:01:12.670000,,8.0,0,16.0,0
+2025,24,Abu Dhabi Grand Prix,HUL,Kick Sauber,18.0,9.0,9,2.0,Finished,0 days 00:01:19.014000,,9.0,0,18.0,0
+2025,24,Abu Dhabi Grand Prix,STR,Aston Martin,15.0,10.0,10,1.0,Finished,0 days 00:01:19.523000,,5.0,0,15.0,0
+2025,24,Abu Dhabi Grand Prix,BOR,Kick Sauber,7.0,11.0,11,0.0,Finished,0 days 00:01:21.043000,,-4.0,0,7.0,0
+2025,24,Abu Dhabi Grand Prix,BEA,Haas F1 Team,11.0,12.0,12,0.0,Finished,0 days 00:01:21.166000,,-1.0,0,11.0,0
+2025,24,Abu Dhabi Grand Prix,SAI,Williams,12.0,13.0,13,0.0,Finished,0 days 00:01:22.158000,,-1.0,0,12.0,0
+2025,24,Abu Dhabi Grand Prix,TSU,Red Bull Racing,10.0,14.0,14,0.0,Finished,0 days 00:01:23.794000,,-4.0,0,10.0,0
+2025,24,Abu Dhabi Grand Prix,ANT,Mercedes,14.0,15.0,15,0.0,Finished,0 days 00:01:24.399000,,-1.0,0,14.0,0
+2025,24,Abu Dhabi Grand Prix,ALB,Williams,17.0,16.0,16,0.0,Finished,0 days 00:01:30.327000,,1.0,0,17.0,0
+2025,24,Abu Dhabi Grand Prix,HAD,Racing Bulls,9.0,17.0,17,0.0,Lapped,0 days 00:00:01.327000,,-8.0,0,9.0,0
+2025,24,Abu Dhabi Grand Prix,LAW,Racing Bulls,13.0,18.0,18,0.0,Lapped,0 days 00:00:04.659000,,-5.0,0,13.0,0
+2025,24,Abu Dhabi Grand Prix,GAS,Alpine,19.0,19.0,19,0.0,Lapped,0 days 00:00:11.908000,,0.0,0,19.0,0
+2025,24,Abu Dhabi Grand Prix,COL,Alpine,20.0,20.0,20,0.0,Lapped,0 days 00:00:14.003000,,0.0,0,20.0,0
