@@ -1,0 +1,46 @@
+  return _methods._mean(a, axis=axis, dtype=dtype,
+  ret = ret.dtype.type(ret / rcount)
+  return _methods._mean(a, axis=axis, dtype=dtype,
+  ret = ret.dtype.type(ret / rcount)
+  dataset: 1288 rows from 63 races
+  audited 63 races, 13 with flags -> C:\Users\manas\projects\flat_out_f1_v2\predictions_v3\audit.csv
+  calibrating on 13 races, 6000 sims each
+  ! schedule lists Monaco Grand Prix at 'Monte Carlo' (country Monaco); no history there - using historical venue 'Monaco'. Check the real venue.
+  ! schedule lists Spanish Grand Prix at 'Madrid' (country Spain); no history there - using historical venue 'Barcelona'. Check the real venue.
+  start: RPS 0.1080  logloss 2.537
+    pass_thr -> 1.750   RPS 0.1076  logloss 2.525
+    pass_thr -> 2.240   RPS 0.1073  logloss 2.518
+    grid_blend -> 0.150   RPS 0.1073  logloss 2.516
+    grid_blend -> 0.192   RPS 0.1073  logloss 2.516
+    pace_sd_mult -> 0.462   RPS 0.1072  logloss 2.516
+  final: RPS 0.1072  logloss 2.516  -> models/sim_params.json
+  2026 R03 Suzuka             RPS model 0.0726 | grid 0.0886 | pace 0.0741   rho 0.93   P(winner) 0.54   stops acc 0.90
+  2026 R04 Miami              RPS model 0.1077 | grid 0.0984 | pace 0.1371   rho 0.68   P(winner) 0.51   stops acc 0.89
+  2026 R05 Montréal           RPS model 0.1554 | grid 0.1758 | pace 0.1884   rho 0.43   P(winner) 0.33   stops acc 0.50
+  2026 R06 Monaco             RPS model 0.1692 | grid 0.1742 | pace 0.2199   rho 0.36   P(winner) 0.53   stops acc 0.50
+  2026 R07 Barcelona          RPS model 0.1061 | grid 0.1112 | pace 0.1201   rho 0.71   P(winner) 0.11   stops acc 0.59
+  2026 R08 Spielberg          RPS model 0.0721 | grid 0.0850 | pace 0.0584   rho 0.94   P(winner) 0.46   stops acc 0.83
+  2026 R09 Silverstone        RPS model 0.1274 | grid 0.1359 | pace 0.1627   rho 0.59   P(winner) 0.15   stops acc 0.75
+  2026 R10 Spa-Francorchamps  RPS model 0.0776 | grid 0.1102 | pace 0.0804   rho 0.73   P(winner) 0.56   stops acc 0.21
+  2026 R11 Budapest           RPS model 0.0967 | grid 0.0975 | pace 0.1043   rho 0.79   P(winner) 0.27   stops acc 0.63
+  2026 R12 Zandvoort          RPS model 0.1056 | grid 0.1088 | pace 0.1167   rho 0.73   P(winner) 0.26   stops acc 0.24
+  2026 R13 Monza              RPS model 0.0859 | grid 0.1311 | pace 0.0887   rho 0.75   P(winner) 0.10   stops acc 0.53
+  2026 R14 Madrid             RPS model 0.0821 | grid 0.0988 | pace 0.0956   rho 0.75   P(winner) 0.42   stops acc 0.22
+  2026 R15 Baku               RPS model 0.1371 | grid 0.1499 | pace 0.1421   rho 0.61   P(winner) 0.67   stops acc 0.88
+
+  season averages (lower is better except spearman / p_winner / hit rates):
+                 model    pace    grid
+log_loss        2.5178  3.1583  2.7692
+rps             0.1073  0.1222  0.1204
+brier_win       0.0252  0.0320  0.0255
+brier_podium    0.0674  0.0716  0.0727
+brier_points    0.1514  0.1732  0.1650
+spearman        0.6929  0.6858  0.6522
+mae_pos         3.3808  3.3099  3.7877
+p_winner        0.3780  0.2456  0.3930
+top3_hit        0.5641  0.5128  0.6410
+top10_hit       0.7769  0.7462  0.7385
+winner_correct  0.6154  0.6154  0.6154
+
+  strategy: {'strat_stops_acc': 0.589, 'strat_stops_ll': 0.997, 'strat_seq_acc': 0.197, 'strat_first_stop_mae': 9.319, 'strat_first_stop_iqr_cover': 0.422}
+  website data -> C:\Users\manas\projects\flat_out_f1_v2\web\data\v3\site.json (357 KB)

@@ -1,108 +1,85 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Flat Out F1 | Prediction Dashboard</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>f1.h · Race Intelligence</title>
+  <meta name="description" content="Lap-by-lap race simulation, strategy forecasts, car-adjusted driver and constructor ratings.">
+  <meta name="theme-color" content="#0a0b0e">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="f1.h · Race Intelligence">
+  <meta property="og:description" content="4,000,000 simulated races per Grand Prix: win odds, tyre strategy, car-adjusted driver and constructor ratings.">
+  <meta name="twitter:card" content="summary">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://media.formula1.com">
+  <link rel="preconnect" href="https://flagcdn.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link href="https://fonts.googleapis.com/css2?family=Tektur:wdth,wght@75..100,400..900&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23000'/%3E%3Ctext x='16' y='22.5' text-anchor='middle' font-family='Menlo,Consolas,monospace' font-size='17' font-weight='600' fill='%23be1b2f'%3Ef1%3C/text%3E%3C/svg%3E">
 </head>
-<body>
-  <div class="bg gradient-1"></div>
-  <div class="bg gradient-2"></div>
-  <div class="bg grid"></div>
+<body data-mode="fan">
+  <a class="skip" href="#app">Skip to content</a>
+  <div class="bg-glow" aria-hidden="true"></div>
 
   <header class="topbar">
-    <div class="brand">
-      <span class="mark">Flat&nbsp;Out</span>
-      <div class="brand-copy">
-        <div class="title">F1 Prediction Dashboard</div>
-        <div class="subtitle">Live from project outputs · v2 CSVs</div>
-      </div>
-    </div>
-    <div class="top-actions">
-      <div class="pill">Data: <span class="pill-accent">v2_prediction_results.csv</span></div>
-      <div class="pill">Updated on page load</div>
-      <div class="mode-toggle" id="mode-toggle">
-        <button class="mode-btn active" data-mode="simple">Simple</button>
-        <button class="mode-btn" data-mode="complex">Complex</button>
-      </div>
+    <a class="brand" href="#race" aria-label="f1.h home">
+      <span class="logo" aria-hidden="true">&lt;<b>f1</b>.h&gt;</span>
+    </a>
+    <nav class="tabs" id="tabs" aria-label="Sections">
+      <a href="#race" data-tab="race">Race</a>
+      <a href="#strategy" data-tab="strategy">Strategy</a>
+      <a href="#drivers" data-tab="drivers">Drivers</a>
+      <a href="#dvc" data-tab="dvc">Driver vs Car</a>
+      <a href="#teams" data-tab="teams">Teams</a>
+      <a href="#season" data-tab="season">Season</a>
+      <a href="#accuracy" data-tab="accuracy">Accuracy</a>
+      <a href="#lab" data-tab="lab" class="nerd-only">Lab</a>
+    </nav>
+    <div class="mode-switch" role="radiogroup" aria-label="Detail level">
+      <button role="radio" data-mode="fan" aria-checked="true" title="Headline view">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21V4m0 1h11l-2 3.5L15 12H4" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg>
+        Fan
+      </button>
+      <button role="radio" data-mode="nerd" aria-checked="false" title="Every distribution, interval and diagnostic">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.7 3h10.6a2 2 0 0 0 1.7-3l-5-9V3" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg>
+        Nerd
+      </button>
+      <span class="mode-thumb" aria-hidden="true"></span>
     </div>
   </header>
 
-  <main>
-    <section class="hero">
-      <div class="hero-left">
-        <p class="eyebrow">Race Insights</p>
-        <h1>See who is projected to lead — or surprise — in a glance.</h1>
-        <p class="lede">Simple mode shows the predicted finishing order. Complex mode opens the full breakdown: win & podium odds, finish spread, and the model signals driving the forecast.</p>
-        <div class="badges">
-          <span class="chip ghost">Simple = order only</span>
-          <span class="chip ghost">Complex = distribution, ranges, feature weights</span>
-        </div>
-      </div>
-      <div class="hero-stats" id="hero-stats">
-        <!-- populated by app.js -->
-      </div>
-    </section>
-
-    <section id="simple-view" class="view active">
-      <div class="section-head">
-        <div>
-          <p class="eyebrow">Simple Mode</p>
-          <h2>Predicted finishing order</h2>
-        </div>
-        <div class="section-meta">Sorted by model score → position</div>
-      </div>
-      <div id="simple-list" class="simple-list"></div>
-    </section>
-
-    <section id="complex-view" class="view">
-      <div class="section-head">
-        <div>
-          <p class="eyebrow">Complex Mode</p>
-          <h2>Full breakdown</h2>
-        </div>
-        <div class="controls">
-          <input id="driver-search" type="search" placeholder="Search driver or team…" aria-label="Search drivers">
-          <select id="sort-select" aria-label="Sort drivers">
-            <option value="score">Sort: Model score</option>
-            <option value="win">Sort: Win chance</option>
-            <option value="podium">Sort: Podium chance</option>
-            <option value="median">Sort: Median finish</option>
-          </select>
-        </div>
-      </div>
-
-      <div id="driver-grid" class="driver-grid"></div>
-
-      <div class="detail-panel" id="driver-detail">
-        <div class="panel-title">
-          <p class="eyebrow">Driver detail</p>
-          <h3>Select a driver to see their distribution</h3>
-        </div>
-      </div>
-
-      <div class="section-head mt">
-        <div>
-          <p class="eyebrow">Model Signals</p>
-          <h2>Top feature importance</h2>
-        </div>
-        <div class="section-meta">From v2_feature_importance.csv</div>
-      </div>
-      <div id="feature-bars" class="feature-bars"></div>
-    </section>
+  <main id="app" tabindex="-1">
+    <div class="loading" id="loading" role="status" aria-live="polite">
+      <div class="lights" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+      <p>Warming up the tyres…</p>
+    </div>
+    <section id="view-race" class="view" data-view="race" aria-label="Race preview"></section>
+    <section id="view-strategy" class="view" data-view="strategy" aria-label="Strategy"></section>
+    <section id="view-drivers" class="view" data-view="drivers" aria-label="Driver ratings"></section>
+    <section id="view-dvc" class="view" data-view="dvc" aria-label="Driver versus car"></section>
+    <section id="view-teams" class="view" data-view="teams" aria-label="Constructor ratings"></section>
+    <section id="view-season" class="view" data-view="season" aria-label="Season standings"></section>
+    <section id="view-accuracy" class="view" data-view="accuracy" aria-label="Prediction accuracy"></section>
+    <section id="view-lab" class="view" data-view="lab" aria-label="Model lab"></section>
   </main>
 
-  <footer class="footer">
-    <div>Run inside <code>web/</code>: <code>npm install (first time)</code> then <code>npm run dev</code> and open <code>http://localhost:4173</code>.</div>
-    <div class="footer-meta">Data files are copied locally via <code>npm run sync-data</code>; nothing leaves your machine.</div>
-  </footer>
+  <footer class="footer" id="footer"></footer>
 
-  <div id="toast" class="toast hidden"></div>
+  <aside class="drawer" id="drawer" aria-hidden="true" aria-label="Driver detail" role="dialog">
+    <button class="drawer-close" id="drawer-close" aria-label="Close driver detail">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+    <div class="drawer-body" id="drawer-body"></div>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+  <div class="tip" id="tip" role="tooltip"></div>
 
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
   <script type="module" src="app.js"></script>
+  <script type="module" src="motion.js"></script>
 </body>
 </html>

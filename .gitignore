@@ -22,3 +22,9 @@ v2_side_models/fastf1_cache/
 # Local OS/editor files
 .DS_Store
 Thumbs.db
+
+# Flat Out v3 scratch files (data/store is kept: ~15 MB and slow to re-pull under the FastF1 rate limit)
+data/derived/_*
+data/sync_log*.txt
+# Playwright CLI output (may contain credentials)
+.playwright-cli/
