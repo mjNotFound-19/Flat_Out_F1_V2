@@ -407,8 +407,9 @@ function consoleEl(nx) {
     showDials(d);
     lcdPrint(con, readout(d));
   };
-  D.forEach((d) => keys.append(h("button", { type: "button", class: "key", "data-d": d.Driver, style: `--team:${teamColor(d.Team)}`, "aria-pressed": "false",
-    "aria-label": `${name(d.Driver)}, ${pct(d.win)} to win`, onclick: () => { stopAuto(); select(d); } }, h("i", { "aria-hidden": "true" }), d.Driver, h("small", {}, pct(d.win)))));
+  const carNo = (d) => parseInt(person(d.Driver).number, 10) || 999;
+  D.slice().sort((a, b) => carNo(a) - carNo(b)).forEach((d) => keys.append(h("button", { type: "button", class: "key", "data-d": d.Driver, style: `--team:${teamColor(d.Team)}`, "aria-pressed": "false",
+    "aria-label": `${name(d.Driver)}, ${pct(d.win)} to win`, onclick: () => { stopAuto(); select(d); } }, h("i", { "aria-hidden": "true" }), h("em", { class: "kn", "aria-hidden": "true" }, person(d.Driver).number || ""), d.Driver, h("small", {}, pct(d.win)))));
   const auto = h("button", { type: "button", class: "c-btn", "aria-pressed": "false" }, h("span", { class: "led", "aria-hidden": "true" }), "Autoplay");
   let idx = 0;
   function stopAuto() { clearInterval(con._auto); auto.setAttribute("aria-pressed", "false"); }
@@ -449,7 +450,7 @@ function consoleEl(nx) {
     h("div", { class: "c-cell c-lcd", "aria-hidden": "true" }),
     dialBox,
     keys,
-    h("div", { class: "c-foot" }, auto, h("span", { class: "c-brand" }, h("b", {}, "f1"), ".h race engineer"), h("span", {}, "keys = drivers in predicted order"))),
+    h("div", { class: "c-foot" }, auto, h("span", { class: "c-brand" }, h("b", {}, "f1"), ".h race engineer"), h("span", {}, "keys = drivers by car number"))),
     h("p", { class: "sr-only c-live", "aria-live": "polite" }));
   lcdPrint(con, intro);
   return con;

@@ -592,3 +592,5 @@ h1, h2, .tabs a, .brand, .kicker, .eyebrow { font-stretch: 100%; }
 @keyframes cam-roll { from { top: -30%; } to { top: 100%; } }
 @media (max-width: 1000px) { .c-cam { max-width: 260px; aspect-ratio: 1; min-height: 0; } .console-grid > .c-cam { justify-self: center; width: 100%; } }
 @media (prefers-reduced-motion: reduce) { .cam-noise, .cam-scan::after, .cam-feed, .cam-feed img, .cam-rec i { animation: none !important; } .c-cam.idle .cam-noise { opacity: .2; } }
+.key .kn { position: absolute; left: 7px; top: 6px; font: 600 10px/1 var(--mono); font-style: normal; color: #6f7680; }
+.key[aria-pressed="true"] .kn { color: var(--team); }
