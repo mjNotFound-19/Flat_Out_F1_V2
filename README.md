@@ -1,69 +1,64 @@
 # Flat Out F1
 
-## v3 engine (`flatout/`) — start here
+## v3 engine (`flatout/`): start here
 
-v3 replaces the v2 score-plus-noise Monte Carlo with a model trained on real race outcomes and a
-lap-by-lap race simulator that also predicts tyre strategy and pit stops. The v2 scripts below are
-untouched and still work.
+Flat Out F1 v3 simulates each Grand Prix lap by lap, millions of times. The simulator is driven by a pace model trained on real race laps. Every forecast is then scored against the result.
+
+- **Architecture and data flow:** [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)
+- **Metric definitions:** [`docs/METRICS.md`](docs/METRICS.md)
+- **Audit of past claims:** [`docs/AUDIT_2026-09-27.md`](docs/AUDIT_2026-09-27.md)
+- **Model promotion rules:** [`docs/PROMOTION.md`](docs/PROMOTION.md)
+- **Prospective protocol:** [`docs/PROSPECTIVE.md`](docs/PROSPECTIVE.md)
+
+### Setup (PowerShell)
 
 ```powershell
 pip install pandas numpy scipy scikit-learn lightgbm pyarrow fastf1
-python -m flatout weekend          # sync -> build -> score finished races -> retrain -> predict next race
+python -m unittest discover -s tests          # unit, leakage and reproducibility checks (needs data/store for some)
 ```
 
-`run_weekend.bat` does the same and is safe to run after every session (it only pulls what is new).
+### Race-weekend runbook (PowerShell, from the project folder)
 
-| Command | What it does |
-| --- | --- |
-| `python -m flatout sync --years 2024 2025 2026` | Pull finished FastF1 sessions into `data/store/` (parquet). Resumable; waits out FastF1's 500 calls/hour limit. Past seasons pull only what training uses. |
-| `python -m flatout build` | Analyse every race (pace regression, degradation, pit loss, SC/VSC/red flags, overtakes, stints) and rebuild the training table. |
-| `python -m flatout train` | Fit race-pace + quali-pace models; uncertainty comes from walk-forward residuals. |
-| `python -m flatout predict [--round N] [--sims 4000000] [--mode auto]` | Simulate a race. `--mode` = `pre_weekend`, `post_fp`, `post_sprint`, `post_quali` (auto picks from stored sessions). `--grid RUS,VER,...` overrides the grid (penalties). |
-| `python -m flatout evaluate [--round N]` | Score stored pre-race predictions against results; appends to `predictions_v3/performance_log.csv`. |
-| `python -m flatout backtest --year 2026` | Walk-forward season test: for every race, retrain on earlier races only, simulate, score vs grid and pace-only baselines. |
-| `python -m flatout calibrate --year 2026` | Tune simulator behaviour (passing difficulty, pace noise, start chaos, SC pit behaviour) on recent races. |
-| `python -m flatout ratings` | Car-adjusted driver ratings with standard errors: race pace, quali pace, starts, execution, tyre management, consistency. |
-| `python -m flatout status` | What is stored, predicted, evaluated. |
+| Step | Command | Notes |
+|---|---|---|
+| Pull new sessions | `python -m flatout sync` | Incremental. FastF1's API limit is handled by waiting. |
+| Rebuild analyses and features | `python -m flatout build` | Add `--force` after changing race analysis code. Analyses are versioned (`race.ANALYSIS_VERSION`). |
+| Retrain pace models | `python -m flatout train` | Walk-forward calibrated uncertainty. |
+| Forecast the next race | `python -m flatout predict` | 4,000,000 simulations, about 4.8 min on 12 cores. Uses the next event in the schedule. |
+| Forecast before the weekend | `python -m flatout predict --mode pre_weekend` | No session of the weekend is used, and the grid is simulated. |
+| Forecast after qualifying | `python -m flatout predict --mode post_quali` | Uses the stored grid. `--grid VER,NOR,...` sets it manually (for penalties) and is checked against the entry list. |
+| Add strategy recommendations | `python -m flatout predict --recommend` | Forced plans under common random numbers: a static, model-dependent comparison. |
+| Score finished races | `python -m flatout evaluate` | Scores the forecast that is current in each event folder. |
+| All of the above | `python -m flatout weekend` (or `run_weekend.bat`) | sync → build → evaluate → train → predict. |
+| Honest accuracy benchmark | `python -m flatout nested --year 2026 --first 3` | About 80 min. Simulator settings are re-tuned before each race on earlier races only. `--recal-every 2` halves the cost. |
+| Test a challenger | `python -m flatout nested --year 2026 --candidate '{"form_settings": {"team_carry": 0.5}}' --label chal` | Compare with the champion under `docs/PROMOTION.md`. |
+| Tune simulator settings for forecasting | `python -m flatout calibrate --year 2026 --last-n 13` | In-sample on those races. Never quote the backtest of the same races as accuracy. |
+| Snapshot outputs before a big change | `python -m flatout snapshot --label before_x` | Copies uncommitted outputs with a sha256 manifest to `artifacts/snapshots/`. |
+| Ratings and site data | `python -m flatout ratings`, then `python -m flatout export` | |
+| Status | `python -m flatout status` | |
 
-### How it works
+### Website (f1.h)
 
-1. **Race analysis** (`race.py`): one regression per race on clean green-flag laps,
-   `LapTime = driver + fuel·lap + compound offset + compound deg·tyre age`. That gives true
-   fuel/tyre-corrected race pace per driver (the training target), the circuit's degradation and fuel
-   curves, and consistency. Pit loss, SC/VSC/red flags, on-track overtakes, lap-1 gains and executed
-   strategies (planned vs SC-induced stops) are extracted alongside.
-2. **Circuit parameters** (`circuits.py`): per venue, recency-weighted and shrunk toward global priors.
-   Degradation is rescaled across seasons; planned stops = this season's norm + the venue's offset;
-   stint-length splits and compound habits (e.g. M→H) are learned from what teams actually did.
-3. **Features** (`features.py`): only information available before lights out — quali gap, FP long-run
-   and short-run pace, sprint pace, EWMA driver/team form, team-mate gaps.
-4. **Pace models** (`model.py`): LightGBM + ridge blend predicting race pace (% vs field median) and quali
-   pace (so the grid can be simulated before qualifying).
-5. **Simulator** (`sim.py`): vectorised lap-by-lap Monte Carlo, ~4,000 races/s per core. Fuel, tyre deg and
-   cliff, planned + opportunistic SC/VSC stops, red-flag free tyre changes, SC bunching, pace-dependent
-   overtaking scaled by each circuit's measured passing rate, start chaos, reliability hazards.
-   4M races ≈ 1–2 minutes on 11 workers; results stream into counters, so memory is flat.
-6. **Evaluation** (`evaluate.py`): proper scoring rules (log loss, ranked probability score, Brier for
-   win/podium/points), rank correlation, and strategy metrics (stop count, compound sequence, first-stop
-   lap) — always next to the grid and pace-only baselines.
+| Task | Command |
+|---|---|
+| Preview locally | `node web/server.mjs` (serves http://localhost:4173) |
+| Check every page (both modes, desktop and phone) | `bash web/scripts/audit.sh` (needs the preview running and `playwright-cli`) |
+| Publish to manasjha.online/f1 | `bash web/scripts/publish-portfolio.sh`, or the `publish` PowerShell function |
 
-### Website
+The site reads only `web/data/v3/site.json`.
+- **Race** shows the verified venue, the forecast mode and time, and a provisional status with stated assumptions for new circuits.
+- **Accuracy** leads with the nested walk-forward benchmark, and compares each mode only with baselines that were available at that time.
+- **Driver vs Car** shows 90% intervals and what the decomposition can and cannot establish.
 
-```powershell
-cd web
-npm run dev        # refreshes web/data/v3/site.json via `python -m flatout export`, serves http://localhost:4173
-```
+### Outputs
 
-Tabs: **Race** (podium odds, win chances, predicted classification, countdown), **Strategy** (tyre plan per driver,
-pit windows, stop odds), **Drivers** (car-adjusted ratings and awards), **Season** (standings with result strips),
-**Accuracy** (walk-forward scorecard, calls vs results, calibration, race explorer) and **Lab** (model internals).
-The **Fan / Nerd** switch in the header toggles between headline numbers and every distribution, interval and
-diagnostic (position-probability heatmap, P10–P90 ranges, degradation curves, forest plots, reliability diagrams).
-Every `predict`, `evaluate`, `backtest`, `ratings` and `weekend` run refreshes the site data automatically. The v2
-dashboard lives on at `/legacy/`.
-
-Outputs land in `predictions_v3/<year>/R<nn>/` (`pre_race_summary.csv`, `pre_race_distribution.csv`,
-`pre_race_meta.json`, `snapshots/`, `pre_race_evaluation.json`, `pre_race_driver_errors.csv`).
+| Path | What |
+|---|---|
+| `predictions_v3/<y>/R<rr>/runs/<utc>_<mode>/` | Immutable forecast runs: `summary.csv`, `distribution.csv` and `meta.json` (schema v2: identity, assumptions, definitions, provenance). |
+| `predictions_v3/<y>/R<rr>/pre_race_*` | The event's current forecast. It is switched atomically after validation. |
+| `predictions_v3/<y>/R<rr>/superseded/` | Forecasts found to be invalid, kept for audit (for example the Sakhir-based round 16 runs). |
+| `artifacts/experiments/` | Experiment folders (config, per-race results, calibration) and `ledger.jsonl`. |
+| `flatout/registry/circuits.json` | The sourced circuit registry. Every schedule location must map here; nothing is guessed. |
 
 ---
 
