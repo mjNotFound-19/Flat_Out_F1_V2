@@ -15,6 +15,7 @@ an interrupted run resumes, and a changed configuration never resumes into an ol
     python -m flatout nested --year 2026 --first 3
 """
 import json
+from pathlib import Path
 import time
 from datetime import datetime, timezone
 
@@ -102,7 +103,8 @@ def _loop(outer, every, exp_dir, analyses, hist, ds, params, rows, calib, modes,
             if res is None:
                 continue
             m, _ = res
-            m.update(mode=mode, grid_eligible=(mode == 'post_quali'), new_venue=bool(ctx.get('new_venue')))
+            m.update(mode=mode, grid_eligible=(mode == 'post_quali'), new_venue=bool(ctx.get('new_venue')),
+                     drivers=_driver_probs(y, r, summ, hist))
             race_rows.append({kk: (float(v) if isinstance(v, (np.floating, np.integer)) else v) for kk, v in m.items()})
         ck.write_text(json.dumps(dict(params=params, rows=race_rows, calibration=cal), default=float))
         rows += race_rows
@@ -115,7 +117,7 @@ def _loop(outer, every, exp_dir, analyses, hist, ds, params, rows, calib, modes,
 
 
 def _finish(exp_dir, rows, calib, cfg_hash, t_start, year, first, log):
-    per_race = pd.DataFrame(rows)
+    per_race = pd.DataFrame([{k: v for k, v in r.items() if k != 'drivers'} for r in rows])   # per-driver data stays in checkpoints
     per_race.to_csv(exp_dir / 'per_race.csv', index=False)
     pd.DataFrame(calib).to_json(exp_dir / 'calibration.json', orient='records', indent=1)
     summary = summarise_experiment(per_race)
@@ -173,3 +175,66 @@ def log_summary(summary, log=print):
             if p and p.get('lo') is not None:
                 log(f'    {key:<24s} {p["mean"]:+.4f}  95% CI [{p["lo"]:+.4f}, {p["hi"]:+.4f}]  '
                     f'better in {p["share_better"]:.0%} of {p["n"]} races')
+
+
+# ------------------------------------------------------------------ calibration diagnostics
+def _driver_probs(y, r, summ, hist):
+    """Per-driver forecast probabilities with the realised outcome (for reliability diagrams)."""
+    act = hist[(hist.year == y) & (hist['round'] == r)].set_index('Driver')
+    out = []
+    for d in summ.itertuples():
+        if d.Driver not in act.index:
+            continue
+        a = act.loc[d.Driver]
+        fin = int(a.finish)
+        out.append(dict(Driver=d.Driver, win=float(d.win), podium=float(d.podium), points=float(d.points),
+                        dnf=float(d.dnf), y_win=int(fin == 1), y_podium=int(fin <= 3), y_points=int(fin <= 10),
+                        y_dnf=int(bool(a.dnf))))
+    return out
+
+
+def calibration_table(rows, key, bins=10):
+    """Equal-mass bins of predicted probability vs observed frequency, and expected calibration error."""
+    p = np.array([x[key] for x in rows], float)
+    y = np.array([x[f'y_{key}'] for x in rows], float)
+    if len(p) == 0:
+        return dict(bins=[], ece=None, n=0)
+    order = np.argsort(p)
+    groups = np.array_split(order, min(bins, len(p)))
+    tab = [dict(p=float(p[g].mean()), obs=float(y[g].mean()), n=int(len(g))) for g in groups if len(g)]
+    ece = float(sum(t['n'] * abs(t['p'] - t['obs']) for t in tab) / len(p))
+    return dict(bins=tab, ece=ece, n=int(len(p)), brier=float(np.mean((p - y) ** 2)))
+
+
+def calibration_report(exp_dir, backfill=True, workers=None, log=print):
+    """Calibration of win/podium/points/dnf probabilities for an experiment. Old checkpoints without
+    per-driver probabilities are re-simulated from their stored params (outer forecast only)."""
+    exp_dir = Path(exp_dir)
+    cfg = json.loads((exp_dir / 'config.json').read_text())
+    analyses, hist = pipeline.load_state(log=lambda *a: None)
+    ds = backtest.load_dataset(analyses, hist, lambda *a: None)
+    rows = {m: [] for m in cfg['modes']}
+    files = sorted((exp_dir / 'races').glob('*.json'))
+    with sim.pool(sim.default_workers(workers)) as ex:
+        for k, f in enumerate(files):
+            ck = json.loads(f.read_text())
+            changed = False
+            for row in ck['rows']:
+                if 'drivers' not in row and backfill:
+                    y, r = int(row['year']), int(row['round'])
+                    (_, _, spec, ctx), = backtest.prepare_specs([(y, r)], analyses, hist, ds, ck['params'], row['mode'],
+                                                                log=lambda *a: None)
+                    agg = sim.simulate(spec, cfg['eval_sims'], seed=50_000 + 101 * k, ex=ex)
+                    summ, _, _ = pipeline.summarise(agg, ctx)
+                    row['drivers'] = _driver_probs(y, r, summ, hist)
+                    row['drivers_backfilled'] = True
+                    changed = True
+                rows[row['mode']] += row.get('drivers', [])
+            if changed:
+                f.write_text(json.dumps(ck, default=float))
+                log(f'  backfilled {f.stem}')
+    rep = {m: {k: calibration_table(v, k) for k in ('win', 'podium', 'points', 'dnf')} for m, v in rows.items()}
+    (exp_dir / 'calibration_diagnostics.json').write_text(json.dumps(rep, indent=1))
+    for m, r in rep.items():
+        log(f'  {m}: ' + '  '.join(f"{k} ECE {v['ece']:.3f} (n={v['n']})" for k, v in r.items() if v['ece'] is not None))
+    return rep
