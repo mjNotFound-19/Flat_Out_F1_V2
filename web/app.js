@@ -299,7 +299,6 @@ function renderRace(root) {
       h("span", {}, `${Number(m.n_sims).toLocaleString()} RACES`), h("span", {}, `RND_${String(m.round).padStart(2, "0")} // ${m.event.toUpperCase()}`), h("span", {}, `P(SC) ${pct(m.p_sc)}`)),
     h("div", { class: "hero-portrait" },
       cutout(fav.Driver, { loading: "eager", fetchpriority: "high", alt: `${name(fav.Driver)}, race favourite`, width: 480, height: 480 }),
-      hudEl(fav, byWin, m, date),
       h("button", { type: "button", class: "tag", onclick: () => openDriver(fav.Driver), "aria-label": `Open ${name(fav.Driver)}` }, h("b", {}, pct(fav.win)), h("span", {}, `${name(fav.Driver)} to win`))));
   const marquee = marqueeEl(byWin.slice(0, 8));
   const podium = h("div", { class: "podium" }, [byWin[1], byWin[0], byWin[2]].map((d, i) => {
@@ -347,6 +346,7 @@ function renderRace(root) {
   ];
   root.append(hero, marquee, consoleEl(nx),
     h("div", { class: "grid g-main" }, h("div", { class: "stack" }, podium, quickFacts(nx)), winPanel),
+    circuit3dEl(nx, fav),
     h("div", { class: "mt" }, panel(nerd() ? "Simulated classification" : "The grid, predicted", nerd() ? "sortable · click a row for the driver file" : "tap a driver for details", table(D, cols, { key: "race", onRow: (d) => openDriver(d.Driver) }))));
   if (nerd()) root.append(h("div", { class: "mt" }, heatmapPanel(nx)));
 }
@@ -363,6 +363,40 @@ function trackCard(nx) {
   return h("div", { class: "trackcard" }, h("div", { class: "map", html: svg }),
     h("div", {}, h("div", { class: "k" }, "Circuit"), h("div", { class: "n" }, nx.meta.location),
       h("div", { class: "meta" }, h("span", {}, `${c.n_laps} laps`), h("span", {}, `${t.corners.length} turns`), h("span", {}, `pit loss ${fx(c.pit_loss, 1)}s`))));
+}
+/* 3D circuit section: the reference lap as a speed-coloured ribbon (three.js, loaded when scrolled near) */
+function circuit3dEl(nx, fav) {
+  const t = nx.track, c = nx.circuit, m = nx.meta;
+  if (!t || !t.speed) return null;
+  if (state.c3dispose) { state.c3dispose(); state.c3dispose = null; }
+  const vmin = Math.min(...t.speed), vmax = Math.max(...t.speed);
+  const elev = (Math.max(...t.z) / 1000) * t.scale_m;
+  const lapStr = `${Math.floor(t.lap_time / 60)}:${(t.lap_time % 60).toFixed(3).padStart(6, "0")}`;
+  const speedV = h("b", {}, "---"), speedBar = h("i");
+  const stats = [["Length", `${fx(t.length_m / 1000, 3)} km`], ["Turns", t.corners.length], ["Elevation Δ", `${fx(elev, 1)} m`], ["Top speed", `${vmax} km/h`], ["Laps", c.n_laps]];
+  if (nerd()) stats.push(["Min speed", `${vmin} km/h`], ["Pit loss", `${fx(c.pit_loss, 1)} s`]);
+  const fallback = h("div", { class: "c3-fallback" }, trackCard(nx)?.querySelector(".map") || null);
+  const el = h("section", { class: "c3", "aria-labelledby": "c3-title", style: `--team:${teamColor(fav.Team)}` },
+    fallback,
+    h("div", { class: "c3-labels", "aria-hidden": "true" }),
+    h("div", { class: "c3-hud" },
+      h("div", { class: "c3-tl" }, h("span", { "data-scramble": "" }, `CIRCUIT_${String(m.round).padStart(2, "0")}`), h("h2", { id: "c3-title" }, m.location)),
+      h("dl", { class: "c3-tr" }, stats.map(([k, v]) => h("div", {}, h("dt", {}, k), h("dd", {}, String(v))))),
+      h("div", { class: "c3-bl" }, h("div", { class: "c3-speed", "aria-hidden": "true" }, h("span", {}, "Speed"), speedV, h("small", {}, "km/h"), h("div", { class: "c3-sbar" }, speedBar)),
+        h("p", {}, nerd() ? `Reference: ${name(t.driver)}, fastest lap ${lapStr} (${t.source}). Ribbon = telemetry speed, height = elevation ×7.`
+          : `${name(t.driver)}'s fastest lap from last year, coloured by speed. Hills are exaggerated 7× so you can see them.`)),
+      h("div", { class: "c3-br", "aria-hidden": "true" }, h("div", { class: "c3-legend" }, h("span", {}, `${vmin}`), h("i"), h("span", {}, `${vmax} km/h`)), h("span", { class: "c3-hint" }, "Drag to rotate"))));
+  const io = new IntersectionObserver(([e]) => {
+    if (!e.isIntersecting) return;
+    io.disconnect();
+    import("./circuit3d.js").then((mod) => mod.mount(el, t, {
+      accent: teamColor(fav.Team),
+      onSpeed: (v, k) => { speedV.textContent = v; speedBar.style.transform = `scaleX(${Math.max(0.04, k)})`; const [r, g, b] = mod.speedColor(k); speedBar.style.background = `rgb(${r * 255 | 0},${g * 255 | 0},${b * 255 | 0})`; },
+    })).then((dispose) => { el.classList.add("live"); state.c3dispose = dispose; })
+      .catch((err) => { el.classList.add("flat"); console.info("3D circuit unavailable, showing the flat map:", err.message); });
+  }, { rootMargin: "400px 0px" });
+  io.observe(el);
+  return el;
 }
 const reduced = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
 /* LCD that types its lines; screen readers get the final text once via a polite live region */
@@ -407,7 +441,6 @@ function consoleEl(nx) {
   const select = (d) => {
     keys.querySelectorAll(".key").forEach((k) => k.setAttribute("aria-pressed", String(k.dataset.d === d.Driver)));
     cam.show(d);
-    window.f1Sound && window.f1Sound("static");
     showDials(d);
     lcdPrint(con, readout(d));
   };
@@ -457,6 +490,13 @@ function consoleEl(nx) {
     h("div", { class: "c-foot" }, auto, h("span", { class: "c-brand" }, h("b", {}, "f1"), ".h race engineer"), h("span", {}, "keys = drivers by car number"))),
     h("p", { class: "sr-only c-live", "aria-live": "polite" }));
   lcdPrint(con, intro);
+  // autoplay is the default: it starts once the console is on screen (after the intro has been read)
+  const seen = new IntersectionObserver(([e]) => {
+    if (!e.isIntersecting) return;
+    seen.disconnect();
+    setTimeout(() => { if (document.contains(con) && auto.getAttribute("aria-pressed") === "false" && !keys.querySelector('[aria-pressed="true"]')) auto.click(); }, 1800);
+  }, { threshold: 0.4 });
+  seen.observe(con);
   return con;
 }
 /* driver cam: a small CRT that cuts to whichever driver key is live (static burst between channels) */
@@ -483,25 +523,6 @@ function camEl() {
   };
   return { el, show };
 }
-/* igloo-style annotation layer over the favourite: leader lines, a constellation of their numbers, decoding labels */
-function hudEl(d, byWin, m, date) {
-  const p = person(d.Driver), margin = d.win - byWin[1].win;
-  const dstr = date ? `${String(date.getDate()).padStart(2, "0")}.${String(date.getMonth() + 1).padStart(2, "0")}.${date.getFullYear()}` : String(m.year);
-  const pts = [[58, 22, fx(d.podium * 100, 0)], [34, 46, fx(d.points * 100, 0)], [70, 52, fx(d.exp_pos, 1)]];
-  const svg = `<svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-    <path class="hl" d="M24 12 H40 L${pts[0][0]} ${pts[0][1]}"/>
-    <path class="hl" d="M${pts[2][0]} ${pts[2][1]} L86 34 H100"/>
-    <path class="hl" d="M${pts[1][0]} ${pts[1][1]} L60 76 H96"/>
-    <path class="hc" d="M${pts[0][0]} ${pts[0][1]} L${pts[1][0]} ${pts[1][1]} L${pts[2][0]} ${pts[2][1]} Z"/>
-  </svg>`;
-  const lab = (cls, a, b) => h("div", { class: `hud-l ${cls}` }, h("span", { "data-scramble": "" }, a), h("span", { "data-scramble": "" }, b));
-  return h("div", { class: "hud", "aria-hidden": "true" },
-    h("div", { class: "hud-svg", html: svg }),
-    pts.map(([x, y, v], i) => h("span", { class: "hud-pt", style: `left:${x}%;top:${y}%` }, h("em", { "data-scramble": "" }, v), h("small", {}, ["POD", "PTS", "AVG"][i]))),
-    lab("a", "FAVOURITE_01", name(d.Driver).toUpperCase()),
-    lab("b", `WIN  ${fx(d.win * 100, 2)}`, `\u0394 +${fx(margin * 100, 2)}`),
-    lab("c", `#${p.number || "--"} ${(SHORT[d.Team] || d.Team).toUpperCase()}`, `D ${dstr}`));
-}
 function marqueeEl(list) {
   const item = (d) => h("span", {}, d.Driver, h("i", {}, (name(d.Driver).split(" ").slice(-1)[0] || "")), h("b", {}, pct(d.win)));
   const track = h("div", { class: "marquee-track" }, list.map(item), list.map((d) => { const e = item(d); e.setAttribute("aria-hidden", "true"); return e; }));
@@ -526,7 +547,6 @@ function flapTo(el, ch) {
   set(leafBottom, ch);   // rising leaf: next digit, lower half
   set(bottom, old);      // stays until the new lower half lands
   el.classList.remove("flipping"); void el.offsetWidth; el.classList.add("flipping");
-  window.f1Sound && window.f1Sound("flap");
   clearTimeout(el._t);
   el._t = setTimeout(() => { set(bottom, ch); set(leafTop, ch); el.classList.remove("flipping"); }, 620);
 }

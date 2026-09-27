@@ -12,7 +12,7 @@ DEST="$PORTFOLIO/public/f1"
 
 rm -rf "${DEST:?}"
 mkdir -p "$DEST/data/v3"
-cp "$HERE/index.html" "$HERE/app.js" "$HERE/motion.js" "$HERE/hud.js" "$HERE/styles.css" "$DEST/"
+cp "$HERE/index.html" "$HERE"/*.js "$HERE/styles.css" "$DEST/"
 cp -r "$HERE/assets" "$DEST/"
 cp "$HERE/data/v3/site.json" "$DEST/data/v3/"
 cp -r "$HERE/legacy" "$DEST/"

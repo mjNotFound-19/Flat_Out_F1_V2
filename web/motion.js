@@ -11,6 +11,7 @@ if (g && !REDUCED) {
   g.registerPlugin(ScrollTrigger, SplitText);
   document.documentElement.classList.add("gsap-on");
   g.defaults({ ease: "expo.out", duration: 0.8 });
+  g.config({ nullTargetWarn: false });   // choreographies target optional elements (feature images, awards) that some layouts omit
 
   let ctx = null;
   let last = "";
@@ -53,7 +54,7 @@ if (g && !REDUCED) {
       onEnter(p.closest("svg"), () => g.to(p, { strokeDashoffset: 0, duration: 1.8, ease: "power2.inOut", onComplete: () => g.set(p, { clearProps: "strokeDasharray,strokeDashoffset" }) }));
     });
     $$("svg.chart circle", root).forEach((c) => g.set(c, { transformBox: "fill-box", transformOrigin: "center" }));
-    $$("svg.chart", root).forEach((svg) => onEnter(svg, () => g.from(svg.querySelectorAll("circle"), { scale: 0, duration: 0.5, stagger: { each: 0.008, from: "start" }, delay: 0.6, ease: "back.out(2)" })));
+    $$("svg.chart", root).filter((svg) => svg.querySelector("circle")).forEach((svg) => onEnter(svg, () => g.from(svg.querySelectorAll("circle"), { scale: 0, duration: 0.5, stagger: { each: 0.008, from: "start" }, delay: 0.6, ease: "back.out(2)" })));
   }
   function growBars(root, sel = ".pbar > i") {
     ScrollTrigger.batch($$(sel, root), { start: "top 92%", once: true,
@@ -61,6 +62,7 @@ if (g && !REDUCED) {
   }
   function batchRise(root, sel, y = 16) {
     const els = $$(sel, root);
+    if (!els.length) return;
     g.set(els, { opacity: 0, y });
     ScrollTrigger.batch(els, { start: "top 94%", once: true, onEnter: (b) => g.to(b, { opacity: 1, y: 0, duration: 0.7, stagger: 0.035 }) });
   }
@@ -192,6 +194,7 @@ if (g && !REDUCED) {
       const lanes = root.querySelectorAll(".lane");
       lanes.forEach((lane, i) => {
         const st = lane.querySelectorAll(".lane-stint"), win = lane.querySelector(".lane-win");
+        if (!st.length) return;
         g.set(st, { scaleX: 0, transformOrigin: "left center" });
         if (win) g.set(win, { opacity: 0 });
         onEnter(lane, () => {
