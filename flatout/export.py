@@ -74,7 +74,12 @@ def _latest_prediction(hist=None):
     ident = meta.get('identity') or {}
     if ident.get('race_start_utc'):
         meta.setdefault('sessions', {})['R'] = ident['race_start_utc']
-    return dict(meta={k: v for k, v in meta.items() if k not in ('circuit', 'provenance')},
+    reco = None
+    if (d / 'recommendations.json').exists():
+        r = json.loads((d / 'recommendations.json').read_text())
+        if r.get('run') == meta.get('run'):          # only if computed for this exact forecast run
+            reco = r
+    return dict(meta={k: v for k, v in meta.items() if k not in ('circuit', 'provenance')}, recommendations=reco,
                 provenance=meta.get('provenance'),
                 circuit={k: c.get(k) for k in ('location', 'event', 'n_races', 'n_laps', 'base_lap', 'pit_loss',
                                                 'fuel', 'lap_sd', 'sc_per_race', 'vsc_per_race', 'overtake_factor',

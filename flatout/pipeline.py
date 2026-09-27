@@ -289,4 +289,5 @@ def run_event(year, rnd, n_sims, analyses, hist, models=None, params=None, worke
     agg = sim.simulate(spec, n_sims, workers=workers, progress=(lambda d, t: bar.update(d)) if bar else None)
     df, dist, extra = summarise(agg, ctx)
     extra['sim_seconds'] = round(time.time() - t0, 1)
+    ctx['spec'] = spec          # kept in memory for follow-up analyses (strategy recommendation); not saved
     return df, dist, extra, ctx

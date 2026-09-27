@@ -98,7 +98,16 @@ def cmd_predict(a):
     analyses, hist = pipeline.load_state()
     grid_override = None
     if a.grid:
-        grid_override = {d.strip().upper(): i + 1 for i, d in enumerate(a.grid.split(','))}
+        codes = [d.strip().upper() for d in a.grid.split(',') if d.strip()]
+        entry = set(features.entry_list(year, rnd, hist).Driver)
+        unknown = [c for c in codes if c not in entry]
+        dup = sorted({c for c in codes if codes.count(c) > 1})
+        if unknown or dup:
+            sys.exit(f'  --grid: unknown driver codes {unknown} / duplicates {dup}. Entry list: {", ".join(sorted(entry))}')
+        missing = sorted(entry - set(codes))
+        if missing:
+            print(f'  ! --grid omits {", ".join(missing)}: they start from the back (pit lane / not yet classified)')
+        grid_override = {c: i + 1 for i, c in enumerate(codes)}
     print(f'  predicting {year} R{rnd:02d} with {a.sims:,} sims, information: {mode}')
     df, dist, extra, ctx = pipeline.run_event(year, rnd, a.sims, analyses, hist, workers=a.workers,
                                               mode=mode, grid_override=grid_override)
@@ -106,11 +115,30 @@ def cmd_predict(a):
     d = pipeline.save_prediction(year, rnd, df, dist, extra, ctx, a.sims)
     _print_prediction(df, extra, ctx, a.sims)
     print(f'\n  saved -> {d}')
+    if a.recommend:
+        _recommend(d, df, ctx, a)
     # keep the dashboard in sync
     web = pipeline.OUTPUT.parent / 'web' / 'data'
     if web.exists():
         df.to_csv(web / 'v3_prediction.csv', index=False)
         dist.to_csv(web / 'v3_distribution.csv', index=False)
+    cmd_export()
+
+
+def _recommend(event_dir, df, ctx, a):
+    """Strategy recommendation (forced plans under common random numbers) for the front of the field."""
+    import json
+    from . import strategy_eval
+    drivers = df.sort_values('exp_pos').Driver.head(a.recommend_top).tolist()
+    print(f'  strategy recommendation: {len(drivers)} drivers x 5 plans x {a.recommend_sims:,} sims')
+    rec = strategy_eval.recommend(ctx['spec'], ctx, drivers=drivers, top_plans=5, n_sims=a.recommend_sims,
+                                  workers=a.workers)
+    meta = json.loads((event_dir / 'pre_race_meta.json').read_text())
+    out = dict(run=meta.get('run'), created_utc=meta.get('created_utc'), mode=meta.get('mode'),
+               scope=strategy_eval.SCOPE, status=meta.get('status'), drivers=rec)
+    (event_dir / 'recommendations.json').write_text(json.dumps(out, indent=1, default=float))
+    for d, r in rec.items():
+        print(f"    {d}: best {r['best']:<8s} vs behaviour mix {r['gain_pos']:+.2f} places")
     cmd_export()
 
 
@@ -258,7 +286,9 @@ def main():
     s.add_argument('--year', type=int); s.add_argument('--round', type=int)
     s.add_argument('--sims', type=int, default=4_000_000); s.add_argument('--workers', type=int)
     s.add_argument('--mode', default='auto', choices=['auto', *features.MODES])
-    s.add_argument('--grid', help='comma separated driver codes in grid order, e.g. RUS,VER,LEC')
+    s.add_argument('--grid', help='comma separated driver codes in grid order (validated against the entry list)')
+    s.add_argument('--recommend', action='store_true', help='also compare forced strategy plans (static, model-dependent)')
+    s.add_argument('--recommend-top', type=int, default=12); s.add_argument('--recommend-sims', type=int, default=40_000)
     s.set_defaults(fn=cmd_predict)
     s = sub.add_parser('evaluate'); s.add_argument('--year', type=int); s.add_argument('--round', type=int)
     s.set_defaults(fn=cmd_evaluate)
