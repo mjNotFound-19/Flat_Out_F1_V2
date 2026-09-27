@@ -183,9 +183,11 @@ def _benchmarks():
         except ValueError:
             continue
         d = ROOT / 'artifacts' / 'experiments' / e['id']
-        if not e['id'].startswith('nested_') or not (d / 'per_race.csv').exists():
+        if not (d / 'per_race.csv').exists() or not (d / 'config.json').exists():
             continue
         cfg = json.loads((d / 'config.json').read_text())
+        if cfg.get('kind') != 'nested_walk_forward' or cfg.get('candidate'):
+            continue                                  # only champion runs are published as the model's accuracy
         latest[str(cfg['year'])] = (e, d, cfg)       # later lines win
     out = {}
     for year, (e, d, cfg) in latest.items():
