@@ -18,6 +18,7 @@ stays constant no matter how many races run.
 import contextlib
 import os
 import sys
+import time
 from concurrent.futures import ProcessPoolExecutor
 
 import numpy as np
@@ -285,7 +286,8 @@ def _merge(a, b):
     return a
 
 
-def _worker(spec, n, seed, batch):
+def _worker(spec, n, seed, batch, ticks=None):
+    """ticks: optional queue that receives the size of each finished batch (progress reporting only)."""
     rng = np.random.default_rng(seed)
     agg = None
     done = 0
@@ -293,6 +295,8 @@ def _worker(spec, n, seed, batch):
         b = min(batch, n - done)
         agg = _aggregate(run_batch(spec, b, rng), spec['D'], spec['n_laps'], agg)
         done += b
+        if ticks is not None:
+            ticks.put(b)
     return agg
 
 
@@ -345,6 +349,35 @@ def pool(workers):
                 os.environ.pop(k, None)
             else:
                 os.environ[k] = v
+
+
+class ProgressBar:
+    """One self-updating terminal line: [#####-----]  42%  1,680,000 / 4,000,000 races  3.1 / 7.4 min."""
+
+    def __init__(self, total, label='simulating', unit='races', width=30, stream=None):
+        self.total, self.label, self.unit, self.width = total, label, unit, width
+        self.stream = stream or sys.stdout
+        self.t0 = time.time()
+        enc = getattr(self.stream, 'encoding', None) or 'ascii'
+        try:
+            '█░'.encode(enc)
+            self.full, self.empty = '█', '░'
+        except (UnicodeEncodeError, LookupError):
+            self.full, self.empty = '#', '-'
+        self.update(0)
+
+    def update(self, done, note=''):
+        k = done / self.total if self.total else 1.0
+        fill = int(round(k * self.width))
+        el = time.time() - self.t0
+        tail = f'{el / 60:.1f} min' if done >= self.total or not done else f'{el / 60:.1f} / ~{el / k / 60:.1f} min'
+        line = (f'\r  {self.label} {self.full * fill}{self.empty * (self.width - fill)} {k:4.0%}  '
+                f'{done:,} / {self.total:,} {self.unit}  {tail}  {note}')
+        self.stream.write(line.ljust(getattr(self, '_last', 0)))   # pad over a longer previous line
+        self._last = len(line)
+        if done >= self.total:
+            self.stream.write('\n')
+        self.stream.flush()
 
 
 def simulate(spec, n_sims, workers=None, batch=20000, seed=2026, progress=None):

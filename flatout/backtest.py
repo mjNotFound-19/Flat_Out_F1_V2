@@ -6,6 +6,8 @@ against the grid / pace-only baselines. Nothing from the race weekend after the
 chosen information cut-off (default: after qualifying) is used.
 """
 import json
+import multiprocessing
+import queue
 import time
 
 import numpy as np
@@ -46,8 +48,8 @@ def prepare_specs(events, analyses, hist, ds, params, mode='post_quali', log=pri
 
 
 def _sim_one(args):
-    spec, n, seed = args
-    return sim._worker(sim._spec_arrays(spec), n, seed, 10000)
+    spec, n, seed, *ticks = args
+    return sim._worker(sim._spec_arrays(spec), n, seed, 10000, ticks[0] if ticks else None)
 
 
 def run(year, first=1, last=99, n_sims=20000, mode='post_quali', workers=None, log=print, save=True):
@@ -60,7 +62,24 @@ def run(year, first=1, last=99, n_sims=20000, mode='post_quali', workers=None, l
     workers = sim.default_workers(workers, jobs=len(specs))
     log(f'  simulating {len(specs)} races x {n_sims:,} on {workers} workers')
     with sim.pool(workers) as ex:
-        aggs = list(ex.map(_sim_one, [(s, n_sims, 11 + i) for i, (_, _, s, _) in enumerate(specs)]))
+        if log is not print:
+            aggs = list(ex.map(_sim_one, [(s, n_sims, 11 + i) for i, (_, _, s, _) in enumerate(specs)]))
+        else:   # same jobs, plus a progress bar fed by each worker's finished 10k batches
+            with multiprocessing.Manager() as mgr:
+                ticks = mgr.Queue()
+                futs = [ex.submit(_sim_one, (s, n_sims, 11 + i, ticks)) for i, (_, _, s, _) in enumerate(specs)]
+                bar, done = sim.ProgressBar(len(specs) * n_sims), 0
+                while True:
+                    try:
+                        done += ticks.get(timeout=1)
+                    except queue.Empty:
+                        pass
+                    finished = sum(f.done() for f in futs)
+                    if finished == len(futs):
+                        break
+                    bar.update(min(done, len(specs) * n_sims - 1), f'{finished}/{len(specs)} races done')
+                aggs = [f.result() for f in futs]
+                bar.update(len(specs) * n_sims, f'{len(specs)}/{len(specs)} races done')
     for (y, r, spec, ctx), agg in zip(specs, aggs):
         summ, dist, extra = pipeline.summarise(agg, ctx)
         res = evaluate.evaluate_event(y, r, summ, dist, hist, pace=ctx['pred'], save=save, tag=f'backtest_{mode}')
