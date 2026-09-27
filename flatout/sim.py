@@ -45,6 +45,7 @@ DEFAULTS = dict(
     slow_stop_p=0.04, slow_stop_mean=4.0,
     lap1_dnf_mult=6.0,
     pace_df=4.0,          # tail heaviness of race-day pace (Student-t degrees of freedom)
+    rel_season_k=0.0,     # reliability prior: 0 = multi-season rate; >0 = season rate shrunk with this weight (not tuned)
     grid_blend=0.15,      # stacking weight of the empirical grid->finish prior (when the grid is known)
 )
 

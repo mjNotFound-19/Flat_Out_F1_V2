@@ -50,7 +50,8 @@ def run(year, first=3, last=99, modes=('post_quali', 'pre_weekend'), eval_sims=3
     every = _all_events(hist)
     config = dict(kind='nested_walk_forward', year=year, first=first, last=last, modes=list(modes),
                   eval_sims=eval_sims, calib_sims=calib_sims, calib_last_n=calib_last_n, rounds=rounds,
-                  start_params=dict(sim.DEFAULTS), tunable=backtest.TUNABLE, recal_every=recal_every,
+                  start_params=dict(sim.DEFAULTS, **(candidate.get('params') or {})), tunable=backtest.TUNABLE,
+                  recal_every=recal_every,
                   candidate=candidate, analysis_version=__import__('flatout.race', fromlist=['x']).ANALYSIS_VERSION,
                   data=provenance.data_identity(), outer=[f'{y}_R{r:02d}' for y, r in outer])
     cfg_hash = provenance.sha256_json(config)[:12]
@@ -59,7 +60,7 @@ def run(year, first=3, last=99, modes=('post_quali', 'pre_weekend'), eval_sims=3
     (exp_dir / 'config.json').write_text(json.dumps(config, indent=1, default=str))
     log(f'  experiment {exp_dir.relative_to(ROOT)}  ({len(outer)} races, modes {", ".join(modes)})')
 
-    params = dict(sim.DEFAULTS)
+    params = dict(sim.DEFAULTS, **(candidate.get('params') or {}))   # challenger overrides (untuned)
     rows, calib = [], []
     n_workers = sim.default_workers(workers)
     with sim.pool(n_workers) as ex:

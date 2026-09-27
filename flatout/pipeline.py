@@ -39,10 +39,17 @@ def event_info(year, rnd, log=print):
     return info
 
 
-def reliability(hist, year, rnd, teams, g_rate):
-    """Per-team DNF probability per race: this season's record shrunk hard toward the global rate."""
+def reliability(hist, year, rnd, teams, g_rate, season_k=0.0):
+    """Per-team DNF probability per race: this season's record shrunk hard toward a prior rate.
+
+    season_k = 0 (champion): the prior is the multi-season rate g_rate.
+    season_k > 0 (challenger R1): the prior is this season's field-wide rate so far, itself shrunk toward
+    g_rate with season_k car-races of prior weight - so a regulation era with a different failure rate
+    moves the prior within a few races. Uses only races before (year, rnd)."""
     past = hist[(hist.year == year) & (hist['round'] < rnd)]
     prev = hist[(hist.year == year - 1)]
+    if season_k > 0:
+        g_rate = float((past.dnf.sum() + season_k * g_rate) / (len(past) + season_k))
     out = {}
     for t in teams:
         cur = past[past.Team == t]
@@ -144,7 +151,7 @@ def build_spec(year, rnd, analyses, hist, models, circuits, params, use_grid=Tru
         grid = pd.Series(grid).rank(method='first').astype(int).values
     elif use_grid and mode in (None, 'auto', 'post_quali'):
         grid = actual_grid(year, rnd, drivers)
-    rel = reliability(hist, year, rnd, entry.Team.unique(), c['dnf_rate'])
+    rel = reliability(hist, year, rnd, entry.Team.unique(), c['dnf_rate'], params.get('rel_season_k', 0.0))
     p_dnf = np.array([rel[t] for t in entry.Team])
     lap1_share = c['lap1_dnf_share']
     n = c['n_laps']
