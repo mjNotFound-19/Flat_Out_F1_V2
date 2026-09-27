@@ -1,0 +1,55 @@
+{
+  "superseded_utc": "2026-09-27T04:38:05+00:00",
+  "status": "invalid_for_event",
+  "reason": "Circuit substitution error: these forecasts simulated the Bahrain International Circuit (Sakhir, 57 laps, Sakhir priors). The 2026 Bahrain Grand Prix is held at Sepang International Circuit, Malaysia (56 laps). Probabilities here are NOT a Sepang forecast.",
+  "evidence": [
+    "https://www.formula1.com/en/racing/2026/bahrain"
+  ],
+  "fixed_by": "flatout/events.py + flatout/registry/circuits.json (no event-name venue substitution)",
+  "files": [
+    {
+      "original": "predictions_v3/2026/R16/pre_race_distribution.csv",
+      "sha256": "37abff57305cdaa82383f40daaa54f5b1e48891a12bbfba54793593e77f7a342"
+    },
+    {
+      "original": "predictions_v3/2026/R16/pre_race_meta.json",
+      "sha256": "c5776c86be0e98b227e2f4f33caa4cbdaa286aa432aa2b6fb4323438a7478678"
+    },
+    {
+      "original": "predictions_v3/2026/R16/pre_race_summary.csv",
+      "sha256": "b7456a78ff900de2476f4199b0d49713020dc13b1dc12d115ff3f24387bbe608"
+    },
+    {
+      "original": "predictions_v3/2026/R16/snapshots/20260926_155800_pre_race_distribution.csv",
+      "sha256": "f168864ebe3da47435bd2068f77a88c74bc465cbf96582bf51e10ee1fec0d1f4"
+    },
+    {
+      "original": "predictions_v3/2026/R16/snapshots/20260926_155800_pre_race_summary.csv",
+      "sha256": "8918548c1f366feb4d1627e60c843094c2a91720905f86cae4c6e508dcd9307d"
+    },
+    {
+      "original": "predictions_v3/2026/R16/snapshots/20260926_160553_pre_race_distribution.csv",
+      "sha256": "8c3f5a5e4ee7541e52d7f866e80802d3917599a7e27956b6916635c30efbaef8"
+    },
+    {
+      "original": "predictions_v3/2026/R16/snapshots/20260926_160553_pre_race_summary.csv",
+      "sha256": "701509a17bf163bdec128fb684b8882fabfddd5e2a64ef7b4972205650dfc70d"
+    },
+    {
+      "original": "predictions_v3/2026/R16/snapshots/20260926_161340_pre_race_distribution.csv",
+      "sha256": "8b87bdeef3703bce5c8853144db746fae7d4c471612d1cda8c25598e627eb9eb"
+    },
+    {
+      "original": "predictions_v3/2026/R16/snapshots/20260926_161340_pre_race_summary.csv",
+      "sha256": "9c547c703af37dfa3b7190b776cb57936de3b5d3fd272dea54f202a36f23f461"
+    },
+    {
+      "original": "predictions_v3/2026/R16/snapshots/20260926_221827_pre_race_distribution.csv",
+      "sha256": "37abff57305cdaa82383f40daaa54f5b1e48891a12bbfba54793593e77f7a342"
+    },
+    {
+      "original": "predictions_v3/2026/R16/snapshots/20260926_221827_pre_race_summary.csv",
+      "sha256": "b7456a78ff900de2476f4199b0d49713020dc13b1dc12d115ff3f24387bbe608"
+    }
+  ]
+}

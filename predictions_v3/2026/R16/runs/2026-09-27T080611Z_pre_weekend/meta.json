@@ -1,0 +1,286 @@
+{
+ "year": 2026,
+ "round": 16,
+ "event": "Bahrain Grand Prix in Malaysia",
+ "location": "Sepang",
+ "created": "20260927_080611",
+ "created_utc": "2026-09-27T08:06:11+00:00",
+ "n_sims": 4000000,
+ "sessions_used": [],
+ "inputs_missing": [
+  "FP1",
+  "FP2",
+  "FP3",
+  "SQ",
+  "S",
+  "Q",
+  "starting grid"
+ ],
+ "information_cutoff_utc": "2026-09-27T08:06:11+00:00",
+ "grid_known": false,
+ "p_sc": 0.54953125,
+ "exp_sc": 0.74595025,
+ "sim_seconds": 218.7,
+ "mode": "pre_weekend",
+ "identity": {
+  "year": 2026,
+  "round": 16,
+  "title": "Bahrain Grand Prix in Malaysia",
+  "circuit": "Sepang",
+  "circuit_name": "Sepang International Circuit",
+  "host_country": "Malaysia",
+  "listed_location": "Kuala Lumpur",
+  "listed_country": "Bahrain",
+  "length_km": 5.543,
+  "laps": 56,
+  "laps_source": "https://www.formula1.com/en/racing/2026/bahrain",
+  "race_start_utc": "2026-10-04T07:00:00Z",
+  "status": "override",
+  "sources": [
+   "https://www.formula1.com/en/racing/2026/bahrain",
+   "https://corp.formula1.com/formula-1-and-fia-confirm-that-malaysia-will-join-the-2026-calendar-as-host-venue-for-the-bahrain-grand-prix/"
+  ],
+  "registry_version": "2026-09-27.1",
+  "note": "Commercial title is the Bahrain Grand Prix; the race is held at Sepang, Malaysia. FastF1 lists location 'Kuala Lumpur' with country 'Bahrain'. The Sakhir substitution used before 2026-09-27 was wrong."
+ },
+ "assumptions": [
+  "base lap 97.9s = pooled median 17.65 s/km over 25 circuits x 5.543 km (not Sepang data)",
+  "no Sepang race in the dataset: pit loss, tyre wear, stops, safety-car rate and overtaking use pooled all-circuit priors; driver pace sd x1.25"
+ ],
+ "status": "provisional",
+ "provenance": {
+  "code": {
+   "git_rev": "27115b48cbd77fd400972c360615682706ae4959",
+   "branch": "v3-race-intelligence",
+   "dirty": false,
+   "dirty_diff_sha256": null
+  },
+  "data": {
+   "store_files": 1036,
+   "store_sha256": "27df5a856bce3179f3f9b981c50b850c2028ccf5fb93be9a4b408ea085b5ae21"
+  },
+  "model_meta_sha256": "be4e966b92711a9cc183363752a67c74d82ac6457323de15f0d3ae163d11e58a",
+  "sim_params": {
+   "pass_thr": 2.2399999999999998,
+   "pass_scale": 0.25,
+   "min_gap": 0.35,
+   "start_gap": 0.22,
+   "start_sd": 0.162,
+   "lap1_thr_mult": 1.5,
+   "pace_sd_mult": 0.46240000000000003,
+   "lap_sd_mult": 0.6,
+   "sc_gap": 0.9,
+   "sc_lap_factor": 1.35,
+   "vsc_lap_factor": 1.28,
+   "sc_pit_factor": 0.55,
+   "vsc_pit_factor": 0.65,
+   "sc_from_dnf": 0.35,
+   "opp_window": 0.8,
+   "extra_stop_p": 0.21,
+   "slow_stop_p": 0.04,
+   "slow_stop_mean": 4.0,
+   "lap1_dnf_mult": 6.0,
+   "pace_df": 4.0,
+   "rel_season_k": 0.0,
+   "grid_blend": 0.192
+  },
+  "sim_params_sha256": "cf5ac167cb4e924cfc51cdb52a6bb82b0166cb51d33b94e1a0f7774b61b31995",
+  "seed": {
+   "root": 2026,
+   "scheme": "SeedSequence(root).spawn(ceil(n/200000)); fixed 200,000-sim chunks"
+  }
+ },
+ "circuit": {
+  "location": "Sepang",
+  "n_races": 0,
+  "n_laps": 56,
+  "base_lap": 97.85282492547582,
+  "pit_loss": 22.719001510574017,
+  "fuel": -0.058087194721022174,
+  "lap_sd": 0.4193446525317988,
+  "sc_per_race": 0.8158844765342961,
+  "vsc_per_race": 0.26353790613718414,
+  "overtake_factor": 1.0,
+  "offset": {
+   "SOFT": -0.020962912725419048,
+   "MEDIUM": 0.0,
+   "HARD": 0.1047751895939421
+  },
+  "deg": {
+   "SOFT": 0.056309614806309055,
+   "MEDIUM": 0.059232076923591954,
+   "HARD": 0.04958235591583725
+  },
+  "stops_mu": 1.5644813794736394,
+  "stops_dist": {
+   "0": 0.0,
+   "1": 0.4376137690498393,
+   "2": 0.5234553097737397,
+   "3": 0.03893092117642104
+  },
+  "stint_frac": {
+   "1": [
+    0.4859989177264765,
+    0.5140010822735235
+   ],
+   "2": [
+    0.2850966688438662,
+    0.3426385409737018,
+    0.37226479018243197
+   ],
+   "3": [
+    0.23006726786457718,
+    0.27225598502363435,
+    0.2910258520928255,
+    0.20665089501896286
+   ]
+  },
+  "dnf_rate": 0.13417094115612935,
+  "lap1_dnf_share": 0.19594594594594594,
+  "lap1_gain_sd": 2.322994619020888,
+  "max_stint": {
+   "SOFT": 31,
+   "MEDIUM": 40,
+   "HARD": 50
+  },
+  "transitions": {
+   "SOFT": {
+    "HARD": 0.39341421143847505,
+    "MEDIUM": 0.48526863084921984,
+    "SOFT": 0.12131715771230504
+   },
+   "MEDIUM": {
+    "SOFT": 0.13118279569892438,
+    "HARD": 0.7913978494623661,
+    "MEDIUM": 0.07741935483870954
+   },
+   "HARD": {
+    "HARD": 0.3601609657947686,
+    "SOFT": 0.20523138832998006,
+    "MEDIUM": 0.4346076458752513
+   }
+  },
+  "red_share": 0.1592920353982301
+ },
+ "strategies": [
+  {
+   "seq": "S-H",
+   "lens": [
+    27,
+    29
+   ],
+   "delta": 0.0
+  },
+  {
+   "seq": "H-S",
+   "lens": [
+    27,
+    29
+   ],
+   "delta": 0.18
+  },
+  {
+   "seq": "M-S",
+   "lens": [
+    27,
+    29
+   ],
+   "delta": 1.0
+  },
+  {
+   "seq": "S-M",
+   "lens": [
+    27,
+    29
+   ],
+   "delta": 1.16
+  },
+  {
+   "seq": "M-H",
+   "lens": [
+    27,
+    29
+   ],
+   "delta": 1.67
+  },
+  {
+   "seq": "H-M",
+   "lens": [
+    27,
+    29
+   ],
+   "delta": 2.01
+  },
+  {
+   "seq": "M-S-S",
+   "lens": [
+    16,
+    19,
+    21
+   ],
+   "delta": 8.32
+  },
+  {
+   "seq": "S-M-S",
+   "lens": [
+    16,
+    19,
+    21
+   ],
+   "delta": 8.54
+  },
+  {
+   "seq": "S-S-H",
+   "lens": [
+    16,
+    19,
+    21
+   ],
+   "delta": 8.67
+  },
+  {
+   "seq": "H-S-S",
+   "lens": [
+    16,
+    19,
+    21
+   ],
+   "delta": 8.68
+  },
+  {
+   "seq": "S-H-S",
+   "lens": [
+    16,
+    19,
+    21
+   ],
+   "delta": 8.69
+  },
+  {
+   "seq": "S-S-M",
+   "lens": [
+    16,
+    19,
+    21
+   ],
+   "delta": 8.7
+  }
+ ],
+ "schema_version": 2,
+ "definitions": {
+  "position": "Order at the chequered flag over all starters; cars not running at the end are ordered behind every running car (by laps completed). The 90%-distance classification rule is not modelled.",
+  "win": "P(position 1). Equals P(finish first): a retired car is always behind running cars.",
+  "podium": "P(position <= 3).",
+  "points": "P(position <= 10).",
+  "dnf": "P(not running at the chequered flag), any cause (mechanical, incident). DNS and DSQ are not modelled separately.",
+  "exp_pos": "Mean position.",
+  "exp_pts": "Expected points from the position distribution (known issue: counts points for retired cars ordered inside the top 10; negligible except in mass-retirement races).",
+  "post_quali_blend": "Post-qualifying position probabilities are a stacked blend: (1-w) simulation + w empirical grid->finish prior (w = grid_blend, fitted on earlier races).",
+  "stop_count": "stop1/stop2/stop3p: P(exactly 1 / 2 / 3+ pit stops) over all simulated races incl. retirements (stops made before retiring count).",
+  "first_stop_window": "first_stop_p25/p50/p75: laps of the first stop, conditional on the car stopping.",
+  "strategy": "Most likely executed compound sequence within the modal stop count, among finishers.",
+  "grid": "post_quali: actual starting slot (penalties applied if the stored grid includes them). pre_weekend: expected slot from simulated qualifying (a model output, not a known grid)."
+ },
+ "information": "No session of this weekend is used. Grid is simulated.",
+ "warnings": []
+}

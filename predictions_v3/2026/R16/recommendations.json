@@ -1,0 +1,1065 @@
+{
+ "run": "2026-09-27T080611Z_pre_weekend",
+ "created_utc": "2026-09-27T08:06:11+00:00",
+ "mode": "pre_weekend",
+ "scope": "Static pre-race plan comparison under the model, common random numbers. Not a rolling-horizon policy; opponents do not react; values inherit all model assumptions.",
+ "status": "provisional",
+ "drivers": {
+  "ANT": {
+   "behaviour": {
+    "exp_pos": 4.772575,
+    "se_pos": 0.026571391038753972,
+    "podium": 0.5645,
+    "points": 0.9022999999999999,
+    "exp_pts": 14.53015,
+    "dnf": 0.08605
+   },
+   "plans": [
+    {
+     "plan": "M-H",
+     "lens": [
+      27,
+      29
+     ],
+     "p_behaviour": 0.26692246284259924,
+     "exp_pos": 3.8343249999999993,
+     "se_pos": 0.02645202109214672,
+     "podium": 0.746075,
+     "points": 0.912925,
+     "exp_pts": 17.40645,
+     "dnf": 0.084975
+    },
+    {
+     "plan": "M-H-M",
+     "lens": [
+      16,
+      19,
+      21
+     ],
+     "p_behaviour": 0.07137745712766483,
+     "exp_pos": 5.175924999999999,
+     "se_pos": 0.025129925086624812,
+     "podium": 0.445475,
+     "points": 0.912225,
+     "exp_pts": 12.79575,
+     "dnf": 0.08505
+    },
+    {
+     "plan": "S-M",
+     "lens": [
+      27,
+      29
+     ],
+     "p_behaviour": 0.06925605028726131,
+     "exp_pos": 4.4717,
+     "se_pos": 0.028142494163630915,
+     "podium": 0.676725,
+     "points": 0.8796749999999999,
+     "exp_pts": 16.16185,
+     "dnf": 0.084975
+    },
+    {
+     "plan": "M-H-H",
+     "lens": [
+      16,
+      19,
+      21
+     ],
+     "p_behaviour": 0.06243601240380552,
+     "exp_pos": 5.146025,
+     "se_pos": 0.025140282267396577,
+     "podium": 0.4505,
+     "points": 0.912675,
+     "exp_pts": 12.8785,
+     "dnf": 0.08505
+    },
+    {
+     "plan": "S-H",
+     "lens": [
+      27,
+      29
+     ],
+     "p_behaviour": 0.05885044249353731,
+     "exp_pos": 3.7820249999999995,
+     "se_pos": 0.026499180128531807,
+     "podium": 0.755475,
+     "points": 0.912975,
+     "exp_pts": 17.62595,
+     "dnf": 0.084975
+    }
+   ],
+   "best": "S-H",
+   "gain_pos": 0.9905500000000003,
+   "n_sims": 40000,
+   "scope": "Static pre-race plan comparison under the model, common random numbers. Not a rolling-horizon policy; opponents do not react; values inherit all model assumptions."
+  },
+  "RUS": {
+   "behaviour": {
+    "exp_pos": 5.154075,
+    "se_pos": 0.026149969356757858,
+    "podium": 0.48540000000000005,
+    "points": 0.9013500000000001,
+    "exp_pts": 13.309175,
+    "dnf": 0.085525
+   },
+   "plans": [
+    {
+     "plan": "M-H",
+     "lens": [
+      27,
+      29
+     ],
+     "p_behaviour": 0.26692246284259924,
+     "exp_pos": 4.094875,
+     "se_pos": 0.026047372100835336,
+     "podium": 0.69015,
+     "points": 0.9132250000000002,
+     "exp_pts": 16.3289,
+     "dnf": 0.08355
+    },
+    {
+     "plan": "M-H-M",
+     "lens": [
+      16,
+      19,
+      21
+     ],
+     "p_behaviour": 0.07137745712766483,
+     "exp_pos": 5.6400250000000005,
+     "se_pos": 0.024513513109800787,
+     "podium": 0.3496,
+     "points": 0.9111500000000001,
+     "exp_pts": 11.444525,
+     "dnf": 0.084125
+    },
+    {
+     "plan": "S-M",
+     "lens": [
+      27,
+      29
+     ],
+     "p_behaviour": 0.06925605028726131,
+     "exp_pos": 4.735799999999999,
+     "se_pos": 0.027774132911758023,
+     "podium": 0.62875,
+     "points": 0.8768750000000002,
+     "exp_pts": 15.14085,
+     "dnf": 0.08355
+    },
+    {
+     "plan": "M-H-H",
+     "lens": [
+      16,
+      19,
+      21
+     ],
+     "p_behaviour": 0.06243601240380552,
+     "exp_pos": 5.607675,
+     "se_pos": 0.02452881269771073,
+     "podium": 0.3542,
+     "points": 0.9116249999999999,
+     "exp_pts": 11.52825,
+     "dnf": 0.084125
+    },
+    {
+     "plan": "S-H",
+     "lens": [
+      27,
+      29
+     ],
+     "p_behaviour": 0.05885044249353731,
+     "exp_pos": 4.032325,
+     "se_pos": 0.026107388846059943,
+     "podium": 0.7035750000000001,
+     "points": 0.9133250000000002,
+     "exp_pts": 16.5709,
+     "dnf": 0.08355
+    }
+   ],
+   "best": "S-H",
+   "gain_pos": 1.1217499999999996,
+   "n_sims": 40000,
+   "scope": "Static pre-race plan comparison under the model, common random numbers. Not a rolling-horizon policy; opponents do not react; values inherit all model assumptions."
+  },
+  "LEC": {
+   "behaviour": {
+    "exp_pos": 5.816575,
+    "se_pos": 0.027306034254984284,
+    "podium": 0.39990000000000003,
+    "points": 0.883175,
+    "exp_pts": 11.90475,
+    "dnf": 0.1003
+   },
+   "plans": [
+    {
+     "plan": "M-H",
+     "lens": [
+      27,
+      29
+     ],
+     "p_behaviour": 0.26692246284259924,
+     "exp_pos": 4.75165,
+     "se_pos": 0.027701792486001697,
+     "podium": 0.6024499999999999,
+     "points": 0.895325,
+     "exp_pts": 14.758875,
+     "dnf": 0.099925
+    },
+    {
+     "plan": "M-H-M",
+     "lens": [
+      16,
+      19,
+      21
+     ],
+     "p_behaviour": 0.07137745712766483,
+     "exp_pos": 6.349575000000001,
+     "se_pos": 0.0256149723401056,
+     "podium": 0.25815,
+     "points": 0.8917999999999999,
+     "exp_pts": 10.07535,
+     "dnf": 0.100425
+    },
+    {
+     "plan": "S-M",
+     "lens": [
+      27,
+      29
+     ],
+     "p_behaviour": 0.06925605028726131,
+     "exp_pos": 5.3856,
+     "se_pos": 0.029170238531763842,
+     "podium": 0.54845,
+     "points": 0.8568,
+     "exp_pts": 13.673925,
+     "dnf": 0.099925
+    },
+    {
+     "plan": "M-H-H",
+     "lens": [
+      16,
+      19,
+      21
+     ],
+     "p_behaviour": 0.06243601240380552,
+     "exp_pos": 6.317099999999999,
+     "se_pos": 0.025630547004502263,
+     "podium": 0.263,
+     "points": 0.89295,
+     "exp_pts": 10.151475,
+     "dnf": 0.100425
+    },
+    {
+     "plan": "S-H",
+     "lens": [
+      27,
+      29
+     ],
+     "p_behaviour": 0.05885044249353731,
+     "exp_pos": 4.683,
+     "se_pos": 0.027792067663273995,
+     "podium": 0.61695,
+     "points": 0.8953999999999999,
+     "exp_pts": 15.008725,
+     "dnf": 0.099925
+    }
+   ],
+   "best": "S-H",
+   "gain_pos": 1.1335750000000004,
+   "n_sims": 40000,
+   "scope": "Static pre-race plan comparison under the model, common random numbers. Not a rolling-horizon policy; opponents do not react; values inherit all model assumptions."
+  },
+  "NOR": {
+   "behaviour": {
+    "exp_pos": 6.0265249999999995,
+    "se_pos": 0.027620722032730697,
+    "podium": 0.377625,
+    "points": 0.876875,
+    "exp_pts": 11.485925,
+    "dnf": 0.10625
+   },
+   "plans": [
+    {
+     "plan": "M-H",
+     "lens": [
+      27,
+      29
+     ],
+     "p_behaviour": 0.26692246284259924,
+     "exp_pos": 5.002224999999999,
+     "se_pos": 0.028319723713948464,
+     "podium": 0.56935,
+     "points": 0.88785,
+     "exp_pts": 14.2217,
+     "dnf": 0.10785
+    },
+    {
+     "plan": "M-H-M",
+     "lens": [
+      16,
+      19,
+      21
+     ],
+     "p_behaviour": 0.07137745712766483,
+     "exp_pos": 6.6312750000000005,
+     "se_pos": 0.026061114171488813,
+     "podium": 0.22999999999999998,
+     "points": 0.88395,
+     "exp_pts": 9.58805,
+     "dnf": 0.10825
+    },
+    {
+     "plan": "S-M",
+     "lens": [
+      27,
+      29
+     ],
+     "p_behaviour": 0.06925605028726131,
+     "exp_pos": 5.627075,
+     "se_pos": 0.02970841713402744,
+     "podium": 0.522175,
+     "points": 0.847925,
+     "exp_pts": 13.185125,
+     "dnf": 0.10785
+    },
+    {
+     "plan": "M-H-H",
+     "lens": [
+      16,
+      19,
+      21
+     ],
+     "p_behaviour": 0.06243601240380552,
+     "exp_pos": 6.604175,
+     "se_pos": 0.02608553122392517,
+     "podium": 0.23435,
+     "points": 0.8847499999999999,
+     "exp_pts": 9.651675,
+     "dnf": 0.10825
+    },
+    {
+     "plan": "S-H",
+     "lens": [
+      27,
+      29
+     ],
+     "p_behaviour": 0.05885044249353731,
+     "exp_pos": 4.925775,
+     "se_pos": 0.028421169772449108,
+     "podium": 0.587575,
+     "points": 0.8879499999999999,
+     "exp_pts": 14.488075,
+     "dnf": 0.10785
+    }
+   ],
+   "best": "S-H",
+   "gain_pos": 1.1007499999999997,
+   "n_sims": 40000,
+   "scope": "Static pre-race plan comparison under the model, common random numbers. Not a rolling-horizon policy; opponents do not react; values inherit all model assumptions."
+  },
+  "HAM": {
+   "behaviour": {
+    "exp_pos": 6.187575,
+    "se_pos": 0.027223032812021056,
+    "podium": 0.34214999999999995,
+    "points": 0.876675,
+    "exp_pts": 10.9846,
+    "dnf": 0.104925
+   },
+   "plans": [
+    {
+     "plan": "M-H",
+     "lens": [
+      27,
+      29
+     ],
+     "p_behaviour": 0.26692246284259924,
+     "exp_pos": 5.0291,
+     "se_pos": 0.027620261217989956,
+     "podium": 0.545775,
+     "points": 0.892925,
+     "exp_pts": 13.92295,
+     "dnf": 0.10205
+    },
+    {
+     "plan": "M-H-M",
+     "lens": [
+      16,
+      19,
+      21
+     ],
+     "p_behaviour": 0.07137745712766483,
+     "exp_pos": 6.757125,
+     "se_pos": 0.025361726446742047,
+     "podium": 0.200625,
+     "points": 0.886725,
+     "exp_pts": 9.16325,
+     "dnf": 0.1038
+    },
+    {
+     "plan": "S-M",
+     "lens": [
+      27,
+      29
+     ],
+     "p_behaviour": 0.06925605028726131,
+     "exp_pos": 5.6456,
+     "se_pos": 0.029074559601135835,
+     "podium": 0.501025,
+     "points": 0.852025,
+     "exp_pts": 12.9229,
+     "dnf": 0.10205
+    },
+    {
+     "plan": "M-H-H",
+     "lens": [
+      16,
+      19,
+      21
+     ],
+     "p_behaviour": 0.06243601240380552,
+     "exp_pos": 6.7227,
+     "se_pos": 0.025388557811541795,
+     "podium": 0.20487499999999997,
+     "points": 0.8878999999999999,
+     "exp_pts": 9.24125,
+     "dnf": 0.1038
+    },
+    {
+     "plan": "S-H",
+     "lens": [
+      27,
+      29
+     ],
+     "p_behaviour": 0.05885044249353731,
+     "exp_pos": 4.94895,
+     "se_pos": 0.027726248347684907,
+     "podium": 0.5650250000000001,
+     "points": 0.89305,
+     "exp_pts": 14.19465,
+     "dnf": 0.10205
+    }
+   ],
+   "best": "S-H",
+   "gain_pos": 1.2386249999999999,
+   "n_sims": 40000,
+   "scope": "Static pre-race plan comparison under the model, common random numbers. Not a rolling-horizon policy; opponents do not react; values inherit all model assumptions."
+  },
+  "VER": {
+   "behaviour": {
+    "exp_pos": 6.583474999999999,
+    "se_pos": 0.0298148167545832,
+    "podium": 0.3465,
+    "points": 0.846925,
+    "exp_pts": 10.8427,
+    "dnf": 0.1343
+   },
+   "plans": [
+    {
+     "plan": "M-H",
+     "lens": [
+      27,
+      29
+     ],
+     "p_behaviour": 0.25414627320702093,
+     "exp_pos": 5.528825,
+     "se_pos": 0.03084919736369773,
+     "podium": 0.539875,
+     "points": 0.85985,
+     "exp_pts": 13.624375,
+     "dnf": 0.135925
+    },
+    {
+     "plan": "M-H-M",
+     "lens": [
+      16,
+      19,
+      21
+     ],
+     "p_behaviour": 0.06796098959527076,
+     "exp_pos": 7.090325,
+     "se_pos": 0.027984400294795937,
+     "podium": 0.211625,
+     "points": 0.858175,
+     "exp_pts": 9.14755,
+     "dnf": 0.133425
+    },
+    {
+     "plan": "S-M",
+     "lens": [
+      27,
+      29
+     ],
+     "p_behaviour": 0.0604373308157888,
+     "exp_pos": 6.11295,
+     "se_pos": 0.03182467293527932,
+     "podium": 0.49572499999999997,
+     "points": 0.8210749999999999,
+     "exp_pts": 12.66125,
+     "dnf": 0.135925
+    },
+    {
+     "plan": "M-H-H",
+     "lens": [
+      16,
+      19,
+      21
+     ],
+     "p_behaviour": 0.05944752531259085,
+     "exp_pos": 7.0555,
+     "se_pos": 0.028017726420071987,
+     "podium": 0.21639999999999998,
+     "points": 0.85945,
+     "exp_pts": 9.225825,
+     "dnf": 0.133425
+    },
+    {
+     "plan": "S-H",
+     "lens": [
+      27,
+      29
+     ],
+     "p_behaviour": 0.05135672113677679,
+     "exp_pos": 5.452800000000001,
+     "se_pos": 0.03097203261008228,
+     "podium": 0.5576,
+     "points": 0.859925,
+     "exp_pts": 13.8807,
+     "dnf": 0.135925
+    }
+   ],
+   "best": "S-H",
+   "gain_pos": 1.1306749999999983,
+   "n_sims": 40000,
+   "scope": "Static pre-race plan comparison under the model, common random numbers. Not a rolling-horizon policy; opponents do not react; values inherit all model assumptions."
+  },
+  "PIA": {
+   "behaviour": {
+    "exp_pos": 6.629675,
+    "se_pos": 0.026820950017838203,
+    "podium": 0.283725,
+    "points": 0.86615,
+    "exp_pts": 9.941325,
+    "dnf": 0.102375
+   },
+   "plans": [
+    {
+     "plan": "M-H",
+     "lens": [
+      27,
+      29
+     ],
+     "p_behaviour": 0.26692246284259924,
+     "exp_pos": 5.530175,
+     "se_pos": 0.027620865966409797,
+     "podium": 0.452575,
+     "points": 0.8854250000000001,
+     "exp_pts": 12.626775,
+     "dnf": 0.10485
+    },
+    {
+     "plan": "M-H-M",
+     "lens": [
+      16,
+      19,
+      21
+     ],
+     "p_behaviour": 0.07137745712766483,
+     "exp_pos": 7.254474999999999,
+     "se_pos": 0.0249710920237657,
+     "podium": 0.153975,
+     "points": 0.8730749999999999,
+     "exp_pts": 8.13415,
+     "dnf": 0.103375
+    },
+    {
+     "plan": "S-M",
+     "lens": [
+      27,
+      29
+     ],
+     "p_behaviour": 0.06925605028726131,
+     "exp_pos": 6.155225,
+     "se_pos": 0.02900395671256553,
+     "podium": 0.4141,
+     "points": 0.8394,
+     "exp_pts": 11.672225,
+     "dnf": 0.10485
+    },
+    {
+     "plan": "M-H-H",
+     "lens": [
+      16,
+      19,
+      21
+     ],
+     "p_behaviour": 0.06243601240380552,
+     "exp_pos": 7.223999999999998,
+     "se_pos": 0.024986108140324693,
+     "podium": 0.15635,
+     "points": 0.874925,
+     "exp_pts": 8.197,
+     "dnf": 0.103375
+    },
+    {
+     "plan": "S-H",
+     "lens": [
+      27,
+      29
+     ],
+     "p_behaviour": 0.05885044249353731,
+     "exp_pos": 5.443125,
+     "se_pos": 0.027737594179369177,
+     "podium": 0.47175,
+     "points": 0.8857,
+     "exp_pts": 12.889625,
+     "dnf": 0.10485
+    }
+   ],
+   "best": "S-H",
+   "gain_pos": 1.1865499999999995,
+   "n_sims": 40000,
+   "scope": "Static pre-race plan comparison under the model, common random numbers. Not a rolling-horizon policy; opponents do not react; values inherit all model assumptions."
+  },
+  "HAD": {
+   "behaviour": {
+    "exp_pos": 7.8218000000000005,
+    "se_pos": 0.027972618200661877,
+    "podium": 0.17762499999999998,
+    "points": 0.8199000000000001,
+    "exp_pts": 7.88605,
+    "dnf": 0.13205
+   },
+   "plans": [
+    {
+     "plan": "M-H",
+     "lens": [
+      27,
+      29
+     ],
+     "p_behaviour": 0.25414627320702093,
+     "exp_pos": 6.725775000000001,
+     "se_pos": 0.029216658625420788,
+     "podium": 0.30300000000000005,
+     "points": 0.8511000000000001,
+     "exp_pts": 10.282575,
+     "dnf": 0.13595
+    },
+    {
+     "plan": "M-H-M",
+     "lens": [
+      16,
+      19,
+      21
+     ],
+     "p_behaviour": 0.06796098959527076,
+     "exp_pos": 8.386325,
+     "se_pos": 0.025916731079736403,
+     "podium": 0.08395,
+     "points": 0.8261000000000001,
+     "exp_pts": 6.36895,
+     "dnf": 0.132025
+    },
+    {
+     "plan": "S-M",
+     "lens": [
+      27,
+      29
+     ],
+     "p_behaviour": 0.0604373308157888,
+     "exp_pos": 7.312999999999999,
+     "se_pos": 0.030178026360250926,
+     "podium": 0.27937500000000004,
+     "points": 0.8013250000000001,
+     "exp_pts": 9.490725,
+     "dnf": 0.13595
+    },
+    {
+     "plan": "M-H-H",
+     "lens": [
+      16,
+      19,
+      21
+     ],
+     "p_behaviour": 0.05944752531259085,
+     "exp_pos": 8.356425,
+     "se_pos": 0.025954689470004743,
+     "podium": 0.08595,
+     "points": 0.8283250000000001,
+     "exp_pts": 6.4264,
+     "dnf": 0.132025
+    },
+    {
+     "plan": "S-H",
+     "lens": [
+      27,
+      29
+     ],
+     "p_behaviour": 0.05135672113677679,
+     "exp_pos": 6.629425,
+     "se_pos": 0.02938539142557701,
+     "podium": 0.3224,
+     "points": 0.85145,
+     "exp_pts": 10.541025,
+     "dnf": 0.13595
+    }
+   ],
+   "best": "S-H",
+   "gain_pos": 1.1923750000000002,
+   "n_sims": 40000,
+   "scope": "Static pre-race plan comparison under the model, common random numbers. Not a rolling-horizon policy; opponents do not react; values inherit all model assumptions."
+  },
+  "GAS": {
+   "behaviour": {
+    "exp_pos": 10.872250000000001,
+    "se_pos": 0.020668653764517417,
+    "podium": 0.0058000000000000005,
+    "points": 0.572675,
+    "exp_pts": 2.2324,
+    "dnf": 0.1052
+   },
+   "plans": [
+    {
+     "plan": "M-H",
+     "lens": [
+      27,
+      29
+     ],
+     "p_behaviour": 0.25414627320702093,
+     "exp_pos": 9.745374999999997,
+     "se_pos": 0.020820387309903123,
+     "podium": 0.009625000000000002,
+     "points": 0.754675,
+     "exp_pts": 3.350875,
+     "dnf": 0.1022
+    },
+    {
+     "plan": "M-H-M",
+     "lens": [
+      16,
+      19,
+      21
+     ],
+     "p_behaviour": 0.06796098959527076,
+     "exp_pos": 11.455575,
+     "se_pos": 0.018832901010847346,
+     "podium": 0.00175,
+     "points": 0.46827499999999994,
+     "exp_pts": 1.429,
+     "dnf": 0.105275
+    },
+    {
+     "plan": "S-M",
+     "lens": [
+      27,
+      29
+     ],
+     "p_behaviour": 0.0604373308157888,
+     "exp_pos": 10.283125000000002,
+     "se_pos": 0.0219274743383586,
+     "podium": 0.0087,
+     "points": 0.6869999999999999,
+     "exp_pts": 3.038,
+     "dnf": 0.1022
+    },
+    {
+     "plan": "M-H-H",
+     "lens": [
+      16,
+      19,
+      21
+     ],
+     "p_behaviour": 0.05944752531259085,
+     "exp_pos": 11.422625,
+     "se_pos": 0.018883235361938776,
+     "podium": 0.001775,
+     "points": 0.47455,
+     "exp_pts": 1.459175,
+     "dnf": 0.105275
+    },
+    {
+     "plan": "S-H",
+     "lens": [
+      27,
+      29
+     ],
+     "p_behaviour": 0.05135672113677679,
+     "exp_pos": 9.645949999999997,
+     "se_pos": 0.020969620047523514,
+     "podium": 0.01105,
+     "points": 0.76555,
+     "exp_pts": 3.50365,
+     "dnf": 0.1022
+    }
+   ],
+   "best": "S-H",
+   "gain_pos": 1.2263000000000037,
+   "n_sims": 40000,
+   "scope": "Static pre-race plan comparison under the model, common random numbers. Not a rolling-horizon policy; opponents do not react; values inherit all model assumptions."
+  },
+  "LIN": {
+   "behaviour": {
+    "exp_pos": 10.96505,
+    "se_pos": 0.018714585553452685,
+    "podium": 0.003075,
+    "points": 0.5328250000000001,
+    "exp_pts": 1.89415,
+    "dnf": 0.077275
+   },
+   "plans": [
+    {
+     "plan": "M-H",
+     "lens": [
+      27,
+      29
+     ],
+     "p_behaviour": 0.25414627320702093,
+     "exp_pos": 9.785150000000003,
+     "se_pos": 0.018800258959320214,
+     "podium": 0.00715,
+     "points": 0.735225,
+     "exp_pts": 2.979725,
+     "dnf": 0.078225
+    },
+    {
+     "plan": "M-H-M",
+     "lens": [
+      16,
+      19,
+      21
+     ],
+     "p_behaviour": 0.06796098959527076,
+     "exp_pos": 11.584950000000001,
+     "se_pos": 0.01712566312402238,
+     "podium": 0.001075,
+     "points": 0.409275,
+     "exp_pts": 1.1791,
+     "dnf": 0.078625
+    },
+    {
+     "plan": "S-M",
+     "lens": [
+      27,
+      29
+     ],
+     "p_behaviour": 0.0604373308157888,
+     "exp_pos": 10.325675000000004,
+     "se_pos": 0.02006465224865298,
+     "podium": 0.006025,
+     "points": 0.669375,
+     "exp_pts": 2.681275,
+     "dnf": 0.078225
+    },
+    {
+     "plan": "M-H-H",
+     "lens": [
+      16,
+      19,
+      21
+     ],
+     "p_behaviour": 0.05944752531259085,
+     "exp_pos": 11.550924999999998,
+     "se_pos": 0.0171841545066778,
+     "podium": 0.0012000000000000001,
+     "points": 0.413325,
+     "exp_pts": 1.209425,
+     "dnf": 0.078625
+    },
+    {
+     "plan": "S-H",
+     "lens": [
+      27,
+      29
+     ],
+     "p_behaviour": 0.05135672113677679,
+     "exp_pos": 9.68165,
+     "se_pos": 0.018922607693906777,
+     "podium": 0.008025000000000001,
+     "points": 0.7492,
+     "exp_pts": 3.1245,
+     "dnf": 0.078225
+    }
+   ],
+   "best": "S-H",
+   "gain_pos": 1.2834000000000003,
+   "n_sims": 40000,
+   "scope": "Static pre-race plan comparison under the model, common random numbers. Not a rolling-horizon policy; opponents do not react; values inherit all model assumptions."
+  },
+  "LAW": {
+   "behaviour": {
+    "exp_pos": 10.96695,
+    "se_pos": 0.018739935763964082,
+    "podium": 0.0040999999999999995,
+    "points": 0.53265,
+    "exp_pts": 1.899525,
+    "dnf": 0.077075
+   },
+   "plans": [
+    {
+     "plan": "M-H",
+     "lens": [
+      27,
+      29
+     ],
+     "p_behaviour": 0.25414627320702093,
+     "exp_pos": 9.81905,
+     "se_pos": 0.018799273322059554,
+     "podium": 0.006699999999999999,
+     "points": 0.729525,
+     "exp_pts": 2.936625,
+     "dnf": 0.0786
+    },
+    {
+     "plan": "M-H-M",
+     "lens": [
+      16,
+      19,
+      21
+     ],
+     "p_behaviour": 0.06796098959527076,
+     "exp_pos": 11.578475000000003,
+     "se_pos": 0.017080355437149867,
+     "podium": 0.001425,
+     "points": 0.40969999999999995,
+     "exp_pts": 1.1752,
+     "dnf": 0.0786
+    },
+    {
+     "plan": "S-M",
+     "lens": [
+      27,
+      29
+     ],
+     "p_behaviour": 0.0604373308157888,
+     "exp_pos": 10.362825,
+     "se_pos": 0.0201048085164812,
+     "podium": 0.006200000000000001,
+     "points": 0.66205,
+     "exp_pts": 2.650175,
+     "dnf": 0.0786
+    },
+    {
+     "plan": "M-H-H",
+     "lens": [
+      16,
+      19,
+      21
+     ],
+     "p_behaviour": 0.05944752531259085,
+     "exp_pos": 11.5442,
+     "se_pos": 0.017130635102062038,
+     "podium": 0.00155,
+     "points": 0.415275,
+     "exp_pts": 1.204125,
+     "dnf": 0.0786
+    },
+    {
+     "plan": "S-H",
+     "lens": [
+      27,
+      29
+     ],
+     "p_behaviour": 0.05135672113677679,
+     "exp_pos": 9.710599999999998,
+     "se_pos": 0.01892356179475735,
+     "podium": 0.0078000000000000005,
+     "points": 0.7443249999999999,
+     "exp_pts": 3.086975,
+     "dnf": 0.0786
+    }
+   ],
+   "best": "S-H",
+   "gain_pos": 1.256350000000003,
+   "n_sims": 40000,
+   "scope": "Static pre-race plan comparison under the model, common random numbers. Not a rolling-horizon policy; opponents do not react; values inherit all model assumptions."
+  },
+  "COL": {
+   "behaviour": {
+    "exp_pos": 11.68555,
+    "se_pos": 0.019433522067229606,
+    "podium": 0.0020499999999999997,
+    "points": 0.4417,
+    "exp_pts": 1.431925,
+    "dnf": 0.104275
+   },
+   "plans": [
+    {
+     "plan": "M-H",
+     "lens": [
+      27,
+      29
+     ],
+     "p_behaviour": 0.25414627320702093,
+     "exp_pos": 10.585974999999998,
+     "se_pos": 0.019938253621728633,
+     "podium": 0.004425,
+     "points": 0.635575,
+     "exp_pts": 2.269225,
+     "dnf": 0.105825
+    },
+    {
+     "plan": "M-H-M",
+     "lens": [
+      16,
+      19,
+      21
+     ],
+     "p_behaviour": 0.06796098959527076,
+     "exp_pos": 12.3017,
+     "se_pos": 0.017594407570304834,
+     "podium": 0.000875,
+     "points": 0.311825,
+     "exp_pts": 0.82145,
+     "dnf": 0.10395
+    },
+    {
+     "plan": "S-M",
+     "lens": [
+      27,
+      29
+     ],
+     "p_behaviour": 0.0604373308157888,
+     "exp_pos": 11.096499999999997,
+     "se_pos": 0.020901188811883402,
+     "podium": 0.0036,
+     "points": 0.5786749999999999,
+     "exp_pts": 2.055275,
+     "dnf": 0.105825
+    },
+    {
+     "plan": "M-H-H",
+     "lens": [
+      16,
+      19,
+      21
+     ],
+     "p_behaviour": 0.05944752531259085,
+     "exp_pos": 12.269899999999996,
+     "se_pos": 0.017655915432228372,
+     "podium": 0.0009,
+     "points": 0.31675,
+     "exp_pts": 0.84515,
+     "dnf": 0.10395
+    },
+    {
+     "plan": "S-H",
+     "lens": [
+      27,
+      29
+     ],
+     "p_behaviour": 0.05135672113677679,
+     "exp_pos": 10.48425,
+     "se_pos": 0.020093221454945947,
+     "podium": 0.004925,
+     "points": 0.6534500000000001,
+     "exp_pts": 2.39615,
+     "dnf": 0.105825
+    }
+   ],
+   "best": "S-H",
+   "gain_pos": 1.2012999999999998,
+   "n_sims": 40000,
+   "scope": "Static pre-race plan comparison under the model, common random numbers. Not a rolling-horizon policy; opponents do not react; values inherit all model assumptions."
+  }
+ }
+}

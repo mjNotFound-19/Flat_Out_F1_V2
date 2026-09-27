@@ -1,0 +1,8 @@
+{
+ "note": "Copied unchanged from the event folder: issued before the forecast contract (schema v1-like meta; analysis v7 data, sim params tuned in-sample on 2026 R03-R15, which is legitimate for forecasting). Superseded as current by a later run; never superseded as invalid.",
+ "sha256": {
+  "summary.csv": "a3206569a7a9c910e33fa9f66e2658b68929bd9058b7e765d1c136f38c1e5a54",
+  "distribution.csv": "82ec1af44e4c2d563c48d2fd87e8bd7ecb0e527a97a4dc40cbd6061a22debccd",
+  "meta.json": "5562096f6ce99a2d85b2baebeecb934a2a4bbcd818c18ab1b2b22d6cac16682d"
+ }
+}

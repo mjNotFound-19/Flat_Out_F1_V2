@@ -1,0 +1,965 @@
+{
+  "label": "pre_upgrade_sakhir_forecast",
+  "created_utc": "20260927T043243Z",
+  "code": {
+    "git_rev": "6dfa4798e965b52164e58d3385a75589b0ec3a12",
+    "branch": "v3-race-intelligence",
+    "dirty": true,
+    "dirty_diff_sha256": "73a0b7c0b19f36f099ecf6dc45676b05d5fc1642c47f8e5e4d76f1488b7cf0d1"
+  },
+  "data": {
+    "store_files": 1036,
+    "store_sha256": "27df5a856bce3179f3f9b981c50b850c2028ccf5fb93be9a4b408ea085b5ae21"
+  },
+  "n_files": 158,
+  "files": [
+    {
+      "path": "data/derived/dataset.parquet",
+      "git_status": "M",
+      "bytes": 148219,
+      "sha256": "2bbed965fa743bbf3dab7f127074c8b6c767bf28ebffb5d6b05451d1df55908f"
+    },
+    {
+      "path": "data/derived/history.parquet",
+      "git_status": "M",
+      "bytes": 79928,
+      "sha256": "5ba66790dab883941f74db017bdde54e99679ef0b24b2431e8e49bff0ad158e8"
+    },
+    {
+      "path": "data/fix_run_log.txt",
+      "git_status": "M",
+      "bytes": 5699,
+      "sha256": "802f89c0c69c5a37a27511cb77abc36129894fe61fcce35f32dc51ea9d04ce6d"
+    },
+    {
+      "path": "models/pace_models.pkl",
+      "git_status": "M",
+      "bytes": 646740,
+      "sha256": "39bb228d7fe56b0cd37820aa4d279bf44cd414a655b4bad0f68e9d6af44decc9"
+    },
+    {
+      "path": "models/pace_models_meta.json",
+      "git_status": "M",
+      "bytes": 553,
+      "sha256": "be4e966b92711a9cc183363752a67c74d82ac6457323de15f0d3ae163d11e58a"
+    },
+    {
+      "path": "predictions_v3/2026/R03/backtest_pre_weekend_distribution.csv",
+      "git_status": "M",
+      "bytes": 5122,
+      "sha256": "0322c2eed6dcb24659b02858f8db790cb12a1a01a57889efe04d9d0123d448f9"
+    },
+    {
+      "path": "predictions_v3/2026/R03/backtest_pre_weekend_driver_errors.csv",
+      "git_status": "M",
+      "bytes": 2005,
+      "sha256": "492b59ca23e591be9dfc28ab9b951161e6efb613c4fdd6b57013f5b0837e9cb0"
+    },
+    {
+      "path": "predictions_v3/2026/R03/backtest_pre_weekend_evaluation.json",
+      "git_status": "M",
+      "bytes": 1480,
+      "sha256": "c10a67742e668d8e2c5897b65ca35c72fa49a5ac898306ac75a02c21a7a10653"
+    },
+    {
+      "path": "predictions_v3/2026/R03/backtest_pre_weekend_summary.csv",
+      "git_status": "M",
+      "bytes": 5834,
+      "sha256": "2373a18de7449c26c28840dbe4f9102822aa68c9805e513e78fd7565ae894e04"
+    },
+    {
+      "path": "predictions_v3/2026/R04/backtest_pre_weekend_distribution.csv",
+      "git_status": "M",
+      "bytes": 5086,
+      "sha256": "e5a5732d5932e89085db86001210b33164c79a176de51846c5e98c658c8771c7"
+    },
+    {
+      "path": "predictions_v3/2026/R04/backtest_pre_weekend_driver_errors.csv",
+      "git_status": "M",
+      "bytes": 1912,
+      "sha256": "ff586f86221c63393cd6f7355955d292bfec7a9f70dcf98b59ed8fc78bcb8d29"
+    },
+    {
+      "path": "predictions_v3/2026/R04/backtest_pre_weekend_evaluation.json",
+      "git_status": "M",
+      "bytes": 1529,
+      "sha256": "86ae45f135bd7c312e82fa760fa75f61d0f626d74807da244f08613a9aa14741"
+    },
+    {
+      "path": "predictions_v3/2026/R04/backtest_pre_weekend_summary.csv",
+      "git_status": "M",
+      "bytes": 5992,
+      "sha256": "87984f74c90d1c7c69d4d4c854adee6dfb460864e0d6065904f05bdac444208b"
+    },
+    {
+      "path": "predictions_v3/2026/R05/backtest_pre_weekend_distribution.csv",
+      "git_status": "M",
+      "bytes": 5124,
+      "sha256": "957a85a2c00ba06038407ff6347e2c308db0fda61d960fbe616745b879187df7"
+    },
+    {
+      "path": "predictions_v3/2026/R05/backtest_pre_weekend_driver_errors.csv",
+      "git_status": "M",
+      "bytes": 1937,
+      "sha256": "41ddeae645a5a3f6a892eaeb061a2a3da052bd4d2569a581321b2eadca89744c"
+    },
+    {
+      "path": "predictions_v3/2026/R05/backtest_pre_weekend_evaluation.json",
+      "git_status": "M",
+      "bytes": 1493,
+      "sha256": "878bb49a9704ea1749849f820f6e7815a70ed32350a178db1eccc9a914af0822"
+    },
+    {
+      "path": "predictions_v3/2026/R05/backtest_pre_weekend_summary.csv",
+      "git_status": "M",
+      "bytes": 6002,
+      "sha256": "965b45d4a4f38ec7381afbcfb109e7791c1720833e8da1c04a563a85b9261644"
+    },
+    {
+      "path": "predictions_v3/2026/R06/backtest_pre_weekend_distribution.csv",
+      "git_status": "M",
+      "bytes": 5178,
+      "sha256": "b20387aefa6bc970e65a40f16e57538a0c7c5ca4d5f48e6e4f5938a75899aaba"
+    },
+    {
+      "path": "predictions_v3/2026/R06/backtest_pre_weekend_driver_errors.csv",
+      "git_status": "M",
+      "bytes": 1980,
+      "sha256": "8ea1e4411489202a74632fff27d652895516b815fe840edbb35b63bca6e5ae76"
+    },
+    {
+      "path": "predictions_v3/2026/R06/backtest_pre_weekend_evaluation.json",
+      "git_status": "M",
+      "bytes": 1479,
+      "sha256": "7982469a43e5c7ad01178f98e039118c32e93fe14c766c2fae7ee1baf17b961f"
+    },
+    {
+      "path": "predictions_v3/2026/R06/backtest_pre_weekend_summary.csv",
+      "git_status": "M",
+      "bytes": 5989,
+      "sha256": "d3ba2e27887a0f397836d27b1b732f552bf41e7ba4f418ff11efbae3455be662"
+    },
+    {
+      "path": "predictions_v3/2026/R07/backtest_pre_weekend_distribution.csv",
+      "git_status": "M",
+      "bytes": 5090,
+      "sha256": "314da4f516bb431e2cf4ec66ca11094cd2682027d110802fcf823e420f33cef5"
+    },
+    {
+      "path": "predictions_v3/2026/R07/backtest_pre_weekend_driver_errors.csv",
+      "git_status": "M",
+      "bytes": 1949,
+      "sha256": "054990f126e022a098dbf8fd3ae58f4b4f1b293017b69c2523dcafc84acdcb59"
+    },
+    {
+      "path": "predictions_v3/2026/R07/backtest_pre_weekend_evaluation.json",
+      "git_status": "M",
+      "bytes": 1516,
+      "sha256": "c2048e1f64cd51abaafd1fdaf14947eb8eb3eb30f41ff8ba96f62037c53873c9"
+    },
+    {
+      "path": "predictions_v3/2026/R07/backtest_pre_weekend_summary.csv",
+      "git_status": "M",
+      "bytes": 6062,
+      "sha256": "c778c64f221cf12820dab3e1e7ce6683c2ff748b90a2dafbf1586a64b7fdc450"
+    },
+    {
+      "path": "predictions_v3/2026/R08/backtest_pre_weekend_distribution.csv",
+      "git_status": "M",
+      "bytes": 5128,
+      "sha256": "45e0e8efac832b73792f07ef9dbd7456303121fcfcd58e57a726711b6ac5db05"
+    },
+    {
+      "path": "predictions_v3/2026/R08/backtest_pre_weekend_driver_errors.csv",
+      "git_status": "M",
+      "bytes": 1973,
+      "sha256": "c4eed5fe35a364c36980bb6f56f128a2bf6cce570041522050f59682c5e03e35"
+    },
+    {
+      "path": "predictions_v3/2026/R08/backtest_pre_weekend_evaluation.json",
+      "git_status": "M",
+      "bytes": 1536,
+      "sha256": "ceaeeb80e9d09386be44c1d4a6442d9682108ab22d45c41e74d61a2fb763df6f"
+    },
+    {
+      "path": "predictions_v3/2026/R08/backtest_pre_weekend_summary.csv",
+      "git_status": "M",
+      "bytes": 6078,
+      "sha256": "2892132af07b064828d509152e8c877b3aba804f0ff302f273b5591e814447e4"
+    },
+    {
+      "path": "predictions_v3/2026/R09/backtest_pre_weekend_distribution.csv",
+      "git_status": "M",
+      "bytes": 5063,
+      "sha256": "d49eb6fbd9bbf7c9ccd68fe76bf8e26234165c9a6bbb754e8802dcae505ec6a2"
+    },
+    {
+      "path": "predictions_v3/2026/R09/backtest_pre_weekend_driver_errors.csv",
+      "git_status": "M",
+      "bytes": 1906,
+      "sha256": "456e341c25f62ca4a12b486432d0bbdf23e8bfdf7b13edbdb220beef7b80b725"
+    },
+    {
+      "path": "predictions_v3/2026/R09/backtest_pre_weekend_evaluation.json",
+      "git_status": "M",
+      "bytes": 1481,
+      "sha256": "821130a4e391778def0cb1a4dd4f05eebaa60050b6780d54bd4c70dbd7206058"
+    },
+    {
+      "path": "predictions_v3/2026/R09/backtest_pre_weekend_summary.csv",
+      "git_status": "M",
+      "bytes": 5992,
+      "sha256": "a52746c831fef2f315f149fd418d7a41325d10e9e6cab22c0b5519187a27661a"
+    },
+    {
+      "path": "predictions_v3/2026/R10/backtest_pre_weekend_distribution.csv",
+      "git_status": "M",
+      "bytes": 5023,
+      "sha256": "77fceef606236ebfb181807c6fe3dbdaf0370b8bf1adf12d372d299f96fb55e8"
+    },
+    {
+      "path": "predictions_v3/2026/R10/backtest_pre_weekend_driver_errors.csv",
+      "git_status": "M",
+      "bytes": 1955,
+      "sha256": "c7c279b8f6d68fe25c401fdf325c726fbb690f340a8d1280fee64d225f54f4cb"
+    },
+    {
+      "path": "predictions_v3/2026/R10/backtest_pre_weekend_evaluation.json",
+      "git_status": "M",
+      "bytes": 1522,
+      "sha256": "8679f6b7c6a59edc62fccc1e4f06614feedf7c98f776bf70b49001f1ad2883d9"
+    },
+    {
+      "path": "predictions_v3/2026/R10/backtest_pre_weekend_summary.csv",
+      "git_status": "M",
+      "bytes": 5976,
+      "sha256": "229fdaabaeae7da578de4c03be5235e9c3df4801f0e63f5774441a14e655ce2e"
+    },
+    {
+      "path": "predictions_v3/2026/R11/backtest_pre_weekend_distribution.csv",
+      "git_status": "M",
+      "bytes": 5095,
+      "sha256": "4a3d85f15b6abdd0a358a6d8355aae57287e7f346419d517f286095714dea96b"
+    },
+    {
+      "path": "predictions_v3/2026/R11/backtest_pre_weekend_driver_errors.csv",
+      "git_status": "M",
+      "bytes": 1899,
+      "sha256": "b1009c2ee2d4a455d748d2f6dbc0fa4c4bd57e8fd3d9e38b7367b228eec238e3"
+    },
+    {
+      "path": "predictions_v3/2026/R11/backtest_pre_weekend_evaluation.json",
+      "git_status": "M",
+      "bytes": 1523,
+      "sha256": "bb4af904de5a18c5bb118443408521abd6a10087283db43119435c5a11f8e381"
+    },
+    {
+      "path": "predictions_v3/2026/R11/backtest_pre_weekend_summary.csv",
+      "git_status": "M",
+      "bytes": 6146,
+      "sha256": "c1970073cbbfe4bc392d748e33c66f60a115ae0922a7c68aefbc75682f0bba87"
+    },
+    {
+      "path": "predictions_v3/2026/R12/backtest_pre_weekend_distribution.csv",
+      "git_status": "M",
+      "bytes": 5094,
+      "sha256": "2a65bf4144a16df9e26f8648c93c194c98a83aa650da4e0bd633dc84ba4736ff"
+    },
+    {
+      "path": "predictions_v3/2026/R12/backtest_pre_weekend_driver_errors.csv",
+      "git_status": "M",
+      "bytes": 1900,
+      "sha256": "585277e4c94e647e9c3f00debf3e9f44a264935f18edfcc288f71df6347abd2b"
+    },
+    {
+      "path": "predictions_v3/2026/R12/backtest_pre_weekend_evaluation.json",
+      "git_status": "M",
+      "bytes": 1549,
+      "sha256": "dbc65a2fd77feb2c776e28a8b600a5de7439ee0bdee9c13e97c38ab6b0140f34"
+    },
+    {
+      "path": "predictions_v3/2026/R12/backtest_pre_weekend_summary.csv",
+      "git_status": "M",
+      "bytes": 5975,
+      "sha256": "46705e65478ac2ebdc12fa2b5b36222b1068b909f81460c778a6df08a9d6e751"
+    },
+    {
+      "path": "predictions_v3/2026/R13/backtest_pre_weekend_distribution.csv",
+      "git_status": "M",
+      "bytes": 5072,
+      "sha256": "b21f6d9c4a6358ec9bc747b673a17cc6e1d0e5d8e184099798d70454b3e0e952"
+    },
+    {
+      "path": "predictions_v3/2026/R13/backtest_pre_weekend_driver_errors.csv",
+      "git_status": "M",
+      "bytes": 1998,
+      "sha256": "58f86c6e99fd0645b3cc9a21a676e1ebc13c601bbfe6a31ea1e090a97722760d"
+    },
+    {
+      "path": "predictions_v3/2026/R13/backtest_pre_weekend_evaluation.json",
+      "git_status": "M",
+      "bytes": 1520,
+      "sha256": "20529bdb74932195acee93062cf4fd30f83521bbba1ee16c386fc1739c965d2a"
+    },
+    {
+      "path": "predictions_v3/2026/R13/backtest_pre_weekend_summary.csv",
+      "git_status": "M",
+      "bytes": 5915,
+      "sha256": "f0677601ff2cf5c230a8b08a51a0435e288b1385a48c8b0b4a9578d9d79cccc5"
+    },
+    {
+      "path": "predictions_v3/2026/R14/backtest_pre_weekend_distribution.csv",
+      "git_status": "M",
+      "bytes": 5059,
+      "sha256": "cc098ddfd9559aab30bd7e23115fd55a991f3552bff12f40f00f64dfb7f904a6"
+    },
+    {
+      "path": "predictions_v3/2026/R14/backtest_pre_weekend_driver_errors.csv",
+      "git_status": "M",
+      "bytes": 1991,
+      "sha256": "be040e8f4ab903605977f0ed4c0f00321d5b4c3876a0d4849829ed9386e34cc6"
+    },
+    {
+      "path": "predictions_v3/2026/R14/backtest_pre_weekend_evaluation.json",
+      "git_status": "M",
+      "bytes": 1513,
+      "sha256": "c40f2852d156ad5edfbd08579c60cb5b0f38e38c820aaa48927f38316fb94a28"
+    },
+    {
+      "path": "predictions_v3/2026/R14/backtest_pre_weekend_summary.csv",
+      "git_status": "M",
+      "bytes": 6062,
+      "sha256": "4d414e6d9eabd053c26de3afdc530a6c6f8705fe7da0ebbc6e4c9c7a1e6f55b0"
+    },
+    {
+      "path": "predictions_v3/2026/R15/backtest_pre_weekend_distribution.csv",
+      "git_status": "M",
+      "bytes": 5059,
+      "sha256": "bfc756384a019504350613abf678a47f9057e3d577fbb16156a1bfd3fb9c42d8"
+    },
+    {
+      "path": "predictions_v3/2026/R15/backtest_pre_weekend_driver_errors.csv",
+      "git_status": "M",
+      "bytes": 1960,
+      "sha256": "a3220f26dd4531ab110af6d6a3d385f0af4e6f110c01376122b0e466199aa6e9"
+    },
+    {
+      "path": "predictions_v3/2026/R15/backtest_pre_weekend_evaluation.json",
+      "git_status": "M",
+      "bytes": 1485,
+      "sha256": "726bd4f921e57c4601fa69bc16415c6709518e9f5324d59158c2c60604c25a3f"
+    },
+    {
+      "path": "predictions_v3/2026/R15/backtest_pre_weekend_summary.csv",
+      "git_status": "M",
+      "bytes": 5871,
+      "sha256": "a807d571be14194e1ae8373271e84f75673119270a2a19921a5c3c00139399de"
+    },
+    {
+      "path": "predictions_v3/2026/R16/pre_race_distribution.csv",
+      "git_status": "M",
+      "bytes": 5084,
+      "sha256": "37abff57305cdaa82383f40daaa54f5b1e48891a12bbfba54793593e77f7a342"
+    },
+    {
+      "path": "predictions_v3/2026/R16/pre_race_meta.json",
+      "git_status": "M",
+      "bytes": 3115,
+      "sha256": "c5776c86be0e98b227e2f4f33caa4cbdaa286aa432aa2b6fb4323438a7478678"
+    },
+    {
+      "path": "predictions_v3/2026/R16/pre_race_summary.csv",
+      "git_status": "M",
+      "bytes": 5974,
+      "sha256": "b7456a78ff900de2476f4199b0d49713020dc13b1dc12d115ff3f24387bbe608"
+    },
+    {
+      "path": "predictions_v3/backtest_2026_pre_weekend.csv",
+      "git_status": "M",
+      "bytes": 9024,
+      "sha256": "dc55e0567dbeacd0d8185c76ba924f54c23bd48b1db69afd94d780927d7a90e1"
+    },
+    {
+      "path": "predictions_v3/backtest_2026_pre_weekend_driver_errors.csv",
+      "git_status": "M",
+      "bytes": 26838,
+      "sha256": "1b485ca013f6e9827559db6a248eb5ca89eea55583812391ec42792064f78f66"
+    },
+    {
+      "path": "predictions_v3/driver_ratings_all.csv",
+      "git_status": "M",
+      "bytes": 9300,
+      "sha256": "89d8169b77434b52dd2ae1c90c73cbda9c822c643093b81a3e7edcd09ea7e200"
+    },
+    {
+      "path": "web/data/v3/site.json",
+      "git_status": "M",
+      "bytes": 570859,
+      "sha256": "61eca0ee29d1daea3955d0c405f283323b89efab86abfb94368b52a564722685"
+    },
+    {
+      "path": "web/data/v3_distribution.csv",
+      "git_status": "M",
+      "bytes": 5084,
+      "sha256": "37abff57305cdaa82383f40daaa54f5b1e48891a12bbfba54793593e77f7a342"
+    },
+    {
+      "path": "web/data/v3_prediction.csv",
+      "git_status": "M",
+      "bytes": 5974,
+      "sha256": "b7456a78ff900de2476f4199b0d49713020dc13b1dc12d115ff3f24387bbe608"
+    },
+    {
+      "path": "predictions_v3/2025/R03/backtest_post_quali_distribution.csv",
+      "git_status": "??",
+      "bytes": 8371,
+      "sha256": "c25b084a6688803d0209278d3df5ca9e1731138b72fa9980e2b51b56e92e5aa0"
+    },
+    {
+      "path": "predictions_v3/2025/R03/backtest_post_quali_driver_errors.csv",
+      "git_status": "??",
+      "bytes": 1899,
+      "sha256": "f683330a319483b3f7822c418588b03c7b44b6001f316b3c1135329e4e9e3d0a"
+    },
+    {
+      "path": "predictions_v3/2025/R03/backtest_post_quali_evaluation.json",
+      "git_status": "??",
+      "bytes": 1464,
+      "sha256": "5566fe248b6e44a0a1d160b54ea2f3c64c2dafe47d5af466b3f9781a9b856154"
+    },
+    {
+      "path": "predictions_v3/2025/R03/backtest_post_quali_summary.csv",
+      "git_status": "??",
+      "bytes": 5914,
+      "sha256": "ee348631551e5570ced3595e4de996952f4700c990bb57285dd10967fa34c625"
+    },
+    {
+      "path": "predictions_v3/2025/R04/backtest_post_quali_distribution.csv",
+      "git_status": "??",
+      "bytes": 8349,
+      "sha256": "07c7a8aaca0a2bdf4a0725e91c2762d1f09ab65a056941fab8e4122be92536f3"
+    },
+    {
+      "path": "predictions_v3/2025/R04/backtest_post_quali_driver_errors.csv",
+      "git_status": "??",
+      "bytes": 1891,
+      "sha256": "684876f8bd3489fb4e0f8583c2173e4474ef9596816570160eff0ce5cc465f64"
+    },
+    {
+      "path": "predictions_v3/2025/R04/backtest_post_quali_evaluation.json",
+      "git_status": "??",
+      "bytes": 1522,
+      "sha256": "fca55ccd6a4950a517d685830e03e8b9093b702cc2cb50d852913e7e885049d3"
+    },
+    {
+      "path": "predictions_v3/2025/R04/backtest_post_quali_summary.csv",
+      "git_status": "??",
+      "bytes": 5902,
+      "sha256": "73e77c6b4996ee6701deab9138e87807a4a0d66a8ab7bcf1d4f5f3dbdbab3f69"
+    },
+    {
+      "path": "predictions_v3/2025/R05/backtest_post_quali_distribution.csv",
+      "git_status": "??",
+      "bytes": 8378,
+      "sha256": "6fe22e892a0d6fabc0562d075446bf20c04695b405d0d90c28807fbfc7fc012d"
+    },
+    {
+      "path": "predictions_v3/2025/R05/backtest_post_quali_driver_errors.csv",
+      "git_status": "??",
+      "bytes": 1910,
+      "sha256": "dfa65ad5b5a762b3aca385ac4a09b59f415da7489076afa0f326c389bea87377"
+    },
+    {
+      "path": "predictions_v3/2025/R05/backtest_post_quali_evaluation.json",
+      "git_status": "??",
+      "bytes": 1522,
+      "sha256": "aad6a88537f0e075284898996775283b639b7f6060caea61ebd569423209b8f6"
+    },
+    {
+      "path": "predictions_v3/2025/R05/backtest_post_quali_summary.csv",
+      "git_status": "??",
+      "bytes": 5824,
+      "sha256": "fefb0499cb1d8c3849b9ce09308b3e2f305850610eb6c71d1b4e268732911bb7"
+    },
+    {
+      "path": "predictions_v3/2025/R06/backtest_post_quali_distribution.csv",
+      "git_status": "??",
+      "bytes": 8386,
+      "sha256": "23337c12a76f87a272a45181e86816d54eeca9faf2eb45e245cfe464aca352ab"
+    },
+    {
+      "path": "predictions_v3/2025/R06/backtest_post_quali_driver_errors.csv",
+      "git_status": "??",
+      "bytes": 1895,
+      "sha256": "cbd0d0521ad4b66b0d5a1f13de0daf7341ee15f3de724a6aafad7e7c01bfeb16"
+    },
+    {
+      "path": "predictions_v3/2025/R06/backtest_post_quali_evaluation.json",
+      "git_status": "??",
+      "bytes": 1483,
+      "sha256": "22006fcd94ed0e731eaa6d22b6f4d6337e18d32b6821a5e6f2eb3f7f380795c0"
+    },
+    {
+      "path": "predictions_v3/2025/R06/backtest_post_quali_summary.csv",
+      "git_status": "??",
+      "bytes": 5876,
+      "sha256": "1090490eb33c788d0a5837537853520429811a4b10aa0a7f2f10b57aa114d72d"
+    },
+    {
+      "path": "predictions_v3/2025/R07/backtest_post_quali_distribution.csv",
+      "git_status": "??",
+      "bytes": 8349,
+      "sha256": "e3a3b19c0f0b69891832ebef316d07e269defac1bafe6927deb7399a7556c05d"
+    },
+    {
+      "path": "predictions_v3/2025/R07/backtest_post_quali_driver_errors.csv",
+      "git_status": "??",
+      "bytes": 1902,
+      "sha256": "6512cd5a968b4d599253a9311290c0947f5629e6a6e77e0db9f93710349d54f8"
+    },
+    {
+      "path": "predictions_v3/2025/R07/backtest_post_quali_evaluation.json",
+      "git_status": "??",
+      "bytes": 1485,
+      "sha256": "9ca2dd0d91a64254a8e80f83fa64144aedb7941ffb274b14f4db2f644cf13196"
+    },
+    {
+      "path": "predictions_v3/2025/R07/backtest_post_quali_summary.csv",
+      "git_status": "??",
+      "bytes": 5844,
+      "sha256": "84476eb148263ce89d06870d55046c66b3b68a3944985d2d2913ea6b68f3bc43"
+    },
+    {
+      "path": "predictions_v3/2025/R08/backtest_post_quali_distribution.csv",
+      "git_status": "??",
+      "bytes": 8326,
+      "sha256": "5509c92110806898158f0964bd9e6581921225bc4a9d727eef70fa8c67cef6d4"
+    },
+    {
+      "path": "predictions_v3/2025/R08/backtest_post_quali_driver_errors.csv",
+      "git_status": "??",
+      "bytes": 1909,
+      "sha256": "fa884602c3cda4dd47889f3dcd289cd7faa4bf37f1bc90b00240af35ad96f71e"
+    },
+    {
+      "path": "predictions_v3/2025/R08/backtest_post_quali_evaluation.json",
+      "git_status": "??",
+      "bytes": 1527,
+      "sha256": "a074962aa0be1e7dcfb2aadd072d572771b22381d740cdb73b00a4917af74133"
+    },
+    {
+      "path": "predictions_v3/2025/R08/backtest_post_quali_summary.csv",
+      "git_status": "??",
+      "bytes": 5881,
+      "sha256": "598c3d4891608ad200818751d642fbc06eda8dfb90f0547332a75dd484d412d5"
+    },
+    {
+      "path": "predictions_v3/2025/R09/backtest_post_quali_distribution.csv",
+      "git_status": "??",
+      "bytes": 7586,
+      "sha256": "e0d22c108417632b61b953e54aedae39c9fc64dfc38d2060c094fb63e287136b"
+    },
+    {
+      "path": "predictions_v3/2025/R09/backtest_post_quali_driver_errors.csv",
+      "git_status": "??",
+      "bytes": 1802,
+      "sha256": "bf2ff63b0a16fe244729d3253a7f2e72db3787abcb4560dbce4c8145fb033c5d"
+    },
+    {
+      "path": "predictions_v3/2025/R09/backtest_post_quali_evaluation.json",
+      "git_status": "??",
+      "bytes": 1526,
+      "sha256": "845e7375fa7d4da672c7859845267e8b3cbb391bab9360c7a5ea9cdf345d6b18"
+    },
+    {
+      "path": "predictions_v3/2025/R09/backtest_post_quali_summary.csv",
+      "git_status": "??",
+      "bytes": 5593,
+      "sha256": "44294061480052a01b4945bef32898777bf976527b98fa80fb999e8d5e95a114"
+    },
+    {
+      "path": "predictions_v3/2025/R10/backtest_post_quali_distribution.csv",
+      "git_status": "??",
+      "bytes": 8367,
+      "sha256": "3f35e141a54c18ce881d33b55fd9d4f98025befefba5e48b8e9fee599be440ab"
+    },
+    {
+      "path": "predictions_v3/2025/R10/backtest_post_quali_driver_errors.csv",
+      "git_status": "??",
+      "bytes": 1902,
+      "sha256": "fc5abcf0b2cddfbfa7648a89ef36074a983c6ae82645c0b56361eed64a98f230"
+    },
+    {
+      "path": "predictions_v3/2025/R10/backtest_post_quali_evaluation.json",
+      "git_status": "??",
+      "bytes": 1504,
+      "sha256": "637b6f0d55c29b181a4cf48161430959c6d608960e8a09998a66f62586d4d3db"
+    },
+    {
+      "path": "predictions_v3/2025/R10/backtest_post_quali_summary.csv",
+      "git_status": "??",
+      "bytes": 5851,
+      "sha256": "3bd9936a44a1678abecb2c92ddef7ba24e1d0a02056d68a2e10d6dde5dfdf3e8"
+    },
+    {
+      "path": "predictions_v3/2025/R11/backtest_post_quali_distribution.csv",
+      "git_status": "??",
+      "bytes": 8373,
+      "sha256": "e34e4978cf84d4de4994cdf214e38d2b4e125214bbbee9a4bc750dbd06adebe7"
+    },
+    {
+      "path": "predictions_v3/2025/R11/backtest_post_quali_driver_errors.csv",
+      "git_status": "??",
+      "bytes": 1893,
+      "sha256": "27b4b96439e885f1d34d953b3667e1dc9260674d716934058f75081dbe2083ea"
+    },
+    {
+      "path": "predictions_v3/2025/R11/backtest_post_quali_evaluation.json",
+      "git_status": "??",
+      "bytes": 1477,
+      "sha256": "f494ebfe0e5c84329b8b80f233a5a83f31f3e5565ce4858fd6824a701763666b"
+    },
+    {
+      "path": "predictions_v3/2025/R11/backtest_post_quali_summary.csv",
+      "git_status": "??",
+      "bytes": 5861,
+      "sha256": "d008f7c7f92418cb96da8e5209236e9570c82cebe715545cc33de107e8d7e4a8"
+    },
+    {
+      "path": "predictions_v3/2025/R12/backtest_post_quali_distribution.csv",
+      "git_status": "??",
+      "bytes": 8391,
+      "sha256": "dc34eeabfd161ae833467740bc849be701f42f70a7a850b2aeadf3702494cd5c"
+    },
+    {
+      "path": "predictions_v3/2025/R12/backtest_post_quali_driver_errors.csv",
+      "git_status": "??",
+      "bytes": 1895,
+      "sha256": "2a242a098c3969187f2701d484cd8a00f77ca022c7b86f98c8161d89af234dca"
+    },
+    {
+      "path": "predictions_v3/2025/R12/backtest_post_quali_evaluation.json",
+      "git_status": "??",
+      "bytes": 1528,
+      "sha256": "80a45f5314a32b6e69a9011649b3351311b9f7fad9f2cb22d38d9708456ce8ae"
+    },
+    {
+      "path": "predictions_v3/2025/R12/backtest_post_quali_summary.csv",
+      "git_status": "??",
+      "bytes": 5883,
+      "sha256": "534c5f6eb974d7279bdf6d900d942b2e680d79f59b072a486f48fab63827ac73"
+    },
+    {
+      "path": "predictions_v3/2025/R13/backtest_post_quali_distribution.csv",
+      "git_status": "??",
+      "bytes": 8361,
+      "sha256": "a2b0428e01a891956f85c633836b728191c142336fc32951aa165100330609f4"
+    },
+    {
+      "path": "predictions_v3/2025/R13/backtest_post_quali_driver_errors.csv",
+      "git_status": "??",
+      "bytes": 1900,
+      "sha256": "42ed0f6288b58ffc6acfb466316b088d7751d727dab65cef7f902c5b37a7147f"
+    },
+    {
+      "path": "predictions_v3/2025/R13/backtest_post_quali_evaluation.json",
+      "git_status": "??",
+      "bytes": 1464,
+      "sha256": "59266d18522fb99fcf4ce05a43d0b4d4c7ddabd8beb896d3ad9f1cd667b1554f"
+    },
+    {
+      "path": "predictions_v3/2025/R13/backtest_post_quali_summary.csv",
+      "git_status": "??",
+      "bytes": 5871,
+      "sha256": "7c8c07f6d9fe4970af6de00e1d4dfd66ced2cc0f8556b487d71f386cedcdd927"
+    },
+    {
+      "path": "predictions_v3/2025/R14/backtest_post_quali_distribution.csv",
+      "git_status": "??",
+      "bytes": 8357,
+      "sha256": "099d55dbbcd186e3830db2da2c3b4d64d71514d0585d54d3345168de45ca9627"
+    },
+    {
+      "path": "predictions_v3/2025/R14/backtest_post_quali_driver_errors.csv",
+      "git_status": "??",
+      "bytes": 1907,
+      "sha256": "22a752e5fedc4066efbb5e9d9bf17e924993271cae0bd36fd4ba345f28bd6e8c"
+    },
+    {
+      "path": "predictions_v3/2025/R14/backtest_post_quali_evaluation.json",
+      "git_status": "??",
+      "bytes": 1528,
+      "sha256": "d49b281b0c3003504f435399b772cf8fa4e8e3e6b6a475a78d1343e9bf7602e8"
+    },
+    {
+      "path": "predictions_v3/2025/R14/backtest_post_quali_summary.csv",
+      "git_status": "??",
+      "bytes": 5832,
+      "sha256": "5976bd0b9624de442ded0cbbd71d91dc6b0c2dd2bb47bf10a283bcd4cf4e7704"
+    },
+    {
+      "path": "predictions_v3/2025/R15/backtest_post_quali_distribution.csv",
+      "git_status": "??",
+      "bytes": 8369,
+      "sha256": "f385d068da53fac5791b23f3835dedd1f5cd856a4e92aaea8a6ef19ded2fbb1f"
+    },
+    {
+      "path": "predictions_v3/2025/R15/backtest_post_quali_driver_errors.csv",
+      "git_status": "??",
+      "bytes": 1901,
+      "sha256": "e31696a4fbbda1c82ec78178d05e5c0c8b30ad8d479cc8ddbfb7a730d3598434"
+    },
+    {
+      "path": "predictions_v3/2025/R15/backtest_post_quali_evaluation.json",
+      "git_status": "??",
+      "bytes": 1527,
+      "sha256": "28507909dbeeada4bdf173a2e7edfd11a1f8809a259b6dfb0d2283ff10c78fec"
+    },
+    {
+      "path": "predictions_v3/2025/R15/backtest_post_quali_summary.csv",
+      "git_status": "??",
+      "bytes": 5879,
+      "sha256": "4009d532eff132aa9663527ba69b6f7927ee7b739052fb53fd0ffc81a9df681d"
+    },
+    {
+      "path": "predictions_v3/2025/R16/backtest_post_quali_distribution.csv",
+      "git_status": "??",
+      "bytes": 8377,
+      "sha256": "e8a4b6d56bf788a882bcd554b4e7bd917e33b02c1db1cee2aab09fdf791c791f"
+    },
+    {
+      "path": "predictions_v3/2025/R16/backtest_post_quali_driver_errors.csv",
+      "git_status": "??",
+      "bytes": 1913,
+      "sha256": "81d6e8a0adf99663bd947e0510575dc9e73e763b72b7a38386454e58d49d4bdd"
+    },
+    {
+      "path": "predictions_v3/2025/R16/backtest_post_quali_evaluation.json",
+      "git_status": "??",
+      "bytes": 1489,
+      "sha256": "debbed1e7f12233e87c64ea34a5be2555515b948e53aaf190c0e73af1f397124"
+    },
+    {
+      "path": "predictions_v3/2025/R16/backtest_post_quali_summary.csv",
+      "git_status": "??",
+      "bytes": 5887,
+      "sha256": "7f614d43bb7d3335d5ccd4be4f93342faf69310b3e72dd46d77bd0f1c7fee9a0"
+    },
+    {
+      "path": "predictions_v3/2025/R17/backtest_post_quali_distribution.csv",
+      "git_status": "??",
+      "bytes": 8362,
+      "sha256": "8ff0576c490ea7d7125c6384fad34b0d404b8e5f8fae2b247cafc00fb092a5cf"
+    },
+    {
+      "path": "predictions_v3/2025/R17/backtest_post_quali_driver_errors.csv",
+      "git_status": "??",
+      "bytes": 1899,
+      "sha256": "e39cc97e3750467b21fefe1aefe4a99b8f295b1b971e975a281099e574dba266"
+    },
+    {
+      "path": "predictions_v3/2025/R17/backtest_post_quali_evaluation.json",
+      "git_status": "??",
+      "bytes": 1537,
+      "sha256": "93f0804fb458002f7492d5037bb29351a515074f674bdd1bc9984ee0ae605e91"
+    },
+    {
+      "path": "predictions_v3/2025/R17/backtest_post_quali_summary.csv",
+      "git_status": "??",
+      "bytes": 5825,
+      "sha256": "8bc90bee4cd831ffa22d773dd290bbc315378f59acc40305506256bdadbde1a4"
+    },
+    {
+      "path": "predictions_v3/2025/R18/backtest_post_quali_distribution.csv",
+      "git_status": "??",
+      "bytes": 8382,
+      "sha256": "54e7a4ce6827d52ec4206b9230dce93b87d4db640d332880c9fa1124262ddb25"
+    },
+    {
+      "path": "predictions_v3/2025/R18/backtest_post_quali_driver_errors.csv",
+      "git_status": "??",
+      "bytes": 1895,
+      "sha256": "8c33c4687f13846fc04272d319063ebf9bfad945a9396859bd266a297d285686"
+    },
+    {
+      "path": "predictions_v3/2025/R18/backtest_post_quali_evaluation.json",
+      "git_status": "??",
+      "bytes": 1477,
+      "sha256": "d7c94af052654390dab4bf7f4d4219847fa59e08fec427ec14be86dc20c841a6"
+    },
+    {
+      "path": "predictions_v3/2025/R18/backtest_post_quali_summary.csv",
+      "git_status": "??",
+      "bytes": 5806,
+      "sha256": "86240a95d8f01bf5fc639dc58e1d0669cca2045ebedf7a3a2fcba8c0d69f32de"
+    },
+    {
+      "path": "predictions_v3/2025/R19/backtest_post_quali_distribution.csv",
+      "git_status": "??",
+      "bytes": 8373,
+      "sha256": "2202f0d0a7d0c7ad6e79cdd30e8804b2dd3fbed013deb47a70b61503f48f3362"
+    },
+    {
+      "path": "predictions_v3/2025/R19/backtest_post_quali_driver_errors.csv",
+      "git_status": "??",
+      "bytes": 1901,
+      "sha256": "ae7484bd0108b4d9581b5b4e26fd0e26128341cf12e3ac0a977457cf01a49678"
+    },
+    {
+      "path": "predictions_v3/2025/R19/backtest_post_quali_evaluation.json",
+      "git_status": "??",
+      "bytes": 1473,
+      "sha256": "a7f94f01bb373d92f4d7c246c246898e243f7fb04f70c5ef980ce9b7913ba39a"
+    },
+    {
+      "path": "predictions_v3/2025/R19/backtest_post_quali_summary.csv",
+      "git_status": "??",
+      "bytes": 5798,
+      "sha256": "3b1b6742610d045970665bf7737b147ad7cb229aaa08454b4b72fd8ce8dac809"
+    },
+    {
+      "path": "predictions_v3/2025/R20/backtest_post_quali_distribution.csv",
+      "git_status": "??",
+      "bytes": 8355,
+      "sha256": "cc6032500cdf3b04670c11d24673837bb480ebd0dccade5e5f62aa5e9f8c9c8a"
+    },
+    {
+      "path": "predictions_v3/2025/R20/backtest_post_quali_driver_errors.csv",
+      "git_status": "??",
+      "bytes": 1897,
+      "sha256": "f03d8366ed4a2b907012f3ef45a5a8b9b358587b9bdd2030bd17be6c3c6bdd5c"
+    },
+    {
+      "path": "predictions_v3/2025/R20/backtest_post_quali_evaluation.json",
+      "git_status": "??",
+      "bytes": 1508,
+      "sha256": "d3dcd840bb2bf2d79d41e7debf5c186f787b945194e2029023483bb549559d38"
+    },
+    {
+      "path": "predictions_v3/2025/R20/backtest_post_quali_summary.csv",
+      "git_status": "??",
+      "bytes": 5828,
+      "sha256": "fff165a509308b39a2f277fee10f42d9c552c2dd64bf20f1bc5308c6313a95ec"
+    },
+    {
+      "path": "predictions_v3/2025/R21/backtest_post_quali_distribution.csv",
+      "git_status": "??",
+      "bytes": 8316,
+      "sha256": "04b8b8fa3ec0374cb2ecaf554c42130017353010d033546b60a0f0549811c871"
+    },
+    {
+      "path": "predictions_v3/2025/R21/backtest_post_quali_driver_errors.csv",
+      "git_status": "??",
+      "bytes": 1891,
+      "sha256": "60d5559126f9438bdc6ae2e7d54d248fa280c08572c9ca6b2b28443dba955141"
+    },
+    {
+      "path": "predictions_v3/2025/R21/backtest_post_quali_evaluation.json",
+      "git_status": "??",
+      "bytes": 1531,
+      "sha256": "4d6b799c00873a53bff658a751fbe0603223cc11b1e0a2810a5bb8d433c1dc0c"
+    },
+    {
+      "path": "predictions_v3/2025/R21/backtest_post_quali_summary.csv",
+      "git_status": "??",
+      "bytes": 5824,
+      "sha256": "9d44a6cb8694c6b21b1b33aef6a5698cee9a323a69c093b88612d335cb38e85e"
+    },
+    {
+      "path": "predictions_v3/2025/R22/backtest_post_quali_distribution.csv",
+      "git_status": "??",
+      "bytes": 8341,
+      "sha256": "b67e778342a0db72e933645539f699da11677f0c015563c0bc77521d800f250d"
+    },
+    {
+      "path": "predictions_v3/2025/R22/backtest_post_quali_driver_errors.csv",
+      "git_status": "??",
+      "bytes": 1889,
+      "sha256": "4cd9cd1f6e143a55259b9e57f2c8582b97aecd43e590007e26a4df93c8676a8d"
+    },
+    {
+      "path": "predictions_v3/2025/R22/backtest_post_quali_evaluation.json",
+      "git_status": "??",
+      "bytes": 1518,
+      "sha256": "4d11b3713479817670de430712879607f235b6c4b120f50e84ffa64d44b63173"
+    },
+    {
+      "path": "predictions_v3/2025/R22/backtest_post_quali_summary.csv",
+      "git_status": "??",
+      "bytes": 5863,
+      "sha256": "5a8cf2d3edcaf27c912a5e9f1e2d2fca05acc10bbee036bf3139602ad054933c"
+    },
+    {
+      "path": "predictions_v3/2025/R23/backtest_post_quali_distribution.csv",
+      "git_status": "??",
+      "bytes": 8344,
+      "sha256": "34467d4e14824c62e38060672dc8b7b6d7b43241a3274c969f088cc56e01740a"
+    },
+    {
+      "path": "predictions_v3/2025/R23/backtest_post_quali_driver_errors.csv",
+      "git_status": "??",
+      "bytes": 1903,
+      "sha256": "d1b7a6cd9119c82eeb48a02d8e775c44a0e0919933089118dc2496d31f4f006d"
+    },
+    {
+      "path": "predictions_v3/2025/R23/backtest_post_quali_evaluation.json",
+      "git_status": "??",
+      "bytes": 1503,
+      "sha256": "90bc89fb7eae00058ec1dd227f377917d291381b6b9d21e842e88e7f22f84dfb"
+    },
+    {
+      "path": "predictions_v3/2025/R23/backtest_post_quali_summary.csv",
+      "git_status": "??",
+      "bytes": 5850,
+      "sha256": "3c67e7b2b685c945cc1b4f78148ba7863d920bc5f6b07f1d8ef7b37a5097f9af"
+    },
+    {
+      "path": "predictions_v3/2025/R24/backtest_post_quali_distribution.csv",
+      "git_status": "??",
+      "bytes": 8355,
+      "sha256": "f5c55e93ad6ca78d93271b290f4586d012a4cf2fdbc0d233250ef9a379a6d1aa"
+    },
+    {
+      "path": "predictions_v3/2025/R24/backtest_post_quali_driver_errors.csv",
+      "git_status": "??",
+      "bytes": 1899,
+      "sha256": "3bdb00ee64af6735c91128eda249e9aabf8f94af81b7cb0e041a1ba59987936b"
+    },
+    {
+      "path": "predictions_v3/2025/R24/backtest_post_quali_evaluation.json",
+      "git_status": "??",
+      "bytes": 1459,
+      "sha256": "2217b26e4ffe512822a4a0d7f201820bde2e8c4281dc9ab80c04d0ed0da5c93f"
+    },
+    {
+      "path": "predictions_v3/2025/R24/backtest_post_quali_summary.csv",
+      "git_status": "??",
+      "bytes": 5820,
+      "sha256": "ee60f53110cdae68f72b5e945b5dd7237250c4287a75945e20644a61321514a3"
+    },
+    {
+      "path": "predictions_v3/2026/R16/snapshots/20260926_221827_pre_race_distribution.csv",
+      "git_status": "??",
+      "bytes": 5084,
+      "sha256": "37abff57305cdaa82383f40daaa54f5b1e48891a12bbfba54793593e77f7a342"
+    },
+    {
+      "path": "predictions_v3/2026/R16/snapshots/20260926_221827_pre_race_summary.csv",
+      "git_status": "??",
+      "bytes": 5974,
+      "sha256": "b7456a78ff900de2476f4199b0d49713020dc13b1dc12d115ff3f24387bbe608"
+    },
+    {
+      "path": "predictions_v3/backtest_2025_post_quali.csv",
+      "git_status": "??",
+      "bytes": 14657,
+      "sha256": "06aae37fef0dd7d33fb8a88b8cf59a8f965f5bbe12335ff1ad22f050658b143c"
+    },
+    {
+      "path": "predictions_v3/backtest_2025_post_quali_driver_errors.csv",
+      "git_status": "??",
+      "bytes": 43901,
+      "sha256": "3b13baa8ec19136bd1c3072c0185e00b33da7173d997018621443a1e85ff2e0d"
+    }
+  ]
+}

@@ -1,0 +1,602 @@
+{
+ "n_sims": 200000,
+ "seed": 31,
+ "scenarios": [
+  {
+   "key": "base",
+   "label": "As forecast",
+   "change": {},
+   "drivers": [
+    {
+     "Driver": "ANT",
+     "win": 0.24261,
+     "podium": 0.560375,
+     "exp_pos": 4.76658,
+     "dnf": 0.08491,
+     "stops": 1.60953
+    },
+    {
+     "Driver": "RUS",
+     "win": 0.181265,
+     "podium": 0.4846250000000001,
+     "exp_pos": 5.17436,
+     "dnf": 0.085805,
+     "stops": 1.60783
+    },
+    {
+     "Driver": "LEC",
+     "win": 0.129965,
+     "podium": 0.40252,
+     "exp_pos": 5.836920000000001,
+     "dnf": 0.103075,
+     "stops": 1.59267
+    },
+    {
+     "Driver": "NOR",
+     "win": 0.1159,
+     "podium": 0.376495,
+     "exp_pos": 6.00723,
+     "dnf": 0.104685,
+     "stops": 1.59234
+    },
+    {
+     "Driver": "VER",
+     "win": 0.10392,
+     "podium": 0.347255,
+     "exp_pos": 6.585515,
+     "dnf": 0.134045,
+     "stops": 1.572635
+    },
+    {
+     "Driver": "HAM",
+     "win": 0.10006,
+     "podium": 0.34578,
+     "exp_pos": 6.136190000000001,
+     "dnf": 0.101615,
+     "stops": 1.5959249999999998
+    },
+    {
+     "Driver": "PIA",
+     "win": 0.080935,
+     "podium": 0.284545,
+     "exp_pos": 6.645710000000001,
+     "dnf": 0.104535,
+     "stops": 1.591945
+    },
+    {
+     "Driver": "HAD",
+     "win": 0.04039,
+     "podium": 0.17601,
+     "exp_pos": 7.83209,
+     "dnf": 0.131925,
+     "stops": 1.5767049999999998
+    }
+   ],
+   "p_sc": 0.54776
+  },
+  {
+   "key": "sc_half",
+   "label": "Safety cars half as likely",
+   "change": {
+    "sc_mult": 0.5
+   },
+   "drivers": [
+    {
+     "Driver": "ANT",
+     "win": 0.2447,
+     "podium": 0.55972,
+     "exp_pos": 4.765315,
+     "dnf": 0.08538,
+     "stops": 1.60011
+    },
+    {
+     "Driver": "RUS",
+     "win": 0.18124,
+     "podium": 0.48531,
+     "exp_pos": 5.146425,
+     "dnf": 0.084905,
+     "stops": 1.600415
+    },
+    {
+     "Driver": "LEC",
+     "win": 0.1303,
+     "podium": 0.403275,
+     "exp_pos": 5.82532,
+     "dnf": 0.102725,
+     "stops": 1.5854350000000004
+    },
+    {
+     "Driver": "NOR",
+     "win": 0.11401,
+     "podium": 0.37517,
+     "exp_pos": 6.000445,
+     "dnf": 0.10468,
+     "stops": 1.58436
+    },
+    {
+     "Driver": "VER",
+     "win": 0.102895,
+     "podium": 0.34719500000000003,
+     "exp_pos": 6.5798700000000006,
+     "dnf": 0.13375,
+     "stops": 1.565415
+    },
+    {
+     "Driver": "HAM",
+     "win": 0.10133,
+     "podium": 0.34779,
+     "exp_pos": 6.137885000000001,
+     "dnf": 0.102425,
+     "stops": 1.5848449999999998
+    },
+    {
+     "Driver": "PIA",
+     "win": 0.07963,
+     "podium": 0.282725,
+     "exp_pos": 6.641615000000001,
+     "dnf": 0.104625,
+     "stops": 1.5846850000000001
+    },
+    {
+     "Driver": "HAD",
+     "win": 0.040965,
+     "podium": 0.177,
+     "exp_pos": 7.8172950000000005,
+     "dnf": 0.132145,
+     "stops": 1.56606
+    }
+   ],
+   "p_sc": 0.523435
+  },
+  {
+   "key": "sc_double",
+   "label": "Safety cars twice as likely",
+   "change": {
+    "sc_mult": 2.0
+   },
+   "drivers": [
+    {
+     "Driver": "ANT",
+     "win": 0.24066,
+     "podium": 0.55887,
+     "exp_pos": 4.79659,
+     "dnf": 0.08543,
+     "stops": 1.6227749999999999
+    },
+    {
+     "Driver": "RUS",
+     "win": 0.179775,
+     "podium": 0.48328,
+     "exp_pos": 5.182355,
+     "dnf": 0.08508,
+     "stops": 1.6254300000000002
+    },
+    {
+     "Driver": "LEC",
+     "win": 0.130635,
+     "podium": 0.400715,
+     "exp_pos": 5.865295,
+     "dnf": 0.10326,
+     "stops": 1.60858
+    },
+    {
+     "Driver": "NOR",
+     "win": 0.115375,
+     "podium": 0.37653000000000003,
+     "exp_pos": 6.026510000000001,
+     "dnf": 0.10493,
+     "stops": 1.607315
+    },
+    {
+     "Driver": "VER",
+     "win": 0.104655,
+     "podium": 0.349325,
+     "exp_pos": 6.56627,
+     "dnf": 0.132275,
+     "stops": 1.587305
+    },
+    {
+     "Driver": "HAM",
+     "win": 0.101015,
+     "podium": 0.34615999999999997,
+     "exp_pos": 6.17478,
+     "dnf": 0.10278,
+     "stops": 1.6096599999999999
+    },
+    {
+     "Driver": "PIA",
+     "win": 0.081395,
+     "podium": 0.283435,
+     "exp_pos": 6.674789999999999,
+     "dnf": 0.106145,
+     "stops": 1.606855
+    },
+    {
+     "Driver": "HAD",
+     "win": 0.041505,
+     "podium": 0.17795,
+     "exp_pos": 7.8502149999999995,
+     "dnf": 0.133145,
+     "stops": 1.58819
+    }
+   ],
+   "p_sc": 0.5947
+  },
+  {
+   "key": "deg_low",
+   "label": "Tyres wear 30% less",
+   "change": {
+    "deg_mult": 0.7
+   },
+   "drivers": [
+    {
+     "Driver": "ANT",
+     "win": 0.235095,
+     "podium": 0.54797,
+     "exp_pos": 4.82594,
+     "dnf": 0.08491,
+     "stops": 1.60953
+    },
+    {
+     "Driver": "RUS",
+     "win": 0.17917,
+     "podium": 0.47728,
+     "exp_pos": 5.215845,
+     "dnf": 0.085805,
+     "stops": 1.60783
+    },
+    {
+     "Driver": "LEC",
+     "win": 0.13045,
+     "podium": 0.40008999999999995,
+     "exp_pos": 5.8698250000000005,
+     "dnf": 0.103075,
+     "stops": 1.59267
+    },
+    {
+     "Driver": "NOR",
+     "win": 0.11781,
+     "podium": 0.37768,
+     "exp_pos": 6.0298,
+     "dnf": 0.104685,
+     "stops": 1.59234
+    },
+    {
+     "Driver": "VER",
+     "win": 0.104465,
+     "podium": 0.34628,
+     "exp_pos": 6.614914999999999,
+     "dnf": 0.134045,
+     "stops": 1.572635
+    },
+    {
+     "Driver": "HAM",
+     "win": 0.103325,
+     "podium": 0.348665,
+     "exp_pos": 6.1566,
+     "dnf": 0.101615,
+     "stops": 1.5959249999999998
+    },
+    {
+     "Driver": "PIA",
+     "win": 0.08275,
+     "podium": 0.29129,
+     "exp_pos": 6.65198,
+     "dnf": 0.104535,
+     "stops": 1.591945
+    },
+    {
+     "Driver": "HAD",
+     "win": 0.0419,
+     "podium": 0.18456,
+     "exp_pos": 7.822685000000002,
+     "dnf": 0.131925,
+     "stops": 1.5767049999999998
+    }
+   ],
+   "p_sc": 0.54776
+  },
+  {
+   "key": "deg_high",
+   "label": "Tyres wear 50% more",
+   "change": {
+    "deg_mult": 1.5
+   },
+   "drivers": [
+    {
+     "Driver": "ANT",
+     "win": 0.254995,
+     "podium": 0.57635,
+     "exp_pos": 4.705019999999999,
+     "dnf": 0.08491,
+     "stops": 1.60953
+    },
+    {
+     "Driver": "RUS",
+     "win": 0.18374,
+     "podium": 0.49142499999999995,
+     "exp_pos": 5.14331,
+     "dnf": 0.085805,
+     "stops": 1.60783
+    },
+    {
+     "Driver": "LEC",
+     "win": 0.128685,
+     "podium": 0.405115,
+     "exp_pos": 5.82245,
+     "dnf": 0.103075,
+     "stops": 1.59267
+    },
+    {
+     "Driver": "NOR",
+     "win": 0.11364,
+     "podium": 0.37685500000000005,
+     "exp_pos": 5.9994749999999994,
+     "dnf": 0.104685,
+     "stops": 1.59234
+    },
+    {
+     "Driver": "VER",
+     "win": 0.10124,
+     "podium": 0.34702500000000003,
+     "exp_pos": 6.573585,
+     "dnf": 0.134045,
+     "stops": 1.572635
+    },
+    {
+     "Driver": "HAM",
+     "win": 0.09663,
+     "podium": 0.342205,
+     "exp_pos": 6.138909999999999,
+     "dnf": 0.101615,
+     "stops": 1.5959249999999998
+    },
+    {
+     "Driver": "PIA",
+     "win": 0.07804,
+     "podium": 0.275475,
+     "exp_pos": 6.66747,
+     "dnf": 0.104535,
+     "stops": 1.591945
+    },
+    {
+     "Driver": "HAD",
+     "win": 0.03802,
+     "podium": 0.16537999999999997,
+     "exp_pos": 7.860834999999999,
+     "dnf": 0.131925,
+     "stops": 1.5767049999999998
+    }
+   ],
+   "p_sc": 0.54776
+  },
+  {
+   "key": "pit_plus3",
+   "label": "Pit stops cost 3 s more",
+   "change": {
+    "pit_add": 3.0
+   },
+   "drivers": [
+    {
+     "Driver": "ANT",
+     "win": 0.238395,
+     "podium": 0.550885,
+     "exp_pos": 4.81512,
+     "dnf": 0.08491,
+     "stops": 1.60953
+    },
+    {
+     "Driver": "RUS",
+     "win": 0.179545,
+     "podium": 0.47765500000000005,
+     "exp_pos": 5.218450000000001,
+     "dnf": 0.085805,
+     "stops": 1.60783
+    },
+    {
+     "Driver": "LEC",
+     "win": 0.130215,
+     "podium": 0.40136499999999997,
+     "exp_pos": 5.86423,
+     "dnf": 0.103075,
+     "stops": 1.59267
+    },
+    {
+     "Driver": "NOR",
+     "win": 0.117055,
+     "podium": 0.37616499999999997,
+     "exp_pos": 6.03501,
+     "dnf": 0.104685,
+     "stops": 1.59234
+    },
+    {
+     "Driver": "VER",
+     "win": 0.104385,
+     "podium": 0.34800000000000003,
+     "exp_pos": 6.60948,
+     "dnf": 0.134045,
+     "stops": 1.572635
+    },
+    {
+     "Driver": "HAM",
+     "win": 0.101635,
+     "podium": 0.348385,
+     "exp_pos": 6.160925000000001,
+     "dnf": 0.101615,
+     "stops": 1.5959249999999998
+    },
+    {
+     "Driver": "PIA",
+     "win": 0.082285,
+     "podium": 0.28895000000000004,
+     "exp_pos": 6.66404,
+     "dnf": 0.104535,
+     "stops": 1.591945
+    },
+    {
+     "Driver": "HAD",
+     "win": 0.041365,
+     "podium": 0.18214000000000002,
+     "exp_pos": 7.844225000000001,
+     "dnf": 0.131925,
+     "stops": 1.5767049999999998
+    }
+   ],
+   "p_sc": 0.54776
+  },
+  {
+   "key": "pace_wide",
+   "label": "Pace less certain (sd x1.5)",
+   "change": {
+    "pace_sd_mult": 1.5
+   },
+   "drivers": [
+    {
+     "Driver": "ANT",
+     "win": 0.221665,
+     "podium": 0.5370649999999999,
+     "exp_pos": 4.952655,
+     "dnf": 0.08491,
+     "stops": 1.60953
+    },
+    {
+     "Driver": "RUS",
+     "win": 0.16854,
+     "podium": 0.46526,
+     "exp_pos": 5.35327,
+     "dnf": 0.085805,
+     "stops": 1.60783
+    },
+    {
+     "Driver": "LEC",
+     "win": 0.12655,
+     "podium": 0.39175499999999996,
+     "exp_pos": 5.985575000000001,
+     "dnf": 0.103075,
+     "stops": 1.59267
+    },
+    {
+     "Driver": "NOR",
+     "win": 0.115045,
+     "podium": 0.369765,
+     "exp_pos": 6.147615,
+     "dnf": 0.104685,
+     "stops": 1.59234
+    },
+    {
+     "Driver": "VER",
+     "win": 0.103015,
+     "podium": 0.34177,
+     "exp_pos": 6.7157,
+     "dnf": 0.134045,
+     "stops": 1.572635
+    },
+    {
+     "Driver": "HAM",
+     "win": 0.10121,
+     "podium": 0.34212,
+     "exp_pos": 6.274185,
+     "dnf": 0.101615,
+     "stops": 1.5959249999999998
+    },
+    {
+     "Driver": "PIA",
+     "win": 0.09219,
+     "podium": 0.29173499999999997,
+     "exp_pos": 6.801845,
+     "dnf": 0.104535,
+     "stops": 1.591945
+    },
+    {
+     "Driver": "HAD",
+     "win": 0.05275,
+     "podium": 0.196305,
+     "exp_pos": 7.938615000000001,
+     "dnf": 0.131925,
+     "stops": 1.5767049999999998
+    }
+   ],
+   "p_sc": 0.54776
+  },
+  {
+   "key": "fav_slower",
+   "label": "Favourite 0.2% slower",
+   "change": {
+    "fav_slower_pct": 0.2
+   },
+   "drivers": [
+    {
+     "Driver": "RUS",
+     "win": 0.19908,
+     "podium": 0.5012449999999999,
+     "exp_pos": 5.09177,
+     "dnf": 0.085805,
+     "stops": 1.60783
+    },
+    {
+     "Driver": "ANT",
+     "win": 0.160275,
+     "podium": 0.446265,
+     "exp_pos": 5.373875,
+     "dnf": 0.08491,
+     "stops": 1.60953
+    },
+    {
+     "Driver": "LEC",
+     "win": 0.143475,
+     "podium": 0.419265,
+     "exp_pos": 5.757860000000001,
+     "dnf": 0.103075,
+     "stops": 1.59267
+    },
+    {
+     "Driver": "NOR",
+     "win": 0.128565,
+     "podium": 0.39332500000000004,
+     "exp_pos": 5.927499999999999,
+     "dnf": 0.104685,
+     "stops": 1.59234
+    },
+    {
+     "Driver": "VER",
+     "win": 0.11575,
+     "podium": 0.36304000000000003,
+     "exp_pos": 6.507625000000001,
+     "dnf": 0.134045,
+     "stops": 1.572635
+    },
+    {
+     "Driver": "HAM",
+     "win": 0.11182,
+     "podium": 0.362805,
+     "exp_pos": 6.058160000000001,
+     "dnf": 0.101615,
+     "stops": 1.5959249999999998
+    },
+    {
+     "Driver": "PIA",
+     "win": 0.09022,
+     "podium": 0.30036,
+     "exp_pos": 6.5715,
+     "dnf": 0.104535,
+     "stops": 1.591945
+    },
+    {
+     "Driver": "HAD",
+     "win": 0.045435,
+     "podium": 0.188855,
+     "exp_pos": 7.766350000000001,
+     "dnf": 0.131925,
+     "stops": 1.5767049999999998
+    }
+   ],
+   "p_sc": 0.54776
+  }
+ ],
+ "not_available": [
+  "Rain / changing weather: not modelled by the simulator.",
+  "Grid penalties: use predict --grid after qualifying instead."
+ ],
+ "note": "Precomputed with common random numbers; each row changes one input. Not a live model.",
+ "run": "2026-09-27T080611Z_pre_weekend"
+}

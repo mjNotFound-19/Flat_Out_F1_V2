@@ -1,0 +1,235 @@
+{
+ "year": 2026,
+ "round": 16,
+ "event": "Bahrain Grand Prix in Malaysia",
+ "location": "Sepang",
+ "created": "20260927_004539",
+ "created_utc": "2026-09-27T04:45:39+00:00",
+ "n_sims": 4000000,
+ "sessions_used": [],
+ "grid_known": false,
+ "p_sc": 0.56094725,
+ "exp_sc": 0.7678532499999999,
+ "sim_seconds": 286.8,
+ "mode": "pre_weekend",
+ "identity": {
+  "year": 2026,
+  "round": 16,
+  "title": "Bahrain Grand Prix in Malaysia",
+  "circuit": "Sepang",
+  "circuit_name": "Sepang International Circuit",
+  "host_country": "Malaysia",
+  "listed_location": "Kuala Lumpur",
+  "listed_country": "Bahrain",
+  "length_km": 5.543,
+  "laps": 56,
+  "laps_source": "https://www.formula1.com/en/racing/2026/bahrain",
+  "race_start_utc": "2026-10-04T07:00:00Z",
+  "status": "override",
+  "sources": [
+   "https://www.formula1.com/en/racing/2026/bahrain",
+   "https://corp.formula1.com/formula-1-and-fia-confirm-that-malaysia-will-join-the-2026-calendar-as-host-venue-for-the-bahrain-grand-prix/"
+  ],
+  "registry_version": "2026-09-27.1",
+  "note": "Commercial title is the Bahrain Grand Prix; the race is held at Sepang, Malaysia. FastF1 lists location 'Kuala Lumpur' with country 'Bahrain'. The Sakhir substitution used before 2026-09-27 was wrong."
+ },
+ "assumptions": [
+  "base lap 97.9s = pooled median 17.65 s/km over 25 circuits x 5.543 km (not Sepang data)",
+  "no Sepang race in the dataset: pit loss, tyre wear, stops, safety-car rate and overtaking use pooled all-circuit priors; driver pace sd x1.25"
+ ],
+ "status": "provisional",
+ "provenance": {
+  "code": {
+   "git_rev": "f1120a34d738ca836e471783b7a0ebce2df90bd6",
+   "branch": "v3-race-intelligence",
+   "dirty": true,
+   "dirty_diff_sha256": "a78c93f967ee0a2bf594c0c97aecd2082e7e9a9331fd946fdccd9b0f599933b6"
+  },
+  "data": {
+   "store_files": 1036,
+   "store_sha256": "27df5a856bce3179f3f9b981c50b850c2028ccf5fb93be9a4b408ea085b5ae21"
+  },
+  "model_meta_sha256": "be4e966b92711a9cc183363752a67c74d82ac6457323de15f0d3ae163d11e58a",
+  "sim_params_sha256": "e06b32f9cc0af5ea762d4e2db5a5ab2a34764ec89cea8f07976e48fd2d4018d1",
+  "seed": {
+   "base": 2026,
+   "scheme": "per-chunk seed = base + 7919*i"
+  }
+ },
+ "circuit": {
+  "location": "Sepang",
+  "n_races": 0,
+  "n_laps": 56,
+  "base_lap": 97.85282492547582,
+  "pit_loss": 22.719001510574017,
+  "fuel": -0.058087194721022174,
+  "lap_sd": 0.4193446525317988,
+  "sc_per_race": 0.8158844765342961,
+  "vsc_per_race": 0.26353790613718414,
+  "overtake_factor": 1.0,
+  "offset": {
+   "SOFT": -0.020962912725419048,
+   "MEDIUM": 0.0,
+   "HARD": 0.1047751895939421
+  },
+  "deg": {
+   "SOFT": 0.056309614806309055,
+   "MEDIUM": 0.059232076923591954,
+   "HARD": 0.04958235591583725
+  },
+  "stops_mu": 1.5644813794736394,
+  "stops_dist": {
+   "0": 0.0,
+   "1": 0.4376137690498393,
+   "2": 0.5234553097737397,
+   "3": 0.03893092117642104
+  },
+  "stint_frac": {
+   "1": [
+    0.4859989177264765,
+    0.5140010822735235
+   ],
+   "2": [
+    0.2850966688438662,
+    0.3426385409737018,
+    0.37226479018243197
+   ],
+   "3": [
+    0.23006726786457718,
+    0.27225598502363435,
+    0.2910258520928255,
+    0.20665089501896286
+   ]
+  },
+  "dnf_rate": 0.1520949801164198,
+  "lap1_dnf_share": 0.023809523809523808,
+  "lap1_gain_sd": 2.322994619020888,
+  "max_stint": {
+   "SOFT": 31,
+   "MEDIUM": 40,
+   "HARD": 50
+  },
+  "transitions": {
+   "SOFT": {
+    "HARD": 0.39341421143847505,
+    "MEDIUM": 0.48526863084921984,
+    "SOFT": 0.12131715771230504
+   },
+   "MEDIUM": {
+    "SOFT": 0.13118279569892438,
+    "HARD": 0.7913978494623661,
+    "MEDIUM": 0.07741935483870954
+   },
+   "HARD": {
+    "HARD": 0.3601609657947686,
+    "SOFT": 0.20523138832998006,
+    "MEDIUM": 0.4346076458752513
+   }
+  },
+  "red_share": 0.1592920353982301
+ },
+ "strategies": [
+  {
+   "seq": "S-H",
+   "lens": [
+    27,
+    29
+   ],
+   "delta": 0.0
+  },
+  {
+   "seq": "H-S",
+   "lens": [
+    27,
+    29
+   ],
+   "delta": 0.18
+  },
+  {
+   "seq": "M-S",
+   "lens": [
+    27,
+    29
+   ],
+   "delta": 1.0
+  },
+  {
+   "seq": "S-M",
+   "lens": [
+    27,
+    29
+   ],
+   "delta": 1.16
+  },
+  {
+   "seq": "M-H",
+   "lens": [
+    27,
+    29
+   ],
+   "delta": 1.67
+  },
+  {
+   "seq": "H-M",
+   "lens": [
+    27,
+    29
+   ],
+   "delta": 2.01
+  },
+  {
+   "seq": "M-S-S",
+   "lens": [
+    16,
+    19,
+    21
+   ],
+   "delta": 8.32
+  },
+  {
+   "seq": "S-M-S",
+   "lens": [
+    16,
+    19,
+    21
+   ],
+   "delta": 8.54
+  },
+  {
+   "seq": "S-S-H",
+   "lens": [
+    16,
+    19,
+    21
+   ],
+   "delta": 8.67
+  },
+  {
+   "seq": "H-S-S",
+   "lens": [
+    16,
+    19,
+    21
+   ],
+   "delta": 8.68
+  },
+  {
+   "seq": "S-H-S",
+   "lens": [
+    16,
+    19,
+    21
+   ],
+   "delta": 8.69
+  },
+  {
+   "seq": "S-S-M",
+   "lens": [
+    16,
+    19,
+    21
+   ],
+   "delta": 8.7
+  }
+ ]
+}
