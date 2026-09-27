@@ -44,3 +44,33 @@ winner_correct  0.6154  0.6154  0.6154
 
   strategy: {'strat_stops_acc': 0.589, 'strat_stops_ll': 0.997, 'strat_seq_acc': 0.197, 'strat_first_stop_mae': 9.319, 'strat_first_stop_iqr_cover': 0.422}
   website data -> C:\Users\manas\projects\flat_out_f1_v2\web\data\v3\site.json (357 KB)
+  2026 R03 Suzuka             RPS model 0.0860 | grid 0.0886 | pace 0.0844   rho 0.82   P(winner) 0.26   stops acc 0.90
+  2026 R04 Miami              RPS model 0.1209 | grid 0.0984 | pace 0.1311   rho 0.55   P(winner) 0.28   stops acc 0.89
+  2026 R05 Montréal           RPS model 0.1455 | grid 0.1758 | pace 0.1722   rho 0.55   P(winner) 0.24   stops acc 0.50
+  2026 R06 Monaco             RPS model 0.1779 | grid 0.1742 | pace 0.2135   rho 0.29   P(winner) 0.30   stops acc 0.50
+  2026 R07 Barcelona          RPS model 0.1174 | grid 0.1112 | pace 0.1240   rho 0.69   P(winner) 0.09   stops acc 0.59
+  2026 R08 Spielberg          RPS model 0.0797 | grid 0.0850 | pace 0.0652   rho 0.89   P(winner) 0.22   stops acc 0.83
+  2026 R09 Silverstone        RPS model 0.1276 | grid 0.1359 | pace 0.1578   rho 0.62   P(winner) 0.09   stops acc 0.75
+  2026 R10 Spa-Francorchamps  RPS model 0.0829 | grid 0.1102 | pace 0.0853   rho 0.73   P(winner) 0.43   stops acc 0.21
+  2026 R11 Budapest           RPS model 0.1097 | grid 0.0975 | pace 0.1141   rho 0.75   P(winner) 0.05   stops acc 0.63
+  2026 R12 Zandvoort          RPS model 0.1129 | grid 0.1088 | pace 0.1194   rho 0.66   P(winner) 0.07   stops acc 0.24
+  2026 R13 Monza              RPS model 0.0893 | grid 0.1311 | pace 0.0908   rho 0.70   P(winner) 0.26   stops acc 0.53
+  2026 R14 Madrid             RPS model 0.0935 | grid 0.0988 | pace 0.0970   rho 0.73   P(winner) 0.38   stops acc 0.22
+  2026 R15 Baku               RPS model 0.1380 | grid 0.1499 | pace 0.1441   rho 0.66   P(winner) 0.17   stops acc 0.88
+
+  season averages (lower is better except spearman / p_winner / hit rates):
+                 model    pace    grid
+log_loss        2.6288  3.0191  2.7692
+rps             0.1140  0.1230  0.1204
+brier_win       0.0353  0.0361  0.0255
+brier_podium    0.0810  0.0792  0.0727
+brier_points    0.1603  0.1747  0.1650
+spearman        0.6645  0.6634  0.6522
+mae_pos         3.5170  3.4075  3.7877
+p_winner        0.2184  0.1875  0.3930
+top3_hit        0.4359  0.4615  0.6410
+top10_hit       0.7385  0.7462  0.7385
+winner_correct  0.3846  0.3846  0.6154
+
+  strategy: {'strat_stops_acc': 0.589, 'strat_stops_ll': 0.996, 'strat_seq_acc': 0.197, 'strat_first_stop_mae': 9.304, 'strat_first_stop_iqr_cover': 0.425}
+  website data -> C:\Users\manas\projects\flat_out_f1_v2\web\data\v3\site.json (360 KB)
