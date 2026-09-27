@@ -968,7 +968,7 @@ function renderAccuracy(root) {
   const wins = E.per_race.filter((r) => r.model_winner_correct).length, better = 1 - a.model.rps / a.grid.rps;
   if (!B) root.append(sectionHead(["How good are ", em("the predictions")], "Walk-forward test: the model is retrained before every race using only earlier races, then scored against the result.",
     h("div", { class: "seg", role: "group", "aria-label": "Information available" }, Object.keys(ev).map((k) => h("button", { class: k === mode ? "on" : "", "aria-pressed": String(k === mode), onclick: () => { state.accMode = k; rerender(); } }, MODE_LABEL[k] || k)))));
-  root.append(h("div", { class: "grid g-4" },
+  if (!B) root.append(h("div", { class: "grid g-4" },
     stat(`${wins}<small>/${E.n}</small>`, "Favourite won", `trusting the grid: ${pct(a.grid.winner_correct)} of races`, "good"),
     stat(pct(better), "More accurate than the grid", "ranked probability score vs 'finish where you start'", "cyan"),
     stat(pct(a.model.p_winner), "Chance we gave the winner", `pace-only baseline ${pct(a.pace.p_winner)}`, "accent"),
