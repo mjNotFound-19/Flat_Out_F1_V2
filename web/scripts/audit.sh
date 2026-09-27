@@ -18,7 +18,7 @@ CHECK='async () => {
     .slice(0, 5).map(e => e.tagName + "." + e.className + " " + Math.round(e.getBoundingClientRect().width) + "x" + Math.round(e.getBoundingClientRect().height)) : [];
   return JSON.stringify({ overflowX: document.documentElement.scrollWidth - innerWidth, stuck, broken, clipped, small });
 }'
-playwright-cli goto "$BASE" >/dev/null
+playwright-cli open "$BASE" >/dev/null 2>&1 || playwright-cli goto "$BASE" >/dev/null   # own session
 for size in "1440 900 desk" "390 844 phone"; do
   set -- $size
   playwright-cli resize "$1" "$2" >/dev/null
@@ -30,6 +30,7 @@ for size in "1440 900 desk" "390 844 phone"; do
       playwright-cli eval "() => new Promise(r => setTimeout(r, 2500))" >/dev/null
       playwright-cli eval "() => document.querySelector('.lights-intro')?.click()" >/dev/null
       out=$(playwright-cli eval "$CHECK" | sed -n 2p)
+      [ -z "$out" ] && out="AUDIT-FAILED (no result from browser)"
       errs=$(playwright-cli console error 2>/dev/null | grep -o "Errors: [0-9]*")
       echo "$3 $mode $tab $errs $out"
     done

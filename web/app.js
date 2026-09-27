@@ -1053,7 +1053,7 @@ function renderLab(root) {
         h("dt", {}, "quali CV MAE"), h("dd", {}, fx(pm.cv?.quali?.mae, 3)), h("dt", {}, "GBM share (race / quali)"), h("dd", {}, `${fx(pm.blend?.race, 1)} / ${fx(pm.blend?.quali, 1)}`))),
     panel("What drives the pace model", "LightGBM split gain", h("div", { class: "stack", style: "gap:6px" }, imp.map((x) => h("div", { style: "display:grid;grid-template-columns:150px 1fr;gap:10px;align-items:center" },
       h("span", { class: "mono muted" }, x.feature), pbar(x.gain / imax, "var(--primary)", fx(x.gain, 0)))))),
-    panel("Simulator parameters", `calibrated ${sp.calibrated || "-"} · RPS ${fx(sp.rps, 4)}`, h("div", { class: "table-wrap" }, h("table", {}, h("tbody", {},
+    panel("Simulator parameters", `used for forecasting · tuned ${sp.calibrated || "-"} on ${(sp.races || []).length} races · RPS ${fx(sp.rps, 4)} on those races (in-sample; see Accuracy for out-of-sample)`, h("div", { class: "table-wrap" }, h("table", {}, h("tbody", {},
       Object.entries(sp.params || {}).map(([k, v]) => h("tr", {}, h("td", { class: "mono" }, k), h("td", { class: "num mono" }, fx(v, 3)), h("td", { class: "muted", style: "white-space:normal;font-size:13px" }, PARAM_DOC[k] || "")))))))));
   const ch = M.calibration_history || [], c = state.data.next?.circuit || {};
   root.append(h("div", { class: "grid g-2 mt" },
@@ -1263,5 +1263,5 @@ function reproPanel(nx) {
     ["Sim settings", short(P.sim_params_sha256)], ["Seed", P.seed ? `${P.seed.root ?? P.seed.base} · ${P.seed.scheme}` : "–"],
     ["Simulations", Number(m.n_sims).toLocaleString()], ["Inputs missing", (m.inputs_missing || []).join(", ") || "none"]];
   return panel("Reproducibility", "everything needed to re-run this exact forecast",
-    h("table", { class: "kv" }, h("tbody", {}, rows.map(([k, v]) => h("tr", {}, h("th", { scope: "row" }, k), h("td", { class: "mono" }, v))))));
+    h("table", { class: "repro" }, h("tbody", {}, rows.map(([k, v]) => h("tr", {}, h("th", { scope: "row" }, k), h("td", { class: "mono" }, v))))));
 }
