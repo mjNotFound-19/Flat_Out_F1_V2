@@ -1,9 +1,10 @@
-# Flat Out F1
+# Flat Out F1 · Version 2.3
 
-## v3 engine (`flatout/`): start here
+## Race engine (`flatout/`): start here
 
-Flat Out F1 v3 simulates each Grand Prix lap by lap, millions of times. The simulator is driven by a pace model trained on real race laps. Every forecast is then scored against the result.
+Flat Out F1 simulates each Grand Prix lap by lap, millions of times. The simulator is driven by a pace model trained on real race laps. Every forecast is then scored against the result.
 
+- **What changed in 2.3:** [`CHANGELOG.md`](CHANGELOG.md)
 - **Architecture and data flow:** [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)
 - **Metric definitions:** [`docs/METRICS.md`](docs/METRICS.md)
 - **Audit of past claims:** [`docs/AUDIT_2026-09-27.md`](docs/AUDIT_2026-09-27.md)
@@ -62,7 +63,7 @@ The site reads only `web/data/v3/site.json`.
 
 ---
 
-# Flat Out F1 v2
+# Flat Out F1 v2 (legacy scripts, still working)
 
 Flat Out F1 v2 is a local Formula 1 race prediction pipeline. It pulls and stores FastF1 session data, engineers driver/team/session features, generates pre-race finishing-order predictions, scores those predictions after each race, updates driver and constructor profiles, self-tunes model hyperparameters, and exposes the latest prediction output through a small static web dashboard.
 
