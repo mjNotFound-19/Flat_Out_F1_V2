@@ -375,7 +375,7 @@ function trackCard(nx) {
 /* 3D circuit section: the reference lap as a speed-coloured ribbon (three.js, loaded when scrolled near) */
 function circuit3dEl(nx, fav) {
   const t = nx.track, c = nx.circuit, m = nx.meta;
-  if (t && !t.speed) return layoutSection(nx);
+  if (t && !t.speed) return circuit3dLayout(nx, fav);
   if (!t || !t.speed) {
     const id = m.identity || {};
     return h("section", { class: "c3 c3-none", "aria-labelledby": "c3-title" },
@@ -1284,4 +1284,27 @@ function layoutSection(nx) {
       h("dl", { class: "c3-tr" }, [["Length", id.length_km ? `${fx(id.length_km, 3)} km` : "\u2013"], ["Turns", t.corners.length], ["Laps", c.n_laps]].map(([k, v]) => h("div", {}, h("dt", {}, k), h("dd", {}, String(v)))))),
     h("div", { class: "lay-map", html: svg }),
     h("p", { class: "c3-none-msg" }, "Official layout, traced from the formula1.com circuit map. The speed-coloured 3D view needs a recorded lap, and there is none at Sepang in the telemetry this site uses (FastF1 position data starts in 2018; the last race here was 2017), so no speed, elevation or car is shown."));
+}
+/* 3D scene for a layout-only circuit: flat and single-colour because no speed or elevation data exists */
+function circuit3dLayout(nx, fav) {
+  const t = nx.track, m = nx.meta, id = m.identity || {}, c = nx.circuit;
+  if (state.c3dispose) { state.c3dispose(); state.c3dispose = null; }
+  const fallback = h("div", { class: "c3-fallback" }, trackCard(nx)?.querySelector(".map") || null);
+  const el = h("section", { class: "c3 c3-flat", "aria-labelledby": "c3-title", style: `--team:${teamColor(fav.Team)}` },
+    fallback,
+    h("div", { class: "c3-labels", "aria-hidden": "true" }),
+    h("div", { class: "c3-hud" },
+      h("div", { class: "c3-tl" }, h("span", {}, `CIRCUIT_${String(m.round).padStart(2, "0")}`), h("h2", { id: "c3-title" }, id.circuit_name || m.location)),
+      h("dl", { class: "c3-tr" }, [["Length", id.length_km ? `${fx(id.length_km, 3)} km` : "\u2013"], ["Turns", t.corners.length], ["Laps", c.n_laps]].map(([k, v]) => h("div", {}, h("dt", {}, k), h("dd", {}, String(v))))),
+      h("div", { class: "c3-bl" }, h("p", {}, "Official layout, traced from the formula1.com circuit map. There is no recorded lap here in the telemetry this site uses, so the track is shown flat and in one colour: no speed, elevation or car.")),
+      h("div", { class: "c3-br", "aria-hidden": "true" }, h("span", { class: "c3-hint" }, "Drag to rotate"))));
+  const io = new IntersectionObserver(([e]) => {
+    if (!e.isIntersecting) return;
+    io.disconnect();
+    import("./circuit3d.js").then((mod) => mod.mount(el, t, { accent: teamColor(fav.Team) }))
+      .then((dispose) => { el.classList.add("live"); state.c3dispose = dispose; })
+      .catch((err) => { el.classList.add("flat"); console.info("3D circuit unavailable, showing the flat map:", err.message); });
+  }, { rootMargin: "400px 0px" });
+  io.observe(el);
+  return el;
 }

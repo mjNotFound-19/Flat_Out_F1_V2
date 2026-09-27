@@ -27,9 +27,12 @@ export async function mount(host, track, { accent = "#e10600", onSpeed } = {}) {
   const THREE = await import(THREE_URL);
 
   const W = track.w, H = track.h, n = track.points.length;
-  const vmin = Math.min(...track.speed), vmax = Math.max(...track.speed);
+  // layout-only tracks (traced official map, no telemetry): flat, one colour, no car - nothing invented
+  const tel = Array.isArray(track.speed) && Array.isArray(track.z);
+  const vmin = tel ? Math.min(...track.speed) : 0, vmax = tel ? Math.max(...track.speed) : 1;
+  const zAt = (i) => (tel ? track.z[i] : 0);
   // centre line in world units (1 unit = 1000 track units), y up
-  const P = track.points.map(([x, y], i) => new THREE.Vector3((x - W / 2) / 1000, (track.z[i] * LIFT) / 1000, (y - H / 2) / 1000));
+  const P = track.points.map(([x, y], i) => new THREE.Vector3((x - W / 2) / 1000, (zAt(i) * LIFT) / 1000, (y - H / 2) / 1000));
 
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
   renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 1.75));
@@ -53,7 +56,7 @@ export async function mount(host, track, { accent = "#e10600", onSpeed } = {}) {
     const nrm = new THREE.Vector3(-t.z, 0, t.x);
     const l = P[i].clone().addScaledVector(nrm, half), r = P[i].clone().addScaledVector(nrm, -half);
     rib.set([l.x, l.y, l.z, r.x, r.y, r.z], i * 6);
-    const c = speedColor((track.speed[i] - vmin) / (vmax - vmin));
+    const c = tel ? speedColor((track.speed[i] - vmin) / (vmax - vmin)) : [0.86, 0.9, 0.97];
     ribCol.set([...c, ...c], i * 6);
     edgeL.push(l); edgeR.push(r);
     curtain.set([P[i].x, P[i].y, P[i].z, P[i].x, -0.02, P[i].z], i * 6);
@@ -89,7 +92,7 @@ export async function mount(host, track, { accent = "#e10600", onSpeed } = {}) {
 
   // ---- start/finish gantry
   const sf = P[0];
-  root.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(sf.x, -0.02, sf.z), new THREE.Vector3(sf.x, sf.y + 0.12, sf.z)]),
+  root.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(sf.x, -0.02, sf.z), new THREE.Vector3(sf.x, sf.y + (tel ? 0.12 : 0.035), sf.z)]),
     new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.8 })));
 
   // ---- the car: glowing head + fading trail, advanced by telemetry speed
@@ -99,12 +102,12 @@ export async function mount(host, track, { accent = "#e10600", onSpeed } = {}) {
   const glow = new THREE.Sprite(new THREE.SpriteMaterial({ map: glowTex, color: col, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending }));
   glow.scale.setScalar(0.16);
   car.add(glow);
-  root.add(car);
+  if (tel) root.add(car);
   const TRAIL = 46, trailPos = new Float32Array(TRAIL * 3), trailCol = new Float32Array(TRAIL * 3);
   const trailGeo = new THREE.BufferGeometry();
   trailGeo.setAttribute("position", new THREE.BufferAttribute(trailPos, 3));
   trailGeo.setAttribute("color", new THREE.BufferAttribute(trailCol, 3));
-  root.add(new THREE.Line(trailGeo, new THREE.LineBasicMaterial({ vertexColors: true, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false })));
+  if (tel) root.add(new THREE.Line(trailGeo, new THREE.LineBasicMaterial({ vertexColors: true, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false })));
   // arc length along the centre line (world units) so the car moves at a speed-proportional pace
   const seg = P.map((p, i) => p.distanceTo(P[(i + 1) % n]));
   const total = seg.reduce((a, b) => a + b, 0);
@@ -117,7 +120,7 @@ export async function mount(host, track, { accent = "#e10600", onSpeed } = {}) {
   const sfEl = document.createElement("span");
   sfEl.className = "c3-turn c3-sf"; sfEl.textContent = "START / FINISH";
   host.querySelector(".c3-labels").append(sfEl);
-  const labels = [{ el: sfEl, p: P[0].clone().setY(P[0].y + 0.13) }, ...track.corners.map((k) => {
+  const labels = [{ el: sfEl, p: P[0].clone().setY(P[0].y + (tel ? 0.13 : 0.05)) }, ...track.corners.map((k) => {
     const el = document.createElement("span");
     el.className = "c3-turn"; el.textContent = `T${k.n}`;
     host.querySelector(".c3-labels").append(el);
@@ -168,7 +171,7 @@ export async function mount(host, track, { accent = "#e10600", onSpeed } = {}) {
     camera.lookAt(0, 0, 0);
 
     // car: advance by the reference lap's speed at this point (lap compressed to ~9 s)
-    if (!REDUCED) {
+    if (!REDUCED && tel) {
       const kmh = track.speed[idx];
       s += (kmh / 3.6) * dt * (total / (track.length_m || 5000)) * (track.lap_time / 9);
       while (s > seg[idx]) { s -= seg[idx]; idx = (idx + 1) % n; }
@@ -182,8 +185,8 @@ export async function mount(host, track, { accent = "#e10600", onSpeed } = {}) {
       trailCol.set([col.r * k, col.g * k, col.b * k], i * 3);
     }
     trailGeo.attributes.position.needsUpdate = true; trailGeo.attributes.color.needsUpdate = true;
-    const v = Math.round(track.speed[idx]);
-    if (onSpeed && v !== shown) { shown = v; onSpeed(v, (v - vmin) / (vmax - vmin)); }
+    const v = tel ? Math.round(track.speed[idx]) : null;
+    if (tel && onSpeed && v !== shown) { shown = v; onSpeed(v, (v - vmin) / (vmax - vmin)); }
 
     dust.rotation.y += dt * 0.01;
     renderer.render(scene, camera);
