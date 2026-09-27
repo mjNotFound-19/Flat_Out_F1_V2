@@ -369,11 +369,13 @@ function trackCard(nx) {
     <circle r="16" fill="var(--primary)" stroke="#fff" stroke-width="5">${still ? "" : `<animateMotion dur="7s" repeatCount="indefinite" begin="2.6s"><mpath href="#trk"/></animateMotion>`}</circle></svg>`;
   return h("div", { class: "trackcard" }, h("div", { class: "map", html: svg }),
     h("div", {}, h("div", { class: "k" }, "Circuit"), h("div", { class: "n" }, nx.meta.location),
-      h("div", { class: "meta" }, h("span", {}, `${c.n_laps} laps`), h("span", {}, `${t.corners.length} turns`), h("span", {}, `pit loss ${fx(c.pit_loss, 1)}s`))));
+      h("div", { class: "meta" }, h("span", {}, `${c.n_laps} laps`), h("span", {}, `${t.corners.length} turns`), h("span", {}, `pit loss ${fx(c.pit_loss, 1)}s`),
+        t.kind === "official_map_trace" ? h("span", { "data-tip": t.source }, "official layout \u00b7 no telemetry") : null)));
 }
 /* 3D circuit section: the reference lap as a speed-coloured ribbon (three.js, loaded when scrolled near) */
 function circuit3dEl(nx, fav) {
   const t = nx.track, c = nx.circuit, m = nx.meta;
+  if (t && !t.speed) return layoutSection(nx);
   if (!t || !t.speed) {
     const id = m.identity || {};
     return h("section", { class: "c3 c3-none", "aria-labelledby": "c3-title" },
@@ -1264,4 +1266,22 @@ function reproPanel(nx) {
     ["Simulations", Number(m.n_sims).toLocaleString()], ["Inputs missing", (m.inputs_missing || []).join(", ") || "none"]];
   return panel("Reproducibility", "everything needed to re-run this exact forecast",
     h("table", { class: "repro" }, h("tbody", {}, rows.map(([k, v]) => h("tr", {}, h("th", { scope: "row" }, k), h("td", { class: "mono" }, v))))));
+}
+/* official 2D layout (traced from the formula1.com circuit map) when no telemetry lap exists */
+function layoutSection(nx) {
+  const t = nx.track, m = nx.meta, id = m.identity || {}, c = nx.circuit;
+  const d = "M" + t.points.map((p) => p.join(",")).join(" L") + " Z";
+  const pad = 70, vb = `${-pad} ${-pad} ${t.w + 2 * pad} ${t.h + 2 * pad}`;
+  const [sx, sy] = t.points[0];
+  const svg = `<svg viewBox="${vb}" role="img" aria-label="${esc(id.circuit_name || m.location)} layout with ${t.corners.length} numbered turns">
+    <path class="lay-bg" d="${d}"/><path class="lay" d="${d}"/>
+    <line class="lay-sf" x1="${sx}" y1="${sy - 26}" x2="${sx}" y2="${sy + 26}"/>
+    ${t.corners.map((k) => `<g class="lay-turn"><circle cx="${k.x}" cy="${k.y}" r="19"/><text x="${k.x}" y="${k.y + 7}">${k.n}</text></g>`).join("")}
+  </svg>`;
+  return h("section", { class: "c3 c3-layout", "aria-labelledby": "c3-title" },
+    h("div", { class: "c3-hud" },
+      h("div", { class: "c3-tl" }, h("span", {}, `CIRCUIT_${String(m.round).padStart(2, "0")}`), h("h2", { id: "c3-title" }, id.circuit_name || m.location)),
+      h("dl", { class: "c3-tr" }, [["Length", id.length_km ? `${fx(id.length_km, 3)} km` : "\u2013"], ["Turns", t.corners.length], ["Laps", c.n_laps]].map(([k, v]) => h("div", {}, h("dt", {}, k), h("dd", {}, String(v)))))),
+    h("div", { class: "lay-map", html: svg }),
+    h("p", { class: "c3-none-msg" }, "Official layout, traced from the formula1.com circuit map. The speed-coloured 3D view needs a recorded lap, and there is none at Sepang in the telemetry this site uses (FastF1 position data starts in 2018; the last race here was 2017), so no speed, elevation or car is shown."));
 }

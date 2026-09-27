@@ -715,3 +715,16 @@ table.repro { width: 100%; table-layout: fixed; border-collapse: collapse; }
 table.repro th { width: 34%; text-align: left; font-weight: 600; color: var(--muted); vertical-align: top; padding: 6px 12px 6px 0; }
 table.repro td { overflow-wrap: anywhere; word-break: break-word; padding: 6px 0; font-size: 12.5px; }
 table.repro th, table.repro td { white-space: normal; }
+/* official 2D layout (no telemetry) */
+.c3.c3-layout { height: auto; min-height: 0; cursor: default; padding-bottom: 20px; }
+.c3.c3-layout .c3-hud { position: relative; min-height: 110px; }
+.c3.c3-layout .c3-hud > .c3-tl { position: absolute; }
+.lay-map { max-width: 760px; margin: 0 auto; padding: 0 16px; }
+.lay-map svg { width: 100%; height: auto; display: block; }
+.lay-map .lay-bg { fill: none; stroke: #2a2f3a; stroke-width: 34; stroke-linejoin: round; }
+.lay-map .lay { fill: none; stroke: #e8edf5; stroke-width: 9; stroke-linejoin: round; }
+.lay-map .lay-sf { stroke: var(--primary); stroke-width: 8; }
+.lay-map .lay-turn circle { fill: #0b0d11; stroke: #9aa3b0; stroke-width: 3; }
+.lay-map .lay-turn text { fill: #e8edf5; font: 600 20px var(--mono); text-anchor: middle; }
+.c3.c3-layout .c3-none-msg { margin: 16px auto 0; padding: 0 24px; text-align: center; }
+@media (max-width: 700px) { .c3.c3-layout .c3-hud { min-height: 90px; } .c3.c3-layout .c3-tr { display: none; } }

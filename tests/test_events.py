@@ -91,5 +91,19 @@ class SupersededForecastTests(unittest.TestCase):
             self.assertEqual(json.loads(marker.read_text())['status'], 'invalid_for_event')
 
 
+class LayoutTests(unittest.TestCase):
+    def test_sepang_traced_layout(self):
+        import numpy as np
+        from pathlib import Path
+        d = json.loads((Path(events.__file__).parent / 'registry' / 'layouts' / 'Sepang.json').read_text())
+        self.assertEqual(d['kind'], 'official_map_trace')
+        self.assertFalse(d['telemetry'])
+        self.assertNotIn('speed', d)                     # never pretend a traced map is telemetry
+        self.assertEqual(sorted(c['n'] for c in d['corners']), list(range(1, 16)))
+        P = np.array(d['points'])
+        step = np.sqrt((np.diff(np.vstack([P, P[:1]]), axis=0) ** 2).sum(1))
+        self.assertLess(step.max(), 4 * np.median(step), 'gap in the traced loop')
+
+
 if __name__ == '__main__':
     unittest.main()

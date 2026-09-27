@@ -2,6 +2,7 @@
 a venue, rotated like the official map and normalised to a 1000-unit box, plus that lap's elevation,
 and speed along the trace (for the 3D circuit view). Cached per venue."""
 import json
+from pathlib import Path
 import logging
 
 import numpy as np
@@ -29,7 +30,10 @@ def outline(location, n_points=260):
     races = [(int(y), int(r)) for y, r, l in sched[['year', 'round', 'location']].itertuples(index=False)
              if venue(l) == loc and (ingest.session_dir(int(y), int(r), 'R') / 'meta.json').exists()]
     if not races:
-        return None
+        # no telemetry lap for this circuit: fall back to a sourced 2D layout (traced official map), if any.
+        # It carries kind='official_map_trace' and telemetry=False, so the site never shows speed/elevation.
+        ref = Path(__file__).resolve().parent / 'registry' / 'layouts' / f"{loc.replace(' ', '_')}.json"
+        return json.loads(ref.read_text()) if ref.exists() else None
     year, rnd = max(races)
     import fastf1
     logging.getLogger('fastf1').setLevel(logging.ERROR)
