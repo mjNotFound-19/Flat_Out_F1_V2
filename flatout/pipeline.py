@@ -229,34 +229,44 @@ def out_dir(year, rnd):
     return p
 
 
+MODE_INPUTS = {   # weekend sessions a forecast mode may use; everything else of the weekend is "missing"
+    'pre_weekend': [], 'post_fp': ['FP1', 'FP2', 'FP3'], 'post_sprint': ['FP1', 'SQ', 'S'],
+    'post_quali': ['FP1', 'FP2', 'FP3', 'SQ', 'S', 'Q'],
+}
+
+
 def save_prediction(year, rnd, df, dist, extra, ctx, n_sims, tag='pre_race'):
+    """Validate and publish a forecast (flatout/contract.py): immutable runs/<utc>_<mode>/ folder, then an
+    atomic switch of the event's current pre_race_* files."""
+    from . import contract, provenance
     d = out_dir(year, rnd)
-    stamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-    df.to_csv(d / f'{tag}_summary.csv', index=False)
-    dist.to_csv(d / f'{tag}_distribution.csv', index=False)
-    sessions = ingest.available_sessions(year, rnd)
-    from . import provenance
+    now = datetime.now(timezone.utc)
+    sessions = [s for s in ingest.available_sessions(year, rnd) if s != 'R']
+    mode = extra.get('mode') or 'auto'
+    allowed = MODE_INPUTS.get(mode)
+    used = sessions if allowed is None else [s for s in sessions if s in allowed]
     ident = ctx['info'].get('identity', {})
     models_meta = MODELS / 'pace_models_meta.json'
     meta = dict(year=year, round=rnd, event=ident.get('title', ctx['info']['event']), location=ctx['info']['location'],
-                created=stamp, created_utc=datetime.now(timezone.utc).isoformat(timespec='seconds'),
-                n_sims=n_sims, sessions_used=[s for s in sessions if s != 'R'],
+                created=now.strftime('%Y%m%d_%H%M%S'), created_utc=now.isoformat(timespec='seconds'),
+                n_sims=n_sims, sessions_used=used,
+                inputs_missing=[s for s in ('FP1', 'FP2', 'FP3', 'SQ', 'S', 'Q') if s not in used]
+                               + ([] if ctx['grid'] is not None else ['starting grid']),
+                information_cutoff_utc=now.isoformat(timespec='seconds'),
                 grid_known=ctx['grid'] is not None, **extra,
                 identity=ident, assumptions=ctx.get('assumptions', []),
                 status='provisional' if ctx.get('new_venue') else 'standard',
                 provenance=dict(code=provenance.code_identity(), data=provenance.data_identity(),
                                 model_meta_sha256=provenance.sha256_file(models_meta) if models_meta.exists() else None,
+                                sim_params=ctx.get('params_used', {}),
                                 sim_params_sha256=provenance.sha256_json(ctx.get('params_used', {})),
                                 seed=dict(base=2026, scheme='per-chunk seed = base + 7919*i')),
                 circuit={k: v for k, v in ctx['circuit'].items() if k not in ('start_compound',)},
                 strategies=[dict(seq=strategy.label(x['seq']), lens=x['lens'], delta=round(x['delta'], 2))
                             for x in ctx['cands'][:12]])
-    (d / f'{tag}_meta.json').write_text(json.dumps(meta, indent=1, default=float))
-    # archive every snapshot so evaluation can use what was known at the time
-    arch = d / 'snapshots'
-    arch.mkdir(exist_ok=True)
-    df.to_csv(arch / f'{stamp}_{tag}_summary.csv', index=False)
-    dist.to_csv(arch / f'{stamp}_{tag}_distribution.csv', index=False)
+    run, warnings = contract.publish(d, df, dist, meta, tag=tag)
+    for w in warnings:
+        print(f'  ! {w}')
     return d
 
 

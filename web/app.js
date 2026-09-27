@@ -284,13 +284,16 @@ function renderRace(root) {
   const hero = h("div", { class: "hero" }, flagWave(m.country),
     h("div", { class: "hero-copy" },
       h("div", { class: "eyebrow" }, flag(m.country, "sm"), `Round ${m.round}, ${dateStr}`),
-      h("h1", {}, m.event.replace(/\s*Grand Prix$/i, ""), em("Grand Prix")),
+      titleEl(m.event),
+      venueEl(m),
       h("div", { class: "chips" },
         h("span", { class: "chip red" }, MODE_LABEL[m.mode] || m.mode),
         h("span", { class: "chip", html: `${ICON.sims}${Number(m.n_sims).toLocaleString()} races simulated` }),
         h("span", { class: "chip", html: `${ICON.sc}Safety car ${pct(m.p_sc)}` }),
         nerd() ? h("span", { class: "chip", html: `${ICON.cpu}${fx(m.sim_seconds, 0)} s compute` }) : null,
-        nerd() ? h("span", { class: "chip" }, `grid ${m.grid_known ? "known" : "simulated"}`) : null),
+        nerd() ? h("span", { class: "chip" }, `grid ${m.grid_known ? "known" : "simulated"}`) : null,
+        m.status === "provisional" ? h("span", { class: "chip warn", "data-tip": "First race at this circuit in the model's data: circuit behaviour comes from pooled priors" }, "Provisional") : null),
+      provisionalEl(m),
       h("div", { class: "hero-meta" }, countdownEl(m), trackCard(nx)),
       h("p", { class: "hero-note" }, nerd()
         ? `Lap-by-lap Monte Carlo: Student-t race-day pace, tyre deg with cliff, planned and safety-car stops, red-flag tyre changes, pace-dependent passing (overtake factor ${fx(c.overtake_factor, 2)}) and reliability hazards.`
@@ -351,8 +354,12 @@ function renderRace(root) {
   if (nerd()) root.append(h("div", { class: "mt" }, heatmapPanel(nx)));
 }
 function trackCard(nx) {
-  const t = nx.track, c = nx.circuit;
-  if (!t) return null;
+  const t = nx.track, c = nx.circuit, id = nx.meta.identity || {};
+  if (!t) return h("div", { class: "trackcard nomap" },
+    h("div", { class: "map nomap-box", "aria-hidden": "true" }, h("span", {}, "no map")),
+    h("div", {}, h("div", { class: "k" }, "Circuit"), h("div", { class: "n" }, id.circuit_name || nx.meta.location),
+      h("div", { class: "meta" }, h("span", {}, `${c.n_laps} laps`), id.length_km ? h("span", {}, `${fx(id.length_km, 3)} km`) : null,
+        h("span", {}, "no recorded lap in 2024–26 data"))));
   const d = "M" + t.points.map((p) => p.join(",")).join(" L") + " Z";
   const pad = 60, vb = `${-pad} ${-pad} ${t.w + 2 * pad} ${t.h + 2 * pad}`;
   const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -367,7 +374,15 @@ function trackCard(nx) {
 /* 3D circuit section: the reference lap as a speed-coloured ribbon (three.js, loaded when scrolled near) */
 function circuit3dEl(nx, fav) {
   const t = nx.track, c = nx.circuit, m = nx.meta;
-  if (!t || !t.speed) return null;
+  if (!t || !t.speed) {
+    const id = m.identity || {};
+    return h("section", { class: "c3 c3-none", "aria-labelledby": "c3-title" },
+      h("div", { class: "c3-hud" },
+        h("div", { class: "c3-tl" }, h("span", {}, `CIRCUIT_${String(m.round).padStart(2, "0")}`), h("h2", { id: "c3-title" }, id.circuit_name || m.location)),
+        h("p", { class: "c3-none-msg" }, `There is no recorded ${id.circuit_name || m.location} lap in the 2024–26 telemetry this site uses, `
+          + "so no 3D circuit is drawn. The last Formula 1 race here predates FastF1 position data (2018 onwards). "
+          + "A borrowed layout from another circuit would be misleading, so none is shown.")));
+  }
   if (state.c3dispose) { state.c3dispose(); state.c3dispose = null; }
   const vmin = Math.min(...t.speed), vmax = Math.max(...t.speed);
   const elev = (Math.max(...t.z) / 1000) * t.scale_m;
@@ -1123,3 +1138,22 @@ async function init() {
   route();
 }
 init();
+/* verified venue under the title, and the provisional-forecast explanation */
+function titleEl(event) {
+  const m = /^(.*?)\s*Grand Prix\s*(.*)$/i.exec(event || "");
+  if (!m) return h("h1", {}, event);
+  return h("h1", {}, m[1], em("Grand Prix"), m[2] ? h("span", { class: "title-tail" }, m[2]) : null);
+}
+function venueEl(m) {
+  const id = m.identity;
+  if (!id || !id.circuit_name) return null;
+  return h("div", { class: "venue" }, h("b", {}, id.circuit_name), ` \u00b7 ${id.host_country}`,
+    id.status === "override" && nerd() ? h("span", { class: "venue-note", "data-tip": id.note }, " \u00b7 venue verified against formula1.com") : null);
+}
+function provisionalEl(m) {
+  if (m.status !== "provisional") return null;
+  const a = m.assumptions || [];
+  if (!nerd()) return h("p", { class: "provisional" }, "First race at this circuit in our data, so tyre wear, pit-stop time, safety cars and overtaking use averages from other tracks. Treat these odds as rougher than usual.");
+  return h("details", { class: "provisional" }, h("summary", {}, `Provisional forecast \u00b7 ${a.length} stated assumption${a.length === 1 ? "" : "s"}`),
+    h("ul", {}, a.map((x) => h("li", {}, x))));
+}

@@ -33,13 +33,33 @@ def _records(df):
     return json.loads(df.replace({np.nan: None}).to_json(orient='records'))
 
 
-def _latest_prediction():
-    cands = sorted(OUTPUT.glob('*/R*/pre_race_summary.csv'),
-                   key=lambda p: (int(p.parent.parent.name), int(p.parent.name[1:])))
-    if not cands:
+def _next_event(hist):
+    """(year, round) of the first scheduled event without a stored race result, or None."""
+    from . import ingest
+    raced = set(map(tuple, hist[['year', 'round']].drop_duplicates().astype(int).values.tolist()))
+    top = int(hist.year.max())
+    for y in (top, top + 1):
+        sp = ingest.STORE / str(y) / 'schedule.parquet'
+        if not sp.exists():
+            continue
+        for r in sorted(pd.read_parquet(sp)['round'].astype(int)):
+            if (y, r) not in raced:
+                return y, r
+    return None
+
+
+def _latest_prediction(hist=None):
+    """Forecast for the next unraced event only. A stored forecast for an event that has already been
+    raced is history, not 'next'; superseded forecasts live in superseded/ and are never read here."""
+    nxt = _next_event(hist) if hist is not None else None
+    if nxt is None:
         return None
-    d = cands[-1].parent
+    d = OUTPUT / str(nxt[0]) / f'R{nxt[1]:02d}'
+    if not (d / 'pre_race_summary.csv').exists():
+        return None
     meta = json.loads((d / 'pre_race_meta.json').read_text())
+    if meta.get('location') != (meta.get('identity') or {}).get('circuit', meta.get('location')):
+        raise ValueError(f'{d}: forecast location {meta.get("location")} != verified circuit; refusing to export')
     summ = pd.read_csv(d / 'pre_race_summary.csv')
     dist = pd.read_csv(d / 'pre_race_distribution.csv')
     c = meta.get('circuit', {})
@@ -51,7 +71,11 @@ def _latest_prediction():
         meta['sessions'] = json.loads(ev.sessions)
     except Exception:
         pass
-    return dict(meta={k: v for k, v in meta.items() if k not in ('circuit',)},
+    ident = meta.get('identity') or {}
+    if ident.get('race_start_utc'):
+        meta.setdefault('sessions', {})['R'] = ident['race_start_utc']
+    return dict(meta={k: v for k, v in meta.items() if k not in ('circuit', 'provenance')},
+                provenance=meta.get('provenance'),
                 circuit={k: c.get(k) for k in ('location', 'event', 'n_races', 'n_laps', 'base_lap', 'pit_loss',
                                                 'fuel', 'lap_sd', 'sc_per_race', 'vsc_per_race', 'overtake_factor',
                                                 'offset', 'deg', 'stops_mu', 'stops_dist', 'stint_frac', 'dnf_rate',
@@ -208,7 +232,7 @@ def export(log=print):
     hist = features.history_table(analyses)
     year = int(hist.year.max())
     site = dict(generated=datetime.now().isoformat(timespec='seconds'), season=year)
-    site['next'] = _latest_prediction()
+    site['next'] = _latest_prediction(hist)
     if site['next']:
         try:
             from . import tracks
