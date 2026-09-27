@@ -236,8 +236,7 @@ def cmd_promote(a):
     r = promotion.evaluate(a.champion, a.challenger)
     for k, c in r['checks'].items():
         print(f"  {k:<24s} {'PASS' if c['pass_'] else ('n/a ' if c['pass_'] is None else 'FAIL')}  {json.dumps(c.get('value'), default=float)[:150]}")
-    print(f"
-  promote: {r['promote']}  ({r['n_pairs']} race-mode pairs)")
+    print(f"\n  promote: {r['promote']}  ({r['n_pairs']} race-mode pairs)")
     out = __import__('pathlib').Path(a.challenger) / 'promotion.json'
     out.write_text(json.dumps(r, indent=1, default=float))
 
