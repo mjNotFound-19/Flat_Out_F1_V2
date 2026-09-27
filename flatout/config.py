@@ -29,9 +29,8 @@ def event_key(year: int, rnd: int) -> str:
     return f'{year}_R{rnd:02d}'
 
 
-# Same circuit, renamed between seasons in the FastF1 schedule.
-VENUE_ALIAS = {'Yas Marina': 'Yas Island', 'Miami Gardens': 'Miami', 'Monte Carlo': 'Monaco'}
-
-
 def venue(location):
-    return VENUE_ALIAS.get(location, location)
+    """Canonical circuit key for a schedule location string (sourced registry, flatout/events.py).
+    Unknown strings raise instead of passing through: every location must be registered."""
+    from .events import circuit_key
+    return circuit_key(location)

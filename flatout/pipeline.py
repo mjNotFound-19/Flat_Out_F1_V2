@@ -1,12 +1,13 @@
 """Glue: turn an event into a simulator spec, run it, summarise, and persist."""
 import json
 import time
-from datetime import datetime
+from datetime import datetime, timezone
 
 import numpy as np
 import pandas as pd
 
 from . import circuits as circ_mod, evaluate, features, ingest, race, sim, strategy
+from . import events
 from .config import DERIVED, DRY, MODELS, OUTPUT, POINTS, venue
 from .model import PaceModels
 
@@ -20,24 +21,21 @@ def load_sim_params():
 
 
 def event_info(year, rnd, log=print):
+    """Schedule row + resolved event identity. The circuit comes only from the sourced registry
+    (flatout/events.py); conflicting or unknown metadata raises EventResolutionError."""
     sch_p = ingest.STORE / str(year) / 'schedule.parquet'
     sch = pd.read_parquet(sch_p) if sch_p.exists() else ingest.load_schedule(year)
     info = sch[sch['round'] == rnd].iloc[0].to_dict()
-    info['location'] = venue(info['location'])
-    # Guard against schedule glitches: if this venue has no history but the same event name does
-    # (e.g. 2026 'Bahrain Grand Prix' listed at 'Kuala Lumpur'), use the historical venue - unless
-    # that venue hosts another race this season (2026 Spanish GP really moved to Madrid).
-    hist_sched = ingest.all_schedules()
-    past = hist_sched[hist_sched.year < year]
-    this_season = {venue(l) for l in sch.location}
-    if len(past) and info['location'] not in {venue(l) for l in past.location}:
-        same = past[past.event == info['event']]
-        if len(same):
-            old = venue(same.sort_values('year').location.iloc[-1])
-            if old not in this_season:
-                log(f"  ! schedule lists {info['event']} at '{info['location']}' (country {info['country']}); "
-                    f"no history there - using historical venue '{old}'. Check the real venue.")
-                info['location_listed'], info['location'] = info['location'], old
+    try:
+        start = json.loads(info.get('sessions') or '{}').get('R')
+    except (TypeError, ValueError):
+        start = None
+    ident = events.resolve(year, rnd, info['event'], info['location'], info['country'], start)
+    info['location_listed'], info['location'] = info['location'], ident.circuit
+    info['identity'] = ident.as_dict()
+    if ident.status == 'override':
+        log(f"  venue: {ident.title} at {ident.circuit_name}, {ident.host_country} "
+            f"(schedule lists '{ident.listed_location}', {ident.listed_country}; sourced override)")
     return info
 
 
@@ -85,6 +83,31 @@ def _fallback_base_lap(year, rnd):
     return min(best) * 1.06 if best else None
 
 
+# A circuit with no race in the dataset has unknown car-circuit fit: widen driver pace uncertainty.
+# Assumption (not fitted): x1.25. Tested only on one new venue so far (Madrid 2026); revisit in Stage 3.
+NEW_VENUE_SD_MULT = 1.25
+
+
+def pooled_base_lap(circuits, ident):
+    """Base race lap for an unseen circuit: median seconds-per-km over circuits with a fitted base lap,
+    times the official length. Returns (seconds, explanation)."""
+    rates = []
+    for key, c in circuits.items():
+        if key.startswith('_') or not c.get('base_lap'):
+            continue
+        try:
+            km = events.circuit(key).get('length_km')
+        except KeyError:
+            km = None
+        if km:
+            rates.append(c['base_lap'] / km)
+    if not rates or not ident.get('length_km'):
+        raise events.EventResolutionError(f"no base-lap prior for {ident['circuit']}: needs circuit length and history")
+    r = float(np.median(rates))
+    return r * ident['length_km'], (f"base lap {r * ident['length_km']:.1f}s = pooled median {r:.2f} s/km over "
+                                    f"{len(rates)} circuits x {ident['length_km']} km (not Sepang data)")
+
+
 def build_spec(year, rnd, analyses, hist, models, circuits, params, use_grid=True, grid_override=None,
                mode=None):
     info = event_info(year, rnd)
@@ -92,10 +115,27 @@ def build_spec(year, rnd, analyses, hist, models, circuits, params, use_grid=Tru
     f = features.event_features(year, rnd, hist, entry, mode=mode)
     pred = models.predict(f)
     known = hist[(hist.year == year) & (hist['round'] == rnd)]
-    n_laps = int(known.n_laps.iloc[0]) if len(known) else None
+    ident = info['identity']
+    n_laps = int(known.n_laps.iloc[0]) if len(known) else ident.get('laps')
+    if not n_laps:
+        raise events.EventResolutionError(
+            f"{year} R{rnd}: no lap count (not raced yet, and the registry has no sourced laps for "
+            f"{ident['circuit']} in {year}). Add the official lap count to flatout/registry/circuits.json.")
     have_base = (circuits.get(info['location']) or {}).get('base_lap')
-    c = circ_mod.for_event(circuits, info['location'], n_laps=n_laps,
-                           base_lap=None if have_base else _fallback_base_lap(year, rnd))
+    assumptions = []
+    base = None
+    if not have_base:
+        base = _fallback_base_lap(year, rnd)
+        if base:
+            assumptions.append(f"base lap {base:.1f}s from this weekend's practice (x1.06)")
+        else:
+            base, how = pooled_base_lap(circuits, ident)
+            assumptions.append(how)
+    c = circ_mod.for_event(circuits, info['location'], n_laps=n_laps, base_lap=base)
+    new_venue = not c.get('n_races')
+    if new_venue:
+        assumptions.append(f"no {info['location']} race in the dataset: pit loss, tyre wear, stops, safety-car rate "
+                           f"and overtaking use pooled all-circuit priors; driver pace sd x{NEW_VENUE_SD_MULT}")
     D = len(entry)
     drivers = entry.Driver.tolist()
     grid = None
@@ -122,12 +162,14 @@ def build_spec(year, rnd, analyses, hist, models, circuits, params, use_grid=Tru
         max_stint=c['max_stint'], pit_loss=c['pit_loss'], lap_sd=c['lap_sd'],
         overtake_factor=c['overtake_factor'], sc_lap=sc_indep / n, vsc_lap=vsc_indep / n,
         red_share=c.get('red_share', 0.08),
-        pace_mu=pred.race_mu.values / 100 * c['base_lap'], pace_sd=pred.race_sd.values / 100 * c['base_lap'],
+        pace_mu=pred.race_mu.values / 100 * c['base_lap'],
+        pace_sd=pred.race_sd.values / 100 * c['base_lap'] * (NEW_VENUE_SD_MULT if new_venue else 1.0),
         quali_mu=pred.quali_mu.values, quali_sd=np.maximum(pred.quali_sd.values, 0.05),
         grid=grid, dnf_lap=h, deg_mult=np.ones(D),
         strat_p=probs, strat_lens=lens, strat_comps=comps, strat_n=nst, params=params,
     )
     ctx = dict(info=info, drivers=drivers, teams=entry.Team.tolist(), pred=pred, features=f,
+               assumptions=assumptions, new_venue=new_venue, params_used=dict(params),
                circuit=c, cands=cands, strat_p=probs, grid=grid, p_dnf=p_dnf,
                grid_T=evaluate.grid_transition(hist, (year, rnd)), grid_blend=params.get('grid_blend', 0.0))
     return spec, ctx
@@ -193,9 +235,19 @@ def save_prediction(year, rnd, df, dist, extra, ctx, n_sims, tag='pre_race'):
     df.to_csv(d / f'{tag}_summary.csv', index=False)
     dist.to_csv(d / f'{tag}_distribution.csv', index=False)
     sessions = ingest.available_sessions(year, rnd)
-    meta = dict(year=year, round=rnd, event=ctx['info']['event'], location=ctx['info']['location'],
-                created=stamp, n_sims=n_sims, sessions_used=[s for s in sessions if s != 'R'],
+    from . import provenance
+    ident = ctx['info'].get('identity', {})
+    models_meta = MODELS / 'pace_models_meta.json'
+    meta = dict(year=year, round=rnd, event=ident.get('title', ctx['info']['event']), location=ctx['info']['location'],
+                created=stamp, created_utc=datetime.now(timezone.utc).isoformat(timespec='seconds'),
+                n_sims=n_sims, sessions_used=[s for s in sessions if s != 'R'],
                 grid_known=ctx['grid'] is not None, **extra,
+                identity=ident, assumptions=ctx.get('assumptions', []),
+                status='provisional' if ctx.get('new_venue') else 'standard',
+                provenance=dict(code=provenance.code_identity(), data=provenance.data_identity(),
+                                model_meta_sha256=provenance.sha256_file(models_meta) if models_meta.exists() else None,
+                                sim_params_sha256=provenance.sha256_json(ctx.get('params_used', {})),
+                                seed=dict(base=2026, scheme='per-chunk seed = base + 7919*i')),
                 circuit={k: v for k, v in ctx['circuit'].items() if k not in ('start_compound',)},
                 strategies=[dict(seq=strategy.label(x['seq']), lens=x['lens'], delta=round(x['delta'], 2))
                             for x in ctx['cands'][:12]])

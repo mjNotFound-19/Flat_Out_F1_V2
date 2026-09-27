@@ -28,3 +28,6 @@ data/derived/_*
 data/sync_log*.txt
 # Playwright CLI output (may contain credentials)
 .playwright-cli/
+
+# immutable experiment snapshots (large copies of generated outputs; manifests are the record)
+artifacts/snapshots/*/files/

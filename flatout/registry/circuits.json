@@ -1,0 +1,49 @@
+{
+  "_about": "Circuit registry: the single source of truth for mapping schedule locations to physical circuits. Keys are the canonical circuit keys used across history, circuit priors and site data. length_km / laps are copied from the cited official event page for source_season; they are layout facts for that season, not for every year. fastf1_locations lists every location string FastF1 has used for the circuit; an unknown string is a validation error, never a guess.",
+  "_version": "2026-09-27.1",
+  "_retrieved_utc": "2026-09-27",
+  "circuits": {
+    "Baku":              {"name": "Baku City Circuit", "country": "Azerbaijan", "city": "Baku", "length_km": 6.003, "laps": 51, "first_gp": 2016, "source_season": 2026, "source": "https://www.formula1.com/en/racing/2026/azerbaijan", "fastf1_locations": ["Baku"]},
+    "Sepang":            {"name": "Sepang International Circuit", "country": "Malaysia", "city": "Sepang", "length_km": 5.543, "laps": 56, "first_gp": 1999, "source_season": 2026, "source": "https://www.formula1.com/en/racing/2026/bahrain", "fastf1_locations": ["Kuala Lumpur", "Sepang"]},
+    "Marina Bay":        {"name": "Marina Bay Street Circuit", "country": "Singapore", "city": "Singapore", "length_km": 4.927, "laps": 62, "first_gp": 2008, "source_season": 2026, "source": "https://www.formula1.com/en/racing/2026/singapore", "fastf1_locations": ["Marina Bay", "Singapore"]},
+    "Austin":            {"name": "Circuit of The Americas", "country": "United States", "city": "Austin", "length_km": 5.513, "laps": 56, "first_gp": 2012, "source_season": 2026, "source": "https://www.formula1.com/en/racing/2026/united-states", "fastf1_locations": ["Austin"]},
+    "Melbourne":         {"name": "Albert Park Circuit", "country": "Australia", "city": "Melbourne", "length_km": 5.278, "laps": 58, "first_gp": 1996, "source_season": 2026, "source": "https://www.formula1.com/en/racing/2026/australia", "fastf1_locations": ["Melbourne"]},
+    "Shanghai":          {"name": "Shanghai International Circuit", "country": "China", "city": "Shanghai", "length_km": 5.451, "laps": 56, "first_gp": 2004, "source_season": 2026, "source": "https://www.formula1.com/en/racing/2026/china", "fastf1_locations": ["Shanghai"]},
+    "Suzuka":            {"name": "Suzuka Circuit", "country": "Japan", "city": "Suzuka", "length_km": 5.807, "laps": 53, "first_gp": 1987, "source_season": 2026, "source": "https://www.formula1.com/en/racing/2026/japan", "fastf1_locations": ["Suzuka"]},
+    "Miami":             {"name": "Miami International Autodrome", "country": "United States", "city": "Miami Gardens", "length_km": 5.412, "laps": 57, "first_gp": 2022, "source_season": 2026, "source": "https://www.formula1.com/en/racing/2026/miami", "fastf1_locations": ["Miami", "Miami Gardens"]},
+    "Montréal":          {"name": "Circuit Gilles-Villeneuve", "country": "Canada", "city": "Montréal", "length_km": 4.361, "laps": 70, "first_gp": 1978, "source_season": 2026, "source": "https://www.formula1.com/en/racing/2026/canada", "fastf1_locations": ["Montréal", "Montreal"]},
+    "Monaco":            {"name": "Circuit de Monaco", "country": "Monaco", "city": "Monte Carlo", "length_km": 3.337, "laps": 78, "first_gp": 1950, "source_season": 2026, "source": "https://www.formula1.com/en/racing/2026/monaco", "fastf1_locations": ["Monaco", "Monte Carlo"]},
+    "Barcelona":         {"name": "Circuit de Barcelona-Catalunya", "country": "Spain", "city": "Montmeló", "length_km": 4.657, "laps": 66, "first_gp": 1991, "source_season": 2026, "source": "https://www.formula1.com/en/racing/2026/barcelona-catalunya", "fastf1_locations": ["Barcelona"]},
+    "Spielberg":         {"name": "Red Bull Ring", "country": "Austria", "city": "Spielberg", "length_km": 4.326, "laps": 71, "first_gp": 1970, "source_season": 2026, "source": "https://www.formula1.com/en/racing/2026/austria", "fastf1_locations": ["Spielberg"]},
+    "Silverstone":       {"name": "Silverstone Circuit", "country": "United Kingdom", "city": "Silverstone", "length_km": 5.891, "laps": 52, "first_gp": 1950, "source_season": 2026, "source": "https://www.formula1.com/en/racing/2026/great-britain", "fastf1_locations": ["Silverstone"]},
+    "Spa-Francorchamps": {"name": "Circuit de Spa-Francorchamps", "country": "Belgium", "city": "Stavelot", "length_km": 7.004, "laps": 44, "first_gp": 1950, "source_season": 2026, "source": "https://www.formula1.com/en/racing/2026/belgium", "fastf1_locations": ["Spa-Francorchamps"]},
+    "Budapest":          {"name": "Hungaroring", "country": "Hungary", "city": "Mogyoród", "length_km": 4.381, "laps": 70, "first_gp": 1986, "source_season": 2026, "source": "https://www.formula1.com/en/racing/2026/hungary", "fastf1_locations": ["Budapest"]},
+    "Zandvoort":         {"name": "Circuit Zandvoort", "country": "Netherlands", "city": "Zandvoort", "length_km": 4.259, "laps": 72, "first_gp": 1952, "source_season": 2026, "source": "https://www.formula1.com/en/racing/2026/netherlands", "fastf1_locations": ["Zandvoort"]},
+    "Monza":             {"name": "Autodromo Nazionale Monza", "country": "Italy", "city": "Monza", "length_km": 5.793, "laps": 53, "first_gp": 1950, "source_season": 2026, "source": "https://www.formula1.com/en/racing/2026/italy", "fastf1_locations": ["Monza"]},
+    "Madrid":            {"name": "Madring", "country": "Spain", "city": "Madrid", "length_km": 5.414, "laps": 57, "first_gp": 2026, "source_season": 2026, "source": "https://www.formula1.com/en/racing/2026/spain", "fastf1_locations": ["Madrid"]},
+    "Mexico City":       {"name": "Autódromo Hermanos Rodríguez", "country": "Mexico", "city": "Mexico City", "length_km": 4.304, "laps": 71, "first_gp": 1963, "source_season": 2026, "source": "https://www.formula1.com/en/racing/2026/mexico", "fastf1_locations": ["Mexico City"]},
+    "São Paulo":         {"name": "Autódromo José Carlos Pace", "country": "Brazil", "city": "São Paulo", "length_km": 4.309, "laps": 71, "first_gp": 1973, "source_season": 2026, "source": "https://www.formula1.com/en/racing/2026/brazil", "fastf1_locations": ["São Paulo", "Sao Paulo"]},
+    "Las Vegas":         {"name": "Las Vegas Strip Circuit", "country": "United States", "city": "Las Vegas", "length_km": 6.201, "laps": 50, "first_gp": 2023, "source_season": 2026, "source": "https://www.formula1.com/en/racing/2026/las-vegas", "fastf1_locations": ["Las Vegas"]},
+    "Lusail":            {"name": "Lusail International Circuit", "country": "Qatar", "city": "Lusail", "length_km": 5.419, "laps": 57, "first_gp": 2021, "source_season": 2026, "source": "https://www.formula1.com/en/racing/2026/qatar", "fastf1_locations": ["Lusail"]},
+    "Yas Island":        {"name": "Yas Marina Circuit", "country": "United Arab Emirates", "city": "Abu Dhabi", "length_km": 5.281, "laps": 58, "first_gp": 2009, "source_season": 2026, "source": "https://www.formula1.com/en/racing/2026/united-arab-emirates", "fastf1_locations": ["Yas Island", "Yas Marina"]},
+    "Sakhir":            {"name": "Bahrain International Circuit", "country": "Bahrain", "city": "Sakhir", "length_km": 5.412, "laps": 57, "first_gp": 2004, "source_season": 2025, "source": "https://www.formula1.com/en/racing/2025/bahrain", "fastf1_locations": ["Sakhir"]},
+    "Jeddah":            {"name": "Jeddah Corniche Circuit", "country": "Saudi Arabia", "city": "Jeddah", "length_km": 6.174, "laps": 50, "first_gp": 2021, "source_season": 2025, "source": "https://www.formula1.com/en/racing/2025/saudi-arabia", "fastf1_locations": ["Jeddah"]},
+    "Imola":             {"name": "Autodromo Internazionale Enzo e Dino Ferrari", "country": "Italy", "city": "Imola", "length_km": 4.909, "laps": 63, "first_gp": 1980, "source_season": 2025, "source": "https://www.formula1.com/en/racing/2025/emiliaromagna", "fastf1_locations": ["Imola"]}
+  },
+  "events": {
+    "2026-16": {
+      "title": "Bahrain Grand Prix in Malaysia",
+      "commercial_country": "Bahrain",
+      "circuit": "Sepang",
+      "host_country": "Malaysia",
+      "laps": 56,
+      "race_start_utc": "2026-10-04T07:00:00Z",
+      "fastf1_listed": {"location": "Kuala Lumpur", "country": "Bahrain"},
+      "note": "Commercial title is the Bahrain Grand Prix; the race is held at Sepang, Malaysia. FastF1 lists location 'Kuala Lumpur' with country 'Bahrain'. The Sakhir substitution used before 2026-09-27 was wrong.",
+      "sources": [
+        "https://www.formula1.com/en/racing/2026/bahrain",
+        "https://corp.formula1.com/formula-1-and-fia-confirm-that-malaysia-will-join-the-2026-calendar-as-host-venue-for-the-bahrain-grand-prix/"
+      ]
+    }
+  }
+}
