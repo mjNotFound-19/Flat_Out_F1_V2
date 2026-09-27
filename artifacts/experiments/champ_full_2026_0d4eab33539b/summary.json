@@ -1,0 +1,93 @@
+{
+ "post_quali": {
+  "n_races": 13,
+  "model_rps": 0.10832732022677415,
+  "model_log_loss": 2.5471309179820785,
+  "model_brier_win": 0.025599740051927646,
+  "model_brier_podium": 0.06896156965821178,
+  "model_brier_points": 0.1538183320087576,
+  "model_top3_hit": 0.564102564102564,
+  "model_winner_correct": 0.6923076923076923,
+  "grid_rps": 0.12039678802468877,
+  "grid_log_loss": 2.769155212108571,
+  "grid_brier_win": 0.02554668610691359,
+  "grid_brier_podium": 0.07270724461133754,
+  "grid_brier_points": 0.16496936716123403,
+  "grid_top3_hit": 0.6410256410256411,
+  "grid_winner_correct": 0.6153846153846154,
+  "pace_rps": 0.12231427168017751,
+  "pace_log_loss": 3.1488317651953723,
+  "pace_brier_win": 0.03251666791681144,
+  "pace_brier_podium": 0.07202002626045506,
+  "pace_brier_points": 0.17311359861082698,
+  "pace_top3_hit": 0.46153846153846145,
+  "pace_winner_correct": 0.6153846153846154,
+  "model_minus_pace_rps": {
+   "n": 13,
+   "mean": -0.013986951453403325,
+   "lo": -0.02285880023258343,
+   "hi": -0.005655731669000882,
+   "share_better": 0.8461538461538461
+  },
+  "model_minus_pace_log_loss": {
+   "n": 13,
+   "mean": -0.6017008472132931,
+   "lo": -0.8455150237626389,
+   "hi": -0.3700846691016223,
+   "share_better": 0.9230769230769231
+  },
+  "model_minus_grid_rps": {
+   "n": 13,
+   "mean": -0.012069467797914577,
+   "lo": -0.019423878051068336,
+   "hi": -0.005922201153674013,
+   "share_better": 0.9230769230769231
+  },
+  "model_minus_grid_log_loss": {
+   "n": 13,
+   "mean": -0.22202429412649247,
+   "lo": -0.34211896175585715,
+   "hi": -0.11644394824594774,
+   "share_better": 0.8461538461538461
+  }
+ },
+ "pre_weekend": {
+  "n_races": 13,
+  "model_rps": 0.1151615559033201,
+  "model_log_loss": 2.6514343745722213,
+  "model_brier_win": 0.036540951711442234,
+  "model_brier_podium": 0.08345713814331976,
+  "model_brier_points": 0.16450754873886042,
+  "model_top3_hit": 0.4102564102564102,
+  "model_winner_correct": 0.3076923076923077,
+  "grid_rps": 0.12039678802468877,
+  "grid_log_loss": 2.769155212108571,
+  "grid_brier_win": 0.02554668610691359,
+  "grid_brier_podium": 0.07270724461133754,
+  "grid_brier_points": 0.16496936716123403,
+  "grid_top3_hit": 0.6410256410256411,
+  "grid_winner_correct": 0.6153846153846154,
+  "pace_rps": 0.12337242934036774,
+  "pace_log_loss": 3.028518993734912,
+  "pace_brier_win": 0.03658686689869267,
+  "pace_brier_podium": 0.08012684587279811,
+  "pace_brier_points": 0.17574612575016907,
+  "pace_top3_hit": 0.46153846153846145,
+  "pace_winner_correct": 0.3076923076923077,
+  "model_minus_pace_rps": {
+   "n": 13,
+   "mean": -0.008210873437047624,
+   "lo": -0.013645115152867655,
+   "hi": -0.003207080666991146,
+   "share_better": 0.8461538461538461
+  },
+  "model_minus_pace_log_loss": {
+   "n": 13,
+   "mean": -0.37708461916269087,
+   "lo": -0.5435646906582594,
+   "hi": -0.21969662733311213,
+   "share_better": 0.8461538461538461
+  },
+  "grid_note": "actual-grid baseline not eligible pre-weekend (grid unknown at forecast time)"
+ }
+}

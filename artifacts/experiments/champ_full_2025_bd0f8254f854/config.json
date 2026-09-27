@@ -1,0 +1,106 @@
+{
+ "kind": "nested_walk_forward",
+ "year": 2025,
+ "first": 3,
+ "last": 99,
+ "modes": [
+  "post_quali",
+  "pre_weekend"
+ ],
+ "eval_sims": 300000,
+ "calib_sims": 6000,
+ "calib_last_n": 13,
+ "rounds": 2,
+ "start_params": {
+  "pass_thr": 0.55,
+  "pass_scale": 0.25,
+  "min_gap": 0.35,
+  "start_gap": 0.22,
+  "start_sd": 0.45,
+  "lap1_thr_mult": 0.45,
+  "pace_sd_mult": 1.0,
+  "lap_sd_mult": 1.0,
+  "sc_gap": 0.9,
+  "sc_lap_factor": 1.35,
+  "vsc_lap_factor": 1.28,
+  "sc_pit_factor": 0.55,
+  "vsc_pit_factor": 0.65,
+  "sc_from_dnf": 0.35,
+  "opp_window": 0.45,
+  "extra_stop_p": 0.35,
+  "slow_stop_p": 0.04,
+  "slow_stop_mean": 4.0,
+  "lap1_dnf_mult": 6.0,
+  "pace_df": 4.0,
+  "new_venue_mode": "sd_mult",
+  "force_unseen": false,
+  "rel_model": "shrink",
+  "rel_season_k": 0.0,
+  "grid_blend": 0.15
+ },
+ "tunable": {
+  "pass_thr": [
+   0.15,
+   2.5
+  ],
+  "lap1_thr_mult": [
+   0.3,
+   1.5
+  ],
+  "pace_sd_mult": [
+   0.4,
+   2.0
+  ],
+  "start_sd": [
+   0.1,
+   1.2
+  ],
+  "lap_sd_mult": [
+   0.5,
+   2.0
+  ],
+  "opp_window": [
+   0.2,
+   0.8
+  ],
+  "extra_stop_p": [
+   0.05,
+   0.7
+  ],
+  "grid_blend": [
+   0.02,
+   0.5
+  ]
+ },
+ "recal_every": 1,
+ "candidate": {},
+ "analysis_version": 8,
+ "data": {
+  "store_files": 1036,
+  "store_sha256": "27df5a856bce3179f3f9b981c50b850c2028ccf5fb93be9a4b408ea085b5ae21"
+ },
+ "outer": [
+  "2025_R03",
+  "2025_R04",
+  "2025_R05",
+  "2025_R06",
+  "2025_R07",
+  "2025_R08",
+  "2025_R09",
+  "2025_R10",
+  "2025_R11",
+  "2025_R12",
+  "2025_R13",
+  "2025_R14",
+  "2025_R15",
+  "2025_R16",
+  "2025_R17",
+  "2025_R18",
+  "2025_R19",
+  "2025_R20",
+  "2025_R21",
+  "2025_R22",
+  "2025_R23",
+  "2025_R24"
+ ]
+}

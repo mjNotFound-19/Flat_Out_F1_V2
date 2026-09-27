@@ -957,8 +957,10 @@ function renderSeason(root) {
 
 /* ------------------------------------------------------------------ ACCURACY */
 function renderAccuracy(root) {
-  const B = state.data.benchmarks?.[String(state.data.season)];
-  if (B) benchmarkSection(root, B);
+  const years = Object.keys(state.data.benchmarks || {}).sort().reverse();
+  const by = years.includes(state.benchYear) ? state.benchYear : (years.includes(String(state.data.season)) ? String(state.data.season) : years[0]);
+  const B = by ? state.data.benchmarks[by] : null;
+  if (B) benchmarkSection(root, B, by, years);
   const ev = state.data.season_eval?.[String(state.data.season)] || {};
   const mode = ev[state.accMode] ? state.accMode : Object.keys(ev)[0], E = ev[mode];
   if (!E) return B ? null : root.append(h("div", { class: "empty" }, "No evaluation yet. Run python -m flatout nested --year 2026 to score past races."));
@@ -1182,7 +1184,7 @@ function provisionalEl(m) {
 }
 const avgOf = (rows, k) => { const v = rows.map((r) => r[k]).filter((x) => x != null && isFinite(x)); return v.length ? v.reduce((a, x) => a + x, 0) / v.length : null; };
 /* Accuracy headline from the nested walk-forward benchmark (the only fully out-of-sample numbers) */
-function benchmarkSection(root, B) {
+function benchmarkSection(root, B, year, years) {
   const modes = Object.keys(B.summary || {});
   const mode = modes.includes(state.benchMode) ? state.benchMode : (modes.includes("post_quali") ? "post_quali" : modes[0]);
   const S = B.summary[mode], rows = B.per_race.filter((r) => r.mode === mode);
@@ -1191,8 +1193,14 @@ function benchmarkSection(root, B) {
   const rel = (p, base) => (p && base ? -p.mean / base : null);
   const ci = (p) => (p && p.lo != null ? `${sgn(p.lo, 4)} to ${sgn(p.hi, 4)}` : "n/a");
   root.append(sectionHead(["How good are ", em("the predictions")],
-    "Every race below was forecast using only what was known before it: the pace model, circuit settings and simulator settings were all re-fitted on earlier races. These 2026 races were also studied while building the model, so this is development evidence; the live record starts at Sepang.",
-    h("div", { class: "seg", role: "group", "aria-label": "Information available" }, modes.map((k) => h("button", { class: k === mode ? "on" : "", "aria-pressed": String(k === mode), onclick: () => { state.benchMode = k; rerender(); } }, MODE_LABEL[k] || k)))));
+    `Every ${year} race below was forecast using only what was known before it: the pace model, circuit settings and simulator settings were all re-fitted on earlier races. These races were also studied while building the model, so this is development evidence; the live record starts at Sepang.`,
+    h("div", { class: "seg-row" },
+      years.length > 1 ? h("div", { class: "seg", role: "group", "aria-label": "Season" }, years.map((y) => h("button", { class: y === year ? "on" : "", "aria-pressed": String(y === year), onclick: () => { state.benchYear = y; rerender(); } }, y))) : null,
+      h("div", { class: "seg", role: "group", "aria-label": "Information available" }, modes.map((k) => h("button", { class: k === mode ? "on" : "", "aria-pressed": String(k === mode), onclick: () => { state.benchMode = k; rerender(); } }, MODE_LABEL[k] || k))))));
+  const clear = ref && ref.hi != null && ref.hi < 0;
+  root.append(h("p", { class: "note bench-verdict" }, clear
+    ? `Clearly better than ${refName} in ${year}: the whole 95% range of the difference is below zero.`
+    : `Better than ${refName} on average in ${year}, but the 95% range of the difference reaches zero, so the edge is not established for this season.`));
   const better = rows.filter((r) => r.model_rps < (mode === "post_quali" ? r.grid_rps : r.pace_rps)).length;
   root.append(h("div", { class: "grid g-4" },
     stat(`${better}<small>/${rows.length}</small>`, `Races better than ${mode === "post_quali" ? "the grid" : "pace-only"}`, `lower error than ${refName}`, "good"),
