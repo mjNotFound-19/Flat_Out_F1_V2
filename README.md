@@ -116,6 +116,10 @@ Pages: **Race**, **Strategy**, **Drivers**, **Driver vs Car**, **Teams**, **Seas
 - **2026 energy, active aero and Overtake Mode are not modelled explicitly**; they enter only through lap data and calibrated passing. Weather is not modelled.
 - **The version name and folder names differ.** Folder names (`predictions_v3/`, `web/data/v3/`) are historical and unchanged, so existing paths keep working.
 
+## Acknowledgements
+
+The f1.h dashboard (`web/`) was developed with assistance from Claude (Anthropic).
+
 ---
 
 # Flat Out F1 v2 (legacy scripts, still working)
