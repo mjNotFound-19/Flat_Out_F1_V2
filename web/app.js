@@ -689,12 +689,14 @@ function renderStrategy(root) {
   if (!nx) return root.append(h("div", { class: "empty" }, "No prediction yet."));
   const c = nx.circuit, D = nx.drivers, N = c.n_laps, avg = (k) => D.reduce((s, d) => s + d[k], 0) / D.length;
   const expStops = avg("exp_stops"), pass = c.overtake_factor < 0.7 ? "Hard" : c.overtake_factor > 1.3 ? "Easy" : "Average";
-  root.append(sectionHead(["Strategy, ", em(nx.meta.event.replace(/\s*Grand Prix$/i, ""))], "How the race is likely to be run: stops, tyres and pit windows, from the same simulations."),
+  const pooled = nx.meta.status === "provisional" ? " (pooled estimate: no race here in our data)" : "";
+  root.append(sectionHead(["Strategy, ", em(nx.meta.identity?.circuit || nx.meta.event.replace(/\s*Grand Prix$/i, ""))], "How the race is likely to be run: stops, tyres and pit windows, from the same simulations."),
     h("div", { class: "grid g-4" },
       stat(fx(expStops, 1), "Stops per car", `1-stop ${pct(avg("stop1"))} · 2-stop ${pct(avg("stop2"))} · 3+ ${pct(avg("stop3p"))}`, "cyan"),
-      stat(`${fx(c.pit_loss, 1)}<small>s</small>`, "Pit stop cost", "time lost driving through the pit lane", ""),
+      stat(`${fx(c.pit_loss, 1)}<small>s</small>`, "Pit stop cost", "time lost driving through the pit lane" + pooled, ""),
       stat(pct(nx.meta.p_sc), "Safety car chance", `${fx(c.sc_per_race, 2)} SC/red + ${fx(c.vsc_per_race, 2)} VSC per race here`, "accent"),
-      stat(pass, "Overtaking", `${fx(c.overtake_factor, 2)}× an average track's passing rate`, "")));
+      stat(pass, "Overtaking", `${fx(c.overtake_factor, 2)}× an average track's passing rate` + pooled, "")));
+  const reco = strategyRecoPanel(nx);
   const why = h("p", { class: "explain" }, h("b", {}, `Why ${expStops > 1.6 ? "two stops" : "one stop"}? `),
     `Tyres here lose about ${fx((c.deg?.MEDIUM ?? 0.05) * 1000, 0)} thousandths of a second per lap on the medium, and a stop costs ~${fx(c.pit_loss, 0)} s. `,
     expStops > 1.6 ? "Wear adds up fast enough that fresh tyres pay for the extra stop." : "Stopping again costs more than the wear it saves, so most teams run long stints.",
@@ -723,6 +725,7 @@ function renderStrategy(root) {
   }
   root.append(h("div", { class: "grid g-main mt" }, panel("Tyre plan by driver", "most likely plan · shaded = first-stop window", lanes,
     h("div", { class: "legend" }, ["S", "M", "H"].map((k) => h("span", {}, h("i", { style: `background:${COMP_COLOR[k]}` }), COMP[k])), h("span", {}, h("i", { style: "background:var(--data)" }), "pit window"))), h("div", { class: "stack" }, right)));
+  if (reco) root.append(h("div", { class: "mt" }, reco));
 }
 
 /* ------------------------------------------------------------------ DRIVERS */
@@ -1213,4 +1216,23 @@ function benchmarkSection(root, B) {
       h("li", {}, `Each scored race simulated ${B.config.eval_sims.toLocaleString()} times per mode; Monte Carlo error is far below the differences shown.`),
       h("li", {}, "Grid baseline: actual grid spread with a grid-to-finish table learned from earlier races. Only used after qualifying."),
       h("li", {}, "Correction: before 27 Sep 2026 this page said the model beat the grid by 11% in 2026. That backtest scored the same races the simulator settings were tuned on, so it overstated accuracy.")))));
+}
+/* behaviour forecast vs model recommendation (static plans, common random numbers) */
+function strategyRecoPanel(nx) {
+  const R = nx.recommendations;
+  if (!R || !R.drivers) return null;
+  const rows = Object.entries(R.drivers).map(([code, r]) => {
+    const d = nx.drivers.find((x) => x.Driver === code) || {};
+    const best = r.plans.find((p) => p.plan === r.best) || {};
+    return { code, team: d.Team, likely: d.strategy, best: r.best, gain: r.gain_pos, bestPod: best.podium, se: best.se_pos };
+  });
+  const t = h("table", {}, h("thead", {}, h("tr", {}, ["Driver", "Likely plan (behaviour)", "Best plan under the model", "Gain vs likely mix"].map((x, i) => h("th", { class: i === 3 ? "num" : "", scope: "col" }, x)))),
+    h("tbody", {}, rows.map((r) => h("tr", {}, h("td", {}, drvCell(r.code, r.team, SHORT[r.team] || r.team, 28)), h("td", {}, tyres(r.likely)), h("td", {}, tyres(r.best)),
+      h("td", { class: "num mono", "data-tip": `Monte Carlo s.e. ~${fx(r.se, 3)} places` }, `${sgn(r.gain, 2)} places`)))));
+  return panel(nerd() ? "Behaviour forecast vs recommendation" : "What teams will likely do vs what the model rates best",
+    nerd() ? R.scope : "Each plan was simulated against the same race conditions. This compares plans inside the model, not in the real world.",
+    h("div", { class: "table-wrap" }, t),
+    h("p", { class: "note" }, nx.meta.status === "provisional"
+      ? "Provisional: tyre wear and pit-lane loss here come from other circuits, so these plan rankings could change once practice data exists."
+      : "Plans are fixed before the start; reactions to safety cars use the same rules for every plan."));
 }
