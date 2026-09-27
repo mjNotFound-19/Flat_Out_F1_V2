@@ -45,6 +45,8 @@ DEFAULTS = dict(
     slow_stop_p=0.04, slow_stop_mean=4.0,
     lap1_dnf_mult=6.0,
     pace_df=4.0,          # tail heaviness of race-day pace (Student-t degrees of freedom)
+    new_venue_mode='sd_mult',  # unseen circuit: 'sd_mult' (champion: driver pace sd x1.25) or 'param_unc' (R3)
+    force_unseen=False,   # evaluation only: forecast as if the circuit had never been raced
     rel_model='shrink',   # 'shrink' (champion) or 'hazard' (flatout/reliability.py; challenger R2)
     rel_season_k=0.0,     # reliability prior: 0 = multi-season rate; >0 = season rate shrunk with this weight (not tuned)
     grid_blend=0.15,      # stacking weight of the empirical grid->finish prior (when the grid is known)
@@ -288,14 +290,29 @@ def _merge(a, b):
     return a
 
 
+def _draw_circuit(spec, unc, rng):
+    """One draw of the unknown track-level parameters (a new venue): pit loss additive, the rest log-normal.
+    Shared by every car in the batch - the uncertainty is about the circuit, not about individual drivers."""
+    s = dict(spec)
+    z = rng.standard_normal(4)
+    s['pit_loss'] = max(5.0, spec['pit_loss'] + unc['pit_loss_sd'] * z[0])
+    s['deg_mult'] = np.asarray(spec['deg_mult'], float) * np.exp(unc['deg_log_sd'] * z[1])
+    f = np.exp(unc['sc_log_sd'] * z[2])
+    s['sc_lap'], s['vsc_lap'] = spec['sc_lap'] * f, spec['vsc_lap'] * f
+    s['overtake_factor'] = spec['overtake_factor'] * np.exp(unc['overtake_log_sd'] * z[3])
+    return s
+
+
 def _worker(spec, n, seed, batch, ticks=None):
     """ticks: optional queue that receives the size of each finished batch (progress reporting only)."""
     rng = np.random.default_rng(seed)
     agg = None
     done = 0
+    unc = spec.get('param_unc')
     while done < n:
         b = min(batch, n - done)
-        agg = _aggregate(run_batch(spec, b, rng), spec['D'], spec['n_laps'], agg)
+        sb = _draw_circuit(spec, unc, rng) if unc else spec
+        agg = _aggregate(run_batch(sb, b, rng), spec['D'], spec['n_laps'], agg)
         done += b
         if ticks is not None:
             ticks.put(b)

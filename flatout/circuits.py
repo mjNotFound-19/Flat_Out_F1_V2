@@ -304,3 +304,23 @@ def _year_scale(dry):
         r = [v[y1] / v[y0] for v in by.values() if y0 in v and y1 in v]
         scale[y1] = scale[y0] * (float(np.median(r)) if r else 1.0)
     return scale
+
+
+def unseen_uncertainty(circuits, min_races=2):
+    """How wrong the pooled prior typically is for a circuit it has not seen: leave-one-circuit-out over the
+    circuits known at this cutoff (walk-forward safe). Returns sds used to draw track-level parameters."""
+    keys = [k for k, c in circuits.items() if not k.startswith('_') and c.get('n_races', 0) >= min_races]
+    if len(keys) < 6:
+        return dict(pit_loss_sd=1.0, deg_log_sd=0.25, sc_log_sd=0.2, overtake_log_sd=0.15, n=len(keys))
+
+    def loo(vals, log=False):
+        v = np.array(vals, float)
+        v = v[np.isfinite(v) & (v > 0)] if log else v[np.isfinite(v)]
+        if log:
+            v = np.log(v)
+        res = [v[i] - np.delete(v, i).mean() for i in range(len(v))]
+        return float(np.std(res))
+    return dict(pit_loss_sd=loo([circuits[k]['pit_loss'] for k in keys]),
+                deg_log_sd=loo([circuits[k]['deg'].get('MEDIUM', np.nan) for k in keys], log=True),
+                sc_log_sd=loo([circuits[k]['sc_per_race'] for k in keys], log=True),
+                overtake_log_sd=loo([circuits[k]['overtake_factor'] for k in keys], log=True), n=len(keys))

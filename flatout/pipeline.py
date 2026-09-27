@@ -128,6 +128,8 @@ def build_spec(year, rnd, analyses, hist, models, circuits, params, use_grid=Tru
         raise events.EventResolutionError(
             f"{year} R{rnd}: no lap count (not raced yet, and the registry has no sourced laps for "
             f"{ident['circuit']} in {year}). Add the official lap count to flatout/registry/circuits.json.")
+    if params.get('force_unseen'):                # evaluation: pretend this circuit has never been raced
+        circuits = {k: v for k, v in circuits.items() if k != info['location']}
     have_base = (circuits.get(info['location']) or {}).get('base_lap')
     assumptions = []
     base = None
@@ -142,7 +144,8 @@ def build_spec(year, rnd, analyses, hist, models, circuits, params, use_grid=Tru
     new_venue = not c.get('n_races')
     if new_venue:
         assumptions.append(f"no {info['location']} race in the dataset: pit loss, tyre wear, stops, safety-car rate "
-                           f"and overtaking use pooled all-circuit priors; driver pace sd x{NEW_VENUE_SD_MULT}")
+                           f"and overtaking use pooled all-circuit priors"
+                           + (f"; driver pace sd x{NEW_VENUE_SD_MULT}" if params.get('new_venue_mode', 'sd_mult') == 'sd_mult' else ''))
     D = len(entry)
     drivers = entry.Driver.tolist()
     grid = None
@@ -174,11 +177,17 @@ def build_spec(year, rnd, analyses, hist, models, circuits, params, use_grid=Tru
         overtake_factor=c['overtake_factor'], sc_lap=sc_indep / n, vsc_lap=vsc_indep / n,
         red_share=c.get('red_share', 0.08),
         pace_mu=pred.race_mu.values / 100 * c['base_lap'],
-        pace_sd=pred.race_sd.values / 100 * c['base_lap'] * (NEW_VENUE_SD_MULT if new_venue else 1.0),
+        pace_sd=pred.race_sd.values / 100 * c['base_lap']
+                * (NEW_VENUE_SD_MULT if new_venue and params.get('new_venue_mode', 'sd_mult') == 'sd_mult' else 1.0),
         quali_mu=pred.quali_mu.values, quali_sd=np.maximum(pred.quali_sd.values, 0.05),
         grid=grid, dnf_lap=h, deg_mult=np.ones(D),
         strat_p=probs, strat_lens=lens, strat_comps=comps, strat_n=nst, params=params,
     )
+    if new_venue and params.get('new_venue_mode') == 'param_unc':
+        spec['param_unc'] = circ_mod.unseen_uncertainty(circuits)
+        assumptions.append('unseen circuit: pit loss, tyre wear, safety-car rate and overtaking drawn per batch from '
+                           'the leave-one-circuit-out error of the pooled prior ' +
+                           ', '.join(f"{k}={v:.2f}" for k, v in spec['param_unc'].items() if k != 'n'))
     ctx = dict(info=info, drivers=drivers, teams=entry.Team.tolist(), pred=pred, features=f,
                assumptions=assumptions, new_venue=new_venue, params_used=dict(params),
                circuit=c, cands=cands, strat_p=probs, grid=grid, p_dnf=p_dnf,

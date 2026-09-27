@@ -241,6 +241,11 @@ def cmd_promote(a):
     out.write_text(json.dumps(r, indent=1, default=float))
 
 
+def cmd_unseen(a):
+    from . import unseen_eval
+    unseen_eval.run(a.experiment, eval_sims=a.sims, workers=a.workers)
+
+
 def cmd_snapshot(a):
     from . import provenance
     provenance.snapshot(a.label)
@@ -333,6 +338,9 @@ def main():
     s.set_defaults(fn=cmd_nested)
     s = sub.add_parser('promote', help='apply docs/PROMOTION.md criteria to champion vs challenger experiments')
     s.add_argument('--champion', required=True); s.add_argument('--challenger', required=True); s.set_defaults(fn=cmd_promote)
+    s = sub.add_parser('unseen', help='re-forecast a nested run as if every circuit were new')
+    s.add_argument('--experiment', required=True); s.add_argument('--sims', type=int, default=300_000)
+    s.add_argument('--workers', type=int); s.set_defaults(fn=cmd_unseen)
     s = sub.add_parser('snapshot', help='copy uncommitted generated outputs + sha256 manifest')
     s.add_argument('--label', required=True); s.set_defaults(fn=cmd_snapshot)
     s = sub.add_parser('ratings'); s.add_argument('--year', type=int); s.set_defaults(fn=cmd_ratings)
