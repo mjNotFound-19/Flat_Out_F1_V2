@@ -72,8 +72,9 @@ class _Blend:
         return self.blend * g + (1 - self.blend) * r, g, r
 
 
-def _weights(df):
-    w = df.year.map(SEASON_WEIGHT).fillna(0.3).values.astype(float)
+def _weights(df, season_weight=None):
+    sw = SEASON_WEIGHT if season_weight is None else season_weight
+    w = df.year.map(sw).fillna(min(sw.values()) * 0.85).values.astype(float)
     if 'pace_laps' in df:
         w = w * np.clip(df.pace_laps.fillna(0).values / 20, 0.2, 1.0)
     if 'wet' in df:
@@ -85,9 +86,9 @@ WEEKEND_Q = ('q_rel_pct', 'q_tm_gap', 'q_pos')
 WEEKEND_FP = ('fp_lr_pct', 'fp_lr_laps', 'fp_best_pct', 'sq_rel_pct', 'sprint_pace_pct')
 
 
-def _augment(df, masks):
+def _augment(df, masks, season_weight=None):
     """Stack copies of df with the given feature groups blanked; each copy gets an equal weight share."""
-    w = _weights(df)
+    w = _weights(df, season_weight)
     parts = [df.assign(**{c: np.nan for c in cols if c in df}) for cols in masks]
     return pd.concat(parts, ignore_index=True), np.concatenate([w / len(masks)] * len(masks))
 
@@ -97,7 +98,15 @@ def _train_rows(ds, target):
 
 
 class PaceModels:
-    """Race + quali pace models with walk-forward calibrated uncertainty."""
+    """Race + quali pace models with walk-forward calibrated uncertainty.
+
+    season_weight: {year: training-row weight}. None = config.SEASON_WEIGHT (hand-set 2026=1, 2025=0.6,
+    2024=0.35). Relative to the newest season, so it is a recency/regulation-era prior."""
+
+    season_weight = None   # class default: models pickled before this attribute existed
+
+    def __init__(self, season_weight=None):
+        self.season_weight = season_weight
 
     def fit(self, ds, cutoff=(9999, 99), calibrate=True):
         before = (ds.year < cutoff[0]) | ((ds.year == cutoff[0]) & (ds['round'] < cutoff[1]))
@@ -106,10 +115,10 @@ class PaceModels:
         rr = rr[rr.pace_laps >= 5]
         # Predictions are made at several points in a weekend (before FP, after FP, after quali),
         # so train on masked copies too - otherwise missing quali lands in barely-trained tree branches.
-        ra, rw = _augment(rr, [(), WEEKEND_Q, WEEKEND_Q + WEEKEND_FP])
+        ra, rw = _augment(rr, [(), WEEKEND_Q, WEEKEND_Q + WEEKEND_FP], self.season_weight)
         self.race = _Blend(RACE_FEATURES, 'pace_pct', (-4, 6)).fit(ra, rw)
         qr = _train_rows(tr, 'q_rel_pct')
-        qa, qw = _augment(qr, [(), WEEKEND_FP])
+        qa, qw = _augment(qr, [(), WEEKEND_FP], self.season_weight)
         self.quali = _Blend(QUALI_FEATURES, 'q_rel_pct', (-4, 6)).fit(qa, qw)
         self.sd = dict(race={'quali': 0.45, 'practice': 0.6, 'none': 0.75}, quali={'practice': 0.45, 'none': 0.6})
         self.blend = {'race': 0.5, 'quali': 0.5}
@@ -130,7 +139,7 @@ class PaceModels:
             cur = tr[(tr.year == y) & (tr['round'] == r)]
             if prior[['year', 'round']].drop_duplicates().shape[0] < 8:
                 continue
-            m = PaceModels().fit(prior, calibrate=False)
+            m = PaceModels(self.season_weight).fit(prior, calibrate=False)
             for kind, target in (('race', 'pace_pct'), ('quali', 'q_rel_pct')):
                 c = cur[cur[target].notna()]
                 if kind == 'race':
