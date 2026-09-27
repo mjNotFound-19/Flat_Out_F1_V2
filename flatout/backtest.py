@@ -158,7 +158,12 @@ def search_params(specs, hist, params, n_sims=6000, rounds=2, workers=None, log=
         rps, ll = _score(list(zip(specs, aggs)), hist)
         return rps + 0.01 * ll, rps, ll
 
+    n_trials = 1 + sum(len((0.6, 0.8, 1.25, 1.6) if rd == 0 else (0.85, 1.15)) * len(TUNABLE) for rd in range(rounds))
+    bar = sim.ProgressBar(n_trials, label='calibrating', unit='trials') if log is print else None
+    done = 1
     best, best_rps, best_ll = objective(params)
+    if bar:
+        bar.update(done, f'RPS {best_rps:.4f}')
     log(f'  start: RPS {best_rps:.4f}  logloss {best_ll:.3f}')
     history = [dict(step='start', rps=best_rps, ll=best_ll, **{k: params[k] for k in TUNABLE})]
     for rd in range(rounds):
@@ -171,10 +176,15 @@ def search_params(specs, hist, params, n_sims=6000, rounds=2, workers=None, log=
                     continue
                 trial = dict(params, **{k: v})
                 obj, rps, ll = objective(trial)
+                done += 1
+                if bar:
+                    bar.update(min(done, n_trials - 1), f'best RPS {min(best_rps, rps):.4f}')
                 if obj < best - 1e-5:
                     best, best_rps, best_ll, params = obj, rps, ll, trial
                     log(f'    {k} -> {v:.3f}   RPS {rps:.4f}  logloss {ll:.3f}')
             history.append(dict(step=f'r{rd}_{k}', rps=best_rps, ll=best_ll, **{kk: params[kk] for kk in TUNABLE}))
+    if bar:
+        bar.update(n_trials, f'best RPS {best_rps:.4f}')
     return params, best_rps, best_ll, history
 
 

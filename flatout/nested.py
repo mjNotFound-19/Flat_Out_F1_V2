@@ -72,6 +72,7 @@ def run(year, first=3, last=99, modes=('post_quali', 'pre_weekend'), eval_sims=3
 
 def _loop(outer, every, exp_dir, analyses, hist, ds, params, rows, calib, modes, eval_sims, calib_sims,
           calib_last_n, rounds, workers, ex, log, recal_every=1, candidate=None):
+    t_run = time.time()
     for k, (y, r) in enumerate(outer):
         ck = exp_dir / 'races' / f'{y}_R{r:02d}.json'
         if ck.exists():
@@ -110,6 +111,7 @@ def _loop(outer, every, exp_dir, analyses, hist, ds, params, rows, calib, modes,
         ck.write_text(json.dumps(dict(params=params, rows=race_rows, calibration=cal), default=float))
         rows += race_rows
         calib.append(cal)
+        _bar_line(k + 1, len(outer), t_run, log)
         post = [x for x in race_rows if x['mode'] == 'post_quali']
         log(f"  {y} R{r:02d} {race_rows[0]['event'] if race_rows else '':<18s} inner RPS {in_rps:.4f} | "
             + (f"post-quali model {post[0]['model_rps']:.4f} grid {post[0]['grid_rps']:.4f} | " if post else '')
@@ -131,6 +133,13 @@ def _finish(exp_dir, rows, calib, cfg_hash, t_start, year, first, log):
     with open(LEDGER, 'a', encoding='utf-8') as f:
         f.write(json.dumps(entry, default=float) + '\n')
     log_summary(summary, log)
+
+
+def _bar_line(done, total, t0, log):
+    from .progress import bar
+    el = time.time() - t0
+    eta = el / done * (total - done) if done else 0
+    log(f'  progress {bar(done, total)}  {done}/{total} races  elapsed {el / 60:.0f} min  ~{eta / 60:.0f} min left')
 
 
 def paired(diff, n_boot=20_000, seed=0):

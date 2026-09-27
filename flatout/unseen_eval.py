@@ -32,8 +32,10 @@ def run(exp_dir, eval_sims=300_000, workers=None, log=print):
     out_dir.mkdir(exist_ok=True)
     rows = []
     t0 = time.time()
+    files = sorted((exp_dir / 'races').glob('*.json'))
+    stamps = []
     with sim.pool(sim.default_workers(workers)) as ex:
-        for k, f in enumerate(sorted((exp_dir / 'races').glob('*.json'))):
+        for k, f in enumerate(files):
             ck = json.loads(f.read_text())
             for base_row in ck['rows']:
                 y, r, mode = int(base_row['year']), int(base_row['round']), base_row['mode']
@@ -50,7 +52,12 @@ def run(exp_dir, eval_sims=300_000, workers=None, log=print):
                         m, _ = res
                         rows.append(dict(year=y, round=r, mode=mode, variant=name, rps=m['model_rps'],
                                          log_loss=m['model_log_loss'], drivers=nested._driver_probs(y, r, summ, hist)))
-            log(f'  {f.stem} done ({time.time() - t0:.0f}s)')
+            stamps.append(time.time())
+            (out_dir / 'progress.json').write_text(json.dumps(dict(done=k + 1, total=len(files), stamps=stamps)))
+            from .progress import bar
+            el = time.time() - t0
+            log(f'  {f.stem} done  {bar(k + 1, len(files))}  {k + 1}/{len(files)} races  '
+                f'~{el / (k + 1) * (len(files) - k - 1) / 60:.0f} min left')
     df = pd.DataFrame(rows)
     report = {}
     for mode, g in df.groupby('mode'):

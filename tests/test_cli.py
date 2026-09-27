@@ -18,7 +18,7 @@ class CliSmoke(unittest.TestCase):
     def test_every_subcommand_help(self):
         from flatout import cli
         for cmd in ('sync', 'build', 'train', 'predict', 'evaluate', 'backtest', 'calibrate', 'nested',
-                    'promote', 'snapshot', 'unseen', 'ratings', 'status', 'export', 'weekend'):
+                    'promote', 'snapshot', 'unseen', 'progress', 'ratings', 'status', 'export', 'weekend'):
             with self.subTest(cmd=cmd):
                 argv, sys.argv = sys.argv, ['flatout', cmd, '--help']
                 try:

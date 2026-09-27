@@ -81,6 +81,7 @@ python -m unittest discover -s tests          # identity, contract, leakage, rep
 | Promotion decision | `python -m flatout promote --champion <exp> --challenger <exp>` | Mechanical application of `docs/PROMOTION.md`. |
 | New-circuit test | `python -m flatout unseen --experiment <exp>` | Re-forecasts every race as if its circuit had never been raced. |
 | Snapshot before a big change | `python -m flatout snapshot --label before_x` | Copies uncommitted outputs with a sha256 manifest. |
+| Progress of running jobs | `python -m flatout progress` (`--watch` to refresh) | Progress bars with ETA for background runs, read from their checkpoints. `predict`, `backtest`, `nested`, `unseen` and `calibrate` also show live bars. |
 
 ## Website (f1.h)
 
