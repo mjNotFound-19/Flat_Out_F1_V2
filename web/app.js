@@ -295,8 +295,11 @@ function renderRace(root) {
       h("p", { class: "hero-note" }, nerd()
         ? `Lap-by-lap Monte Carlo: Student-t race-day pace, tyre deg with cliff, planned and safety-car stops, red-flag tyre changes, pace-dependent passing (overtake factor ${fx(c.overtake_factor, 2)}) and reliability hazards.`
         : `${Number(m.n_sims).toLocaleString()} simulated races, lap by lap, with tyres, pit stops, safety cars and breakdowns. This is what happened most often.`)),
+    h("div", { class: "depth", "aria-hidden": "true" },
+      h("span", {}, `${Number(m.n_sims).toLocaleString()} RACES`), h("span", {}, `RND_${String(m.round).padStart(2, "0")} // ${m.event.toUpperCase()}`), h("span", {}, `P(SC) ${pct(m.p_sc)}`)),
     h("div", { class: "hero-portrait" },
       cutout(fav.Driver, { loading: "eager", fetchpriority: "high", alt: `${name(fav.Driver)}, race favourite`, width: 480, height: 480 }),
+      hudEl(fav, byWin, m, date),
       h("button", { type: "button", class: "tag", onclick: () => openDriver(fav.Driver), "aria-label": `Open ${name(fav.Driver)}` }, h("b", {}, pct(fav.win)), h("span", {}, `${name(fav.Driver)} to win`))));
   const marquee = marqueeEl(byWin.slice(0, 8));
   const podium = h("div", { class: "podium" }, [byWin[1], byWin[0], byWin[2]].map((d, i) => {
@@ -404,6 +407,7 @@ function consoleEl(nx) {
   const select = (d) => {
     keys.querySelectorAll(".key").forEach((k) => k.setAttribute("aria-pressed", String(k.dataset.d === d.Driver)));
     cam.show(d);
+    window.f1Sound && window.f1Sound("static");
     showDials(d);
     lcdPrint(con, readout(d));
   };
@@ -479,6 +483,25 @@ function camEl() {
   };
   return { el, show };
 }
+/* igloo-style annotation layer over the favourite: leader lines, a constellation of their numbers, decoding labels */
+function hudEl(d, byWin, m, date) {
+  const p = person(d.Driver), margin = d.win - byWin[1].win;
+  const dstr = date ? `${String(date.getDate()).padStart(2, "0")}.${String(date.getMonth() + 1).padStart(2, "0")}.${date.getFullYear()}` : String(m.year);
+  const pts = [[58, 22, fx(d.podium * 100, 0)], [34, 46, fx(d.points * 100, 0)], [70, 52, fx(d.exp_pos, 1)]];
+  const svg = `<svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+    <path class="hl" d="M24 12 H40 L${pts[0][0]} ${pts[0][1]}"/>
+    <path class="hl" d="M${pts[2][0]} ${pts[2][1]} L86 34 H100"/>
+    <path class="hl" d="M${pts[1][0]} ${pts[1][1]} L60 76 H96"/>
+    <path class="hc" d="M${pts[0][0]} ${pts[0][1]} L${pts[1][0]} ${pts[1][1]} L${pts[2][0]} ${pts[2][1]} Z"/>
+  </svg>`;
+  const lab = (cls, a, b) => h("div", { class: `hud-l ${cls}` }, h("span", { "data-scramble": "" }, a), h("span", { "data-scramble": "" }, b));
+  return h("div", { class: "hud", "aria-hidden": "true" },
+    h("div", { class: "hud-svg", html: svg }),
+    pts.map(([x, y, v], i) => h("span", { class: "hud-pt", style: `left:${x}%;top:${y}%` }, h("em", { "data-scramble": "" }, v), h("small", {}, ["POD", "PTS", "AVG"][i]))),
+    lab("a", "FAVOURITE_01", name(d.Driver).toUpperCase()),
+    lab("b", `WIN  ${fx(d.win * 100, 2)}`, `\u0394 +${fx(margin * 100, 2)}`),
+    lab("c", `#${p.number || "--"} ${(SHORT[d.Team] || d.Team).toUpperCase()}`, `D ${dstr}`));
+}
 function marqueeEl(list) {
   const item = (d) => h("span", {}, d.Driver, h("i", {}, (name(d.Driver).split(" ").slice(-1)[0] || "")), h("b", {}, pct(d.win)));
   const track = h("div", { class: "marquee-track" }, list.map(item), list.map((d) => { const e = item(d); e.setAttribute("aria-hidden", "true"); return e; }));
@@ -503,6 +526,7 @@ function flapTo(el, ch) {
   set(leafBottom, ch);   // rising leaf: next digit, lower half
   set(bottom, old);      // stays until the new lower half lands
   el.classList.remove("flipping"); void el.offsetWidth; el.classList.add("flipping");
+  window.f1Sound && window.f1Sound("flap");
   clearTimeout(el._t);
   el._t = setTimeout(() => { set(bottom, ch); set(leafTop, ch); el.classList.remove("flipping"); }, 620);
 }
