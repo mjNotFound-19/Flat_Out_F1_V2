@@ -1,0 +1,69 @@
+{
+ "champion": "artifacts/experiments/champ_full_2026_0d4eab33539b",
+ "challenger": "artifacts/experiments/chal_r2_2026_2266f28be703",
+ "rules": {
+  "primary_max": -0.002,
+  "block_max": 0.004,
+  "logloss_max": 0.01,
+  "brier_rel_max": 0.02,
+  "ece_max": 0.01,
+  "mc_se_bound": 0.0003
+ },
+ "n_pairs": 26,
+ "checks": {
+  "1_primary_rps": {
+   "value": {
+    "n": 26,
+    "mean": -0.0020174994248948813,
+    "lo": -0.004045148846435023,
+    "hi": -6.106787144357533e-06,
+    "share_better": 0.5
+   },
+   "pass_": true
+  },
+  "2_no_regime_collapse": {
+   "value": {
+    "2026.0_post_quali": -0.0017596945708552025,
+    "2026.0_pre_weekend": -0.0022753042789345618
+   },
+   "pass_": true
+  },
+  "3_probabilities": {
+   "value": {
+    "log_loss_diff": -0.0339293764463155,
+    "brier_rel": {
+     "brier_win": -0.0035440003457581915,
+     "brier_podium": -0.008094575348696731,
+     "brier_points": -0.021360241177558525
+    }
+   },
+   "pass_": true
+  },
+  "4_calibration": {
+   "value": {
+    "win": {
+     "champion": 0.008831309157487196,
+     "challenger": 0.008026561002073966
+    },
+    "podium": {
+     "champion": 0.022218369198845508,
+     "challenger": 0.020549738137950028
+    }
+   },
+   "pass_": true,
+   "note": null
+  },
+  "5_not_simulation_noise": {
+   "value": {
+    "abs_mean": 0.0020174994248948813,
+    "threshold": 0.000294174202707276
+   },
+   "pass_": true
+  },
+  "6_no_leakage": {
+   "pass_": null,
+   "note": "run tests/test_leakage.py; challenger params must be pre-chosen or tuned inside the nested protocol"
+  }
+ },
+ "promote": true
+}

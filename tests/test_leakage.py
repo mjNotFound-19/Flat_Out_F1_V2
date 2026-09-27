@@ -91,6 +91,21 @@ class FutureDataPerturbation(unittest.TestCase):
         p1 = PaceModels().fit(self.ds_p, cutoff=late, calibrate=False).predict(f)
         self.assertFalse(np.allclose(p0.race_mu.values, p1.race_mu.values))
 
+    def test_retirement_hazard_model(self):
+        """flatout/reliability.py (challenger R2): later races cannot change the hazard used at the cutoff."""
+        from flatout import reliability
+        h = self.hist.copy()
+        m = _after(h)
+        h.loc[m, 'dnf'] = ~h.loc[m, 'dnf'].astype(bool)          # flip every later retirement outcome
+        h.loc[m, 'laps_done'] = 1
+        teams = sorted(self.hist[self.hist.year == CUTOFF[0]].Team.unique())
+        p0 = reliability.team_probs(reliability.fit(self.hist, *CUTOFF), CUTOFF[0], teams, 'Sepang', 56)
+        p1 = reliability.team_probs(reliability.fit(h, *CUTOFF), CUTOFF[0], teams, 'Sepang', 56)
+        self.assertEqual(p0, p1)
+        late = (2026, 16)                                          # positive control
+        self.assertNotEqual(reliability.team_probs(reliability.fit(self.hist, *late), 2026, teams, 'Sepang', 56),
+                            reliability.team_probs(reliability.fit(h, *late), 2026, teams, 'Sepang', 56))
+
     def test_grid_baseline(self):
         from flatout import evaluate
         np.testing.assert_array_equal(evaluate.grid_transition(self.hist, CUTOFF),

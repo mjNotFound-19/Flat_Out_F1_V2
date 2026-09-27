@@ -47,7 +47,7 @@ DEFAULTS = dict(
     pace_df=4.0,          # tail heaviness of race-day pace (Student-t degrees of freedom)
     new_venue_mode='sd_mult',  # unseen circuit: 'sd_mult' (champion: driver pace sd x1.25) or 'param_unc' (R3)
     force_unseen=False,   # evaluation only: forecast as if the circuit had never been raced
-    rel_model='shrink',   # 'shrink' (champion) or 'hazard' (flatout/reliability.py; challenger R2)
+    rel_model='hazard',   # retirement model: 'hazard' (promoted 2026-09-27, E11) or 'shrink' (previous champion)
     rel_season_k=0.0,     # reliability prior: 0 = multi-season rate; >0 = season rate shrunk with this weight (not tuned)
     grid_blend=0.15,      # stacking weight of the empirical grid->finish prior (when the grid is known)
 )
