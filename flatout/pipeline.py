@@ -260,7 +260,7 @@ def save_prediction(year, rnd, df, dist, extra, ctx, n_sims, tag='pre_race'):
                                 model_meta_sha256=provenance.sha256_file(models_meta) if models_meta.exists() else None,
                                 sim_params=ctx.get('params_used', {}),
                                 sim_params_sha256=provenance.sha256_json(ctx.get('params_used', {})),
-                                seed=dict(base=2026, scheme='per-chunk seed = base + 7919*i')),
+                                seed=dict(root=2026, scheme=f"SeedSequence(root).spawn(ceil(n/{sim.CHUNK})); fixed {sim.CHUNK:,}-sim chunks")),
                 circuit={k: v for k, v in ctx['circuit'].items() if k not in ('start_compound',)},
                 strategies=[dict(seq=strategy.label(x['seq']), lens=x['lens'], delta=round(x['delta'], 2))
                             for x in ctx['cands'][:12]])

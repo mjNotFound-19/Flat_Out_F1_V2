@@ -380,17 +380,34 @@ class ProgressBar:
         self.stream.flush()
 
 
+CHUNK = 200_000   # sims per chunk: a chunk's identity (index -> SeedSequence child) never depends on workers
+
+
+def chunk_plan(n_sims, seed, chunk=None):
+    """[(size, SeedSequence)] - fixed-size chunks with independent child streams of one root seed.
+    The same (n_sims, seed) gives the same chunks and streams on any machine and any worker count."""
+    chunk = chunk or CHUNK                     # read at call time (tests shrink it)
+    n = max(1, -(-n_sims // chunk))
+    sizes = [n_sims // n + (1 if i < n_sims % n else 0) for i in range(n)]
+    return list(zip(sizes, np.random.SeedSequence(seed).spawn(n)))
+
+
 def simulate(spec, n_sims, workers=None, batch=20000, seed=2026, progress=None, ex=None):
+    """Aggregate n_sims races. Reproducible: results depend only on (spec, n_sims, seed), not on workers."""
     spec = _spec_arrays(spec)
-    workers = default_workers(workers)
-    if n_sims <= batch or workers == 1:
-        return _worker(spec, n_sims, seed, batch)
-    chunks = min(workers * 4, max(1, n_sims // batch))
-    sizes = [n_sims // chunks + (1 if i < n_sims % chunks else 0) for i in range(chunks)]
+    plan = chunk_plan(n_sims, seed)
+    workers = default_workers(workers, jobs=len(plan))
     agg = None
+    if len(plan) == 1 or (workers == 1 and ex is None):
+        for sz, ss in plan:
+            r = _worker(spec, sz, ss, batch)
+            agg = r if agg is None else _merge(agg, r)
+            if progress:
+                progress(agg['n'], n_sims)
+        return agg
     with (contextlib.nullcontext(ex) if ex is not None else pool(workers)) as ex:
-        futs = [ex.submit(_worker, spec, sz, seed + 7919 * i, batch) for i, sz in enumerate(sizes)]
-        for i, f in enumerate(futs):
+        futs = [ex.submit(_worker, spec, sz, ss, batch) for sz, ss in plan]
+        for f in futs:                               # merge in chunk order: deterministic
             r = f.result()
             agg = r if agg is None else _merge(agg, r)
             if progress:
