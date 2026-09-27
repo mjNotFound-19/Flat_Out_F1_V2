@@ -34,15 +34,23 @@ def _all_events(hist):
 
 
 def run(year, first=3, last=99, modes=('post_quali', 'pre_weekend'), eval_sims=300_000, calib_sims=6000,
-        calib_last_n=13, rounds=2, workers=None, label='nested', log=print):
+        calib_last_n=13, rounds=2, workers=None, label='nested', log=print, recal_every=1, candidate=None):
+    """candidate: optional dict describing a challenger (e.g. {'form_settings': {...},
+    'season_weight': {...}}); it is part of the experiment configuration and hash."""
     t_start = time.time()
     analyses, hist = pipeline.load_state(log=lambda *a: None)
-    ds = backtest.load_dataset(analyses, hist, lambda *a: None)
+    candidate = candidate or {}
+    if candidate.get('form_settings'):
+        from . import features
+        ds, _ = features.build_dataset(analyses, log=lambda *a: None, form_settings=candidate['form_settings'], save=False)
+    else:
+        ds = backtest.load_dataset(analyses, hist, lambda *a: None)
     outer = backtest._events(hist, year, first, last)
     every = _all_events(hist)
     config = dict(kind='nested_walk_forward', year=year, first=first, last=last, modes=list(modes),
                   eval_sims=eval_sims, calib_sims=calib_sims, calib_last_n=calib_last_n, rounds=rounds,
-                  start_params=dict(sim.DEFAULTS), tunable=backtest.TUNABLE,
+                  start_params=dict(sim.DEFAULTS), tunable=backtest.TUNABLE, recal_every=recal_every,
+                  candidate=candidate, analysis_version=__import__('flatout.race', fromlist=['x']).ANALYSIS_VERSION,
                   data=provenance.data_identity(), outer=[f'{y}_R{r:02d}' for y, r in outer])
     cfg_hash = provenance.sha256_json(config)[:12]
     exp_dir = EXPERIMENTS / f'{label}_{year}_{cfg_hash}'
@@ -55,13 +63,13 @@ def run(year, first=3, last=99, modes=('post_quali', 'pre_weekend'), eval_sims=3
     n_workers = sim.default_workers(workers)
     with sim.pool(n_workers) as ex:
         _loop(outer, every, exp_dir, analyses, hist, ds, params, rows, calib, modes, eval_sims, calib_sims,
-              calib_last_n, rounds, n_workers, ex, log)
+              calib_last_n, rounds, n_workers, ex, log, recal_every, candidate)
     _finish(exp_dir, rows, calib, cfg_hash, t_start, year, first, log)
     return pd.DataFrame(rows)
 
 
 def _loop(outer, every, exp_dir, analyses, hist, ds, params, rows, calib, modes, eval_sims, calib_sims,
-          calib_last_n, rounds, workers, ex, log):
+          calib_last_n, rounds, workers, ex, log, recal_every=1, candidate=None):
     for k, (y, r) in enumerate(outer):
         ck = exp_dir / 'races' / f'{y}_R{r:02d}.json'
         if ck.exists():
@@ -73,15 +81,21 @@ def _loop(outer, every, exp_dir, analyses, hist, ds, params, rows, calib, modes,
             continue
         t0 = time.time()
         inner = [e for e in every if e < (y, r)][-calib_last_n:]
-        specs = backtest.prepare_specs(inner, analyses, hist, ds, params, 'post_quali', log=lambda *a: None)
-        params, in_rps, in_ll, _ = backtest.search_params(specs, hist, params, calib_sims, rounds, workers,
-                                                          log=lambda *a: None, ex=ex)
+        sw = (candidate or {}).get('season_weight')
+        if k % recal_every == 0:
+            specs = backtest.prepare_specs(inner, analyses, hist, ds, params, 'post_quali', log=lambda *a: None,
+                                           season_weight=sw)
+            params, in_rps, in_ll, _ = backtest.search_params(specs, hist, params, calib_sims, rounds, workers,
+                                                              log=lambda *a: None, ex=ex)
+        else:                      # reuse the previous race's params: tuned on even earlier races only
+            in_rps, in_ll = float('nan'), float('nan')
         cal = dict(race=f'{y}_R{r:02d}', inner=[f'{a}_R{b:02d}' for a, b in inner], inner_rps=in_rps,
                    inner_log_loss=in_ll, params={kk: params[kk] for kk in backtest.TUNABLE},
                    seconds=round(time.time() - t0, 1))
         race_rows = []
         for mode in modes:
-            (_, _, spec, ctx), = backtest.prepare_specs([(y, r)], analyses, hist, ds, params, mode, log=lambda *a: None)
+            (_, _, spec, ctx), = backtest.prepare_specs([(y, r)], analyses, hist, ds, params, mode, log=lambda *a: None,
+                                                        season_weight=(candidate or {}).get('season_weight'))
             agg = sim.simulate(spec, eval_sims, workers=workers, seed=50_000 + 101 * k, ex=ex)
             summ, dist, _ = pipeline.summarise(agg, ctx)
             res = evaluate.evaluate_event(y, r, summ, dist, hist, pace=ctx['pred'], save=False)

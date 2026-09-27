@@ -186,8 +186,12 @@ def cmd_calibrate(a):
 def cmd_nested(a):
     from . import nested
     modes = tuple(m.strip() for m in a.modes.split(','))
+    import json
+    cand = json.loads(a.candidate) if a.candidate else None
+    if cand and 'season_weight' in cand:            # JSON keys are strings; seasons are ints
+        cand['season_weight'] = {int(k): float(v) for k, v in cand['season_weight'].items()}
     nested.run(a.year, a.first, a.last, modes=modes, eval_sims=a.sims, calib_sims=a.calib_sims,
-               calib_last_n=a.last_n, workers=a.workers, label=a.label)
+               calib_last_n=a.last_n, workers=a.workers, label=a.label, recal_every=a.recal_every, candidate=cand)
 
 
 def cmd_snapshot(a):
@@ -273,6 +277,8 @@ def main():
     s.add_argument('--sims', type=int, default=300_000, help='per race and mode (MC error << model differences)')
     s.add_argument('--calib-sims', type=int, default=6000); s.add_argument('--last-n', type=int, default=13)
     s.add_argument('--workers', type=int); s.add_argument('--label', default='nested')
+    s.add_argument('--recal-every', type=int, default=1, help='re-tune sim params every k-th race (reuse is leak-free)')
+    s.add_argument('--candidate', help='challenger as JSON, e.g. {"form_settings": {"team_carry": 0.5}}')
     s.set_defaults(fn=cmd_nested)
     s = sub.add_parser('snapshot', help='copy uncommitted generated outputs + sha256 manifest')
     s.add_argument('--label', required=True); s.set_defaults(fn=cmd_snapshot)

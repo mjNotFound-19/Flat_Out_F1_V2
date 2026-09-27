@@ -29,13 +29,13 @@ def _events(hist, year, first, last):
     return [tuple(x) for x in ev.sort_values('round').values]
 
 
-def prepare_specs(events, analyses, hist, ds, params, mode='post_quali', log=print):
+def prepare_specs(events, analyses, hist, ds, params, mode='post_quali', log=print, season_weight=None):
     """Walk-forward spec per event (model + circuit fit with the event as cutoff)."""
     out = []
     # uncertainty calibration uses only races before the first backtested event (no leakage)
-    ref = PaceModels().fit(ds, cutoff=events[0], calibrate=True) if events else None
+    ref = PaceModels(season_weight).fit(ds, cutoff=events[0], calibrate=True) if events else None
     for year, rnd in events:
-        m = PaceModels().fit(ds, cutoff=(year, rnd), calibrate=False)
+        m = PaceModels(season_weight).fit(ds, cutoff=(year, rnd), calibrate=False)
         m.sd, m.blend = ref.sd, ref.blend
         m.race.blend, m.quali.blend = ref.race.blend, ref.quali.blend
         m.band_mult = getattr(ref, 'band_mult', {})
