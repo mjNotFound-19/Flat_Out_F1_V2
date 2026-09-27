@@ -19,7 +19,7 @@ from .config import DERIVED, DRY, venue
 
 RACES_DIR = DERIVED / 'races'
 RACES_DIR.mkdir(parents=True, exist_ok=True)
-ANALYSIS_VERSION = 7
+ANALYSIS_VERSION = 8   # 8: explicit outcome (dsq/dns are not retirements), dsq laps from lap data
 
 DNF_CODES = {'R', 'D', 'E', 'W', 'F', 'N'}
 
@@ -249,7 +249,12 @@ def analyze(year, rnd, code='R', force=False):
         grid = r.GridPosition if pd.notna(r.GridPosition) and r.GridPosition > 0 else n_drivers
         cls = str(r.get('ClassifiedPosition', ''))
         finished = cls.isdigit()
-        dnf = not finished
+        outcome = _outcome(cls, str(r.get('Status', '')))
+        # dnf = the car stopped running (mechanical / incident) and was not classified. A disqualified
+        # car ran the race and a non-starter never took the start: neither is a retirement.
+        dnf = outcome == 'retired'
+        n_run = int(laps[laps.Driver == d].LapNumber.max()) if (laps.Driver == d).any() else 0
+        laps_done = int(r.Laps) if pd.notna(r.get('Laps')) and r.Laps > 0 else n_run
         pos = r.Position if pd.notna(r.Position) else n_drivers
         ds = stints[stints.Driver == d].sort_values('stint') if len(stints) else pd.DataFrame()
         seq = [c for c in ds.compound] if len(ds) else []
@@ -263,7 +268,7 @@ def analyze(year, rnd, code='R', force=False):
                 deg_rel = float((xs * ys).sum() / (xs ** 2).sum())
         rows.append(dict(
             Driver=d, Team=r.TeamName, grid=int(grid), finish=int(pos), classified=finished, dnf=dnf,
-            status=r.Status, laps_done=int(r.Laps) if pd.notna(r.get('Laps')) else np.nan,
+            outcome=outcome, status=r.Status, laps_done=laps_done,
             points=float(r.Points) if pd.notna(r.get('Points')) else 0.0,
             pace_s=(fx[d] - ref_fx) if d in fx else np.nan,
             pace_pct=((fx[d] - ref_fx) / med_lap * 100) if d in fx else np.nan,
@@ -298,6 +303,21 @@ def analyze(year, rnd, code='R', force=False):
     cache.write_text(json.dumps(blob, default=float))
     summary['location'] = venue(summary['location'])
     return dict(summary=summary, drivers=drivers, stints=stints)
+
+
+def _outcome(classified_position, status):
+    """finished | classified_retirement | retired | dsq | dns | not_classified (running, <90% distance)."""
+    st = status.strip().lower()
+    cp = classified_position.strip().upper()
+    if cp == 'D' or 'disqualif' in st:
+        return 'dsq'
+    if cp == 'W' or 'did not start' in st or st in ('withdrawn', 'dns'):
+        return 'dns'
+    if cp.isdigit():
+        return 'finished' if (st == 'finished' or st.startswith('+') or 'lap' in st) else 'classified_retirement'
+    if cp == 'N':
+        return 'not_classified'
+    return 'retired'
 
 
 def analyze_all(force=False, log=print):

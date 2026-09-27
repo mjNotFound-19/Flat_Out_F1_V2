@@ -153,6 +153,7 @@ def history_table(analyses):
             rows.append(dict(year=s['year'], round=s['round'], location=s['location'], wet=bool(s['wet']),
                              Driver=d['Driver'], Team=team_norm(d['Team']), grid=d['grid'], finish=d['finish'],
                              dnf=bool(d['dnf']), classified=bool(d['classified']), laps_done=d['laps_done'],
+                             outcome=d.get('outcome', 'retired' if d['dnf'] else 'finished'),
                              pace_pct=d['pace_pct'], pace_laps=d['pace_laps'], consistency=d['consistency'],
                              deg_rel=d.get('deg_rel'), pit_rel=d.get('pit_rel'),
                              lap1_gain=d['lap1_gain'], passes=d['passes'], n_stops=d['n_stops'],
