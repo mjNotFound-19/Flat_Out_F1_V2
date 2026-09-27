@@ -230,6 +230,18 @@ def cmd_nested(a):
                calib_last_n=a.last_n, workers=a.workers, label=a.label, recal_every=a.recal_every, candidate=cand)
 
 
+def cmd_promote(a):
+    import json
+    from . import promotion
+    r = promotion.evaluate(a.champion, a.challenger)
+    for k, c in r['checks'].items():
+        print(f"  {k:<24s} {'PASS' if c['pass_'] else ('n/a ' if c['pass_'] is None else 'FAIL')}  {json.dumps(c.get('value'), default=float)[:150]}")
+    print(f"
+  promote: {r['promote']}  ({r['n_pairs']} race-mode pairs)")
+    out = __import__('pathlib').Path(a.challenger) / 'promotion.json'
+    out.write_text(json.dumps(r, indent=1, default=float))
+
+
 def cmd_snapshot(a):
     from . import provenance
     provenance.snapshot(a.label)
@@ -320,6 +332,8 @@ def main():
     s.add_argument('--recal-every', type=int, default=1, help='re-tune sim params every k-th race (reuse is leak-free)')
     s.add_argument('--candidate', help='challenger as JSON, e.g. {"form_settings": {"team_carry": 0.5}}')
     s.set_defaults(fn=cmd_nested)
+    s = sub.add_parser('promote', help='apply docs/PROMOTION.md criteria to champion vs challenger experiments')
+    s.add_argument('--champion', required=True); s.add_argument('--challenger', required=True); s.set_defaults(fn=cmd_promote)
     s = sub.add_parser('snapshot', help='copy uncommitted generated outputs + sha256 manifest')
     s.add_argument('--label', required=True); s.set_defaults(fn=cmd_snapshot)
     s = sub.add_parser('ratings'); s.add_argument('--year', type=int); s.set_defaults(fn=cmd_ratings)
