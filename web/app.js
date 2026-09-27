@@ -1215,7 +1215,7 @@ function benchmarkSection(root, B) {
       h("li", {}, `Simulator settings re-tuned before each race on the ${B.config.calib_last_n} races before it (${B.config.calib_sims.toLocaleString()} simulations per race per trial).`),
       h("li", {}, `Each scored race simulated ${B.config.eval_sims.toLocaleString()} times per mode; Monte Carlo error is far below the differences shown.`),
       h("li", {}, "Grid baseline: actual grid spread with a grid-to-finish table learned from earlier races. Only used after qualifying."),
-      h("li", {}, "Correction: before 27 Sep 2026 this page said the model beat the grid by 11% in 2026. That backtest scored the same races the simulator settings were tuned on, so it overstated accuracy.")))));
+      h("li", {}, "Note: before 27 Sep 2026 this page quoted a backtest whose simulator settings had been tuned on the same races (in-sample). Re-measured properly (above), the result is similar, but these numbers replace it.")))));
 }
 /* behaviour forecast vs model recommendation (static plans, common random numbers) */
 function strategyRecoPanel(nx) {
