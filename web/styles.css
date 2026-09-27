@@ -696,3 +696,14 @@ details.provisional ul { margin: 8px 0 0; padding-left: 18px; font: 500 12.5px/1
 .c3.c3-none .c3-hud { position: relative; }
 .c3.c3-none .c3-hud > * { position: static; }
 .c3-none-msg { max-width: 64ch; margin: 18px 0 0; font: 400 14px/1.6 var(--body); letter-spacing: 0; color: var(--text-2); }
+
+/* accuracy: honest benchmark section */
+.subhead { margin: 0 0 var(--s4); font: 700 20px/1.2 var(--display); }
+.subhead small { display: block; margin-top: 4px; font: 500 13px/1.4 var(--body); color: var(--muted); letter-spacing: 0; }
+ul.method { margin: 0; padding-left: 18px; display: grid; gap: 8px; font-size: 14px; line-height: 1.5; color: var(--text-2); }
+
+/* driver vs car: uncertainty */
+.dvc-val.unclear { opacity: .55; }
+.dvc-val .dvc-ci { display: block; font: 500 10px/1.2 var(--mono); color: var(--muted); }
+.unclear-note { margin-top: 6px; font: 500 12px/1.4 var(--body); color: var(--muted); }
+.note.dvc-honest { max-width: 80ch; margin: var(--s4) 0; }

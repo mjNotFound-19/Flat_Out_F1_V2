@@ -179,8 +179,27 @@ def _expected_slots(h, cp):
     return h
 
 
+DVC_NOTE = ('Model-based decomposition, not a measurement of pure driver skill. Car pace per race is '
+            'estimated from both team drivers\' laps, so a driver\'s delta is largely relative to the team-mate '
+            'plus race execution (starts, strategy, incidents). Team and driver effects cannot be fully '
+            'separated with two drivers per car; intervals show sampling uncertainty across races only.')
+
+
+def _interval(x, level=0.90):
+    """Mean and a t-interval over races (n < 3 -> no interval)."""
+    x = np.asarray(x, float)
+    x = x[np.isfinite(x)]
+    if len(x) < 3:
+        return (float(x.mean()) if len(x) else np.nan), np.nan, np.nan, np.nan
+    from scipy.stats import t
+    se = float(x.std(ddof=1) / np.sqrt(len(x)))
+    q = float(t.ppf(0.5 + level / 2, len(x) - 1))
+    m = float(x.mean())
+    return m, se, m - q * se, m + q * se
+
+
 def driver_vs_car(hist, year):
-    """Where each driver finished vs where their car was expected to finish, race by race."""
+    """Where each driver finished vs where their car was expected to finish, race by race (see DVC_NOTE)."""
     cp = car_performance(hist, year)
     h = hist[hist.year == year].merge(cp[['round', 'Team', 'car_pace', 'car_quali', 'car_rank', 'exp_finish']],
                                       on=['round', 'Team'], how='left')
@@ -188,8 +207,11 @@ def driver_vs_car(hist, year):
     rows = []
     for (drv, team), g in h.groupby(['Driver', 'Team']):
         fin = g[g.classified.astype(bool)]
+        m, se, lo, hi = _interval(fin.race_delta.values)
         rows.append(dict(
             Driver=drv, Team=team, races=len(g), classified=len(fin), dnfs=int(g.dnf.astype(bool).sum()),
+            race_delta_se=se, race_delta_lo=lo, race_delta_hi=hi,
+            race_delta_clear=bool(np.isfinite(lo) and (lo > 0 or hi < 0)),
             car_expected=float(fin.exp_finish.mean()) if len(fin) else np.nan,
             actual=float(fin.finish.mean()) if len(fin) else np.nan,
             race_delta=float(fin.race_delta.mean()) if len(fin) else np.nan,

@@ -175,8 +175,14 @@ def _ewm(vals, seasons, cur_season, halflife, other_season=0.5):
     return float(np.average(v[ok], weights=w[ok])) if ok.any() else np.nan
 
 
-def form(hist, year, rnd, entry):
+# Form settings. Carry-over = weight of a race from an earlier season relative to one from the current
+# season; half-lives are in races. Defaults are the original hand-set values; see pace_eval / docs.
+FORM = dict(driver_carry=0.5, team_carry=0.25, hl_pace=5, hl_q=4, hl_finish=5, hl_cons=6, hl_team=3)
+
+
+def form(hist, year, rnd, entry, settings=None):
     """EWMA form for each (Driver, Team) in entry using only races before (year, rnd)."""
+    S = dict(FORM, **(settings or {}))
     past = hist[(hist.year < year) | ((hist.year == year) & (hist['round'] < rnd))]
     dry = past[~past.wet]
     rows = []
@@ -188,13 +194,13 @@ def form(hist, year, rnd, entry):
         tq = past[past.Team == team].groupby(['year', 'round']).q_rel_pct.mean()
         rows.append(dict(
             Driver=drv,
-            form_pace=_ewm(dp.pace_pct.clip(-4, 6).values, dp.year.values, year, 5),
+            form_pace=_ewm(dp.pace_pct.clip(-4, 6).values, dp.year.values, year, S['hl_pace'], S['driver_carry']),
             form_n=len(da),
-            form_q=_ewm(da.q_rel_pct.values, da.year.values, year, 4),
-            form_finish=_ewm(da.finish.values, da.year.values, year, 5),
-            form_consistency=_ewm(dp.consistency.values, dp.year.values, year, 6),
-            team_form_pace=_ewm(tpace.clip(-4, 6).values, [y for y, _ in tpace.index], year, 3, 0.25),
-            team_form_q=_ewm(tq.values, [y for y, _ in tq.index], year, 3, 0.25),
+            form_q=_ewm(da.q_rel_pct.values, da.year.values, year, S['hl_q'], S['driver_carry']),
+            form_finish=_ewm(da.finish.values, da.year.values, year, S['hl_finish'], S['driver_carry']),
+            form_consistency=_ewm(dp.consistency.values, dp.year.values, year, S['hl_cons'], S['driver_carry']),
+            team_form_pace=_ewm(tpace.clip(-4, 6).values, [y for y, _ in tpace.index], year, S['hl_team'], S['team_carry']),
+            team_form_q=_ewm(tq.values, [y for y, _ in tq.index], year, S['hl_team'], S['team_carry']),
             rookie=float(len(da) < 8),
         ))
     f = pd.DataFrame(rows)
@@ -218,7 +224,7 @@ def entry_list(year, rnd, hist):
     return last[['Driver', 'Team']].reset_index(drop=True)
 
 
-def event_features(year, rnd, hist, entry=None, mode=None):
+def event_features(year, rnd, hist, entry=None, mode=None, form_settings=None):
     """mode: None/'auto' uses every stored session except the race; otherwise a key of MODES."""
     allowed = None if mode in (None, 'auto') else MODES[mode]
     ok = (lambda c: allowed is None or c in allowed)
@@ -237,7 +243,7 @@ def event_features(year, rnd, hist, entry=None, mode=None):
     sp = sprint(year, rnd) if ok('S') else None
     if sp is not None:
         f = f.merge(sp, left_on='Driver', right_index=True, how='left')
-    f = f.merge(form(hist, year, rnd, entry), on='Driver', how='left')
+    f = f.merge(form(hist, year, rnd, entry, form_settings), on='Driver', how='left')
     for c in FEATURES:
         if c not in f:
             f[c] = np.nan
@@ -246,18 +252,19 @@ def event_features(year, rnd, hist, entry=None, mode=None):
     return f
 
 
-def build_dataset(analyses, log=print):
+def build_dataset(analyses, log=print, form_settings=None, save=True):
     """Training table: features + outcomes for every stored race."""
     hist = history_table(analyses)
     frames = []
     for (year, rnd), g in hist.groupby(['year', 'round']):
         entry = g[['Driver', 'Team']]
-        f = event_features(year, rnd, hist, entry)
+        f = event_features(year, rnd, hist, entry, form_settings=form_settings)
         f = f.merge(g[['Driver', 'location', 'wet', 'grid', 'finish', 'dnf', 'classified', 'pace_pct',
                        'pace_laps', 'n_laps']], on='Driver')
         frames.append(f)
     ds = pd.concat(frames, ignore_index=True)
-    ds.to_parquet(DERIVED / 'dataset.parquet', index=False)
-    hist.to_parquet(DERIVED / 'history.parquet', index=False)
+    if save:
+        ds.to_parquet(DERIVED / 'dataset.parquet', index=False)
+        hist.to_parquet(DERIVED / 'history.parquet', index=False)
     log(f'  dataset: {len(ds)} rows from {ds.groupby(["year", "round"]).ngroups} races')
     return ds, hist

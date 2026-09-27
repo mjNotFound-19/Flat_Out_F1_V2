@@ -163,6 +163,41 @@ def _season_summary():
     return out
 
 
+def _benchmarks():
+    """Latest nested walk-forward experiment per season (artifacts/experiments/ledger.jsonl), with per-race
+    rows. These are the only fully walk-forward numbers; 'season_eval' (backtest) is in-sample for the
+    simulator parameters and is kept for the race explorer only."""
+    from .config import ROOT
+    ledger = ROOT / 'artifacts' / 'experiments' / 'ledger.jsonl'
+    if not ledger.exists():
+        return {}
+    latest = {}
+    for line in ledger.read_text(encoding='utf-8').splitlines():
+        try:
+            e = json.loads(line)
+        except ValueError:
+            continue
+        d = ROOT / 'artifacts' / 'experiments' / e['id']
+        if not e['id'].startswith('nested_') or not (d / 'per_race.csv').exists():
+            continue
+        cfg = json.loads((d / 'config.json').read_text())
+        latest[str(cfg['year'])] = (e, d, cfg)       # later lines win
+    out = {}
+    for year, (e, d, cfg) in latest.items():
+        per = pd.read_csv(d / 'per_race.csv')
+        keep = [c for c in ('year', 'round', 'event', 'mode', 'n', 'model_rps', 'grid_rps', 'pace_rps',
+                            'model_log_loss', 'grid_log_loss', 'pace_log_loss', 'model_p_winner', 'grid_p_winner',
+                            'model_winner_correct', 'grid_winner_correct', 'model_top3_hit', 'new_venue')
+                if c in per]
+        out[year] = dict(id=e['id'], created_utc=e['created_utc'], summary=e['summary'],
+                         config={k: cfg[k] for k in ('eval_sims', 'calib_sims', 'calib_last_n', 'rounds', 'first', 'last')},
+                         code=e.get('code', {}), per_race=_records(per[keep]),
+                         status='development', note=('Nested walk-forward: simulator parameters re-tuned on the '
+                                                     'races before each scored race. These seasons were inspected '
+                                                     'during development, so this is not an untouched holdout.'))
+    return out
+
+
 def _standings(analyses, year):
     pts = {}
     team = {}
@@ -241,12 +276,14 @@ def export(log=print):
             log(f'  ! track outline unavailable: {e}')
     site['races'] = _past_races(hist)
     site['season_eval'] = _season_summary()
+    site['benchmarks'] = _benchmarks()
     site['reliability'] = _reliability(hist)
     site['standings'] = _standings(analyses, year)
     site['people'], site['team_colors'] = _people(year)
     site['team_logos'] = _team_logos(site['team_colors'].keys(), year)
     site['constructors'] = _records(ratings.constructor_ratings(hist, year))
     site['driver_vs_car'] = _records(ratings.driver_vs_car(hist, year))
+    site['driver_vs_car_note'] = ratings.DVC_NOTE
     r = ratings.driver_ratings(hist)
     latest = r.last_race.value_counts().index[0]
     site['ratings'] = _records(r[r.last_race == latest])

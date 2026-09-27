@@ -806,7 +806,8 @@ function renderDvC(root) {
   const hlFeature = h("button", { type: "button", class: "panel clickable award-feature", style: `--team:${teamColor(best.Team)};min-height:240px`, onclick: () => openDriver(best.Driver) },
     cutout(best.Driver, { loading: "lazy", width: 480, height: 480 }),
     h("span", { class: "copy", style: "display:block" }, h("span", { class: "kicker", style: "display:block" }, "Biggest over-performer"),
-      h("span", { class: "who", style: "display:block" }, name(best.Driver)), h("span", { class: "mono", style: "display:block;color:var(--good)" }, `${sgn(best[dk], 1)} places per ${q ? "session" : "race"}`)));
+      h("span", { class: "who", style: "display:block" }, name(best.Driver)), h("span", { class: "mono", style: "display:block;color:var(--good)" }, `${sgn(best[dk], 1)} places per ${q ? "session" : "race"}`),
+      !q && best.race_delta_clear === false ? h("span", { class: "unclear-note", style: "display:block" }, `not yet clear of race-to-race noise (90% range ${sgn(best.race_delta_lo, 1)} to ${sgn(best.race_delta_hi, 1)})`) : null));
   const hlList = h("div", { class: "panel award-list" },
     btn("rowbtn", () => openDriver(worst.Driver), null, avatar(worst.Driver, 44, worst.Team),
       h("span", {}, h("span", { class: "t", style: "display:block" }, "Leaves most on the table"), h("span", { class: "n", style: "display:block" }, name(worst.Driver))),
@@ -815,6 +816,8 @@ function renderDvC(root) {
       h("span", {}, h("span", { class: "t", style: "display:block" }, "Biggest team-mate gap"), h("span", { class: "n", style: "display:block" }, `${bestTeamPair.a.Driver} vs ${bestTeamPair.b.Driver}`)),
       h("span", { class: "v" }, `${fx(bestTeamPair.gap, 1)} places`)) : null);
   root.append(h("div", { class: "awards" }, hlFeature, hlList));
+  const noteSlot = h("div");
+  root.append(noteSlot);
 
   // dumbbell: hollow = car, filled = driver
   const maxP = 22, x = (p) => ((p - 1) / (maxP - 1)) * 100;
@@ -831,8 +834,15 @@ function renderDvC(root) {
           h("span", { style: `position:absolute;top:11px;height:6px;border-radius:3px;left:${lo}%;width:${wdt}%;background:${up ? "var(--good)" : "var(--bad)"};opacity:.55` }),
           h("span", { "data-tip": `car worth P${fx(e, 1)}`, style: `position:absolute;top:6px;left:calc(${x(e)}% - 8px);width:16px;height:16px;border-radius:50%;border:2.5px solid ${c};background:var(--surface)` }),
           h("span", { "data-tip": `${d.Driver} averaged P${fx(a, 1)}`, style: `position:absolute;top:4px;left:calc(${x(a)}% - 10px)` }, avatar(d.Driver, 20, d.Team))),
-        h("span", { class: `dvc-val ${up ? "up" : "down"}` }, sgn(d[dk], 1)));
+        h("span", { class: `dvc-val ${up ? "up" : "down"} ${!q && d.race_delta_clear === false ? "unclear" : ""}`,
+          "data-tip": !q && d.race_delta_lo != null ? `90% range ${sgn(d.race_delta_lo, 1)} to ${sgn(d.race_delta_hi, 1)} places${d.race_delta_clear ? "" : " (includes zero: within noise)"}` : null },
+          sgn(d[dk], 1), nerd() && !q && d.race_delta_lo != null ? h("small", { class: "dvc-ci" }, `${sgn(d.race_delta_lo, 1)}\u2026${sgn(d.race_delta_hi, 1)}`) : null));
     }));
+  const clearN = rows.filter((d) => d.race_delta_clear).length;
+  queueMicrotask(() => dvcNote && noteSlot.append(dvcNote));
+  const dvcNote = !q ? h("p", { class: "note dvc-honest" }, h("b", {}, "What this can and can't show: "),
+    nerd() ? (state.data.driver_vs_car_note || "") : "Each car's pace is worked out from both of its drivers, so this mostly compares team-mates. ",
+    ` Only ${clearN} of ${rows.length} drivers are clearly above or below their car so far; the rest are within normal race-to-race luck (dimmed numbers).`) : null;
   const legend = h("div", { class: "legend" }, h("span", {}, h("i", { class: "hollow" }), "where the car should be"), h("span", {}, h("i", { class: "filled" }), "where the driver was"),
     h("span", {}, h("i", { style: "background:var(--good)" }), "beat the car"), h("span", {}, h("i", { style: "background:var(--bad)" }), "below the car"));
   const note = h("p", { class: "note mt" }, h("b", {}, "How it works: "), q
@@ -942,12 +952,18 @@ function renderSeason(root) {
 
 /* ------------------------------------------------------------------ ACCURACY */
 function renderAccuracy(root) {
+  const B = state.data.benchmarks?.[String(state.data.season)];
+  if (B) benchmarkSection(root, B);
   const ev = state.data.season_eval?.[String(state.data.season)] || {};
   const mode = ev[state.accMode] ? state.accMode : Object.keys(ev)[0], E = ev[mode];
-  if (!E) return root.append(h("div", { class: "empty" }, "No backtest yet. Run python -m flatout backtest to score past races."));
+  if (!E) return B ? null : root.append(h("div", { class: "empty" }, "No evaluation yet. Run python -m flatout nested --year 2026 to score past races."));
+  if (B) {   // the retrospective backtest below is kept for the per-race explorer, clearly labelled
+    root.append(h("h2", { class: "subhead mt" }, "Race-by-race detail",
+      h("small", {}, nerd() ? "retrospective backtest \u00b7 simulator settings tuned on these same races (in-sample) \u00b7 use the numbers above for accuracy" : "what we tipped at each race")));
+  }
   const tag = "backtest_" + mode, races = state.data.races.filter((r) => r.predictions[tag]), a = E.avg;
   const wins = E.per_race.filter((r) => r.model_winner_correct).length, better = 1 - a.model.rps / a.grid.rps;
-  root.append(sectionHead(["How good are ", em("the predictions")], "Walk-forward test: the model is retrained before every race using only earlier races, then scored against the result.",
+  if (!B) root.append(sectionHead(["How good are ", em("the predictions")], "Walk-forward test: the model is retrained before every race using only earlier races, then scored against the result.",
     h("div", { class: "seg", role: "group", "aria-label": "Information available" }, Object.keys(ev).map((k) => h("button", { class: k === mode ? "on" : "", "aria-pressed": String(k === mode), onclick: () => { state.accMode = k; rerender(); } }, MODE_LABEL[k] || k)))));
   root.append(h("div", { class: "grid g-4" },
     stat(`${wins}<small>/${E.n}</small>`, "Favourite won", `trusting the grid: ${pct(a.grid.winner_correct)} of races`, "good"),
@@ -1156,4 +1172,45 @@ function provisionalEl(m) {
   if (!nerd()) return h("p", { class: "provisional" }, "First race at this circuit in our data, so tyre wear, pit-stop time, safety cars and overtaking use averages from other tracks. Treat these odds as rougher than usual.");
   return h("details", { class: "provisional" }, h("summary", {}, `Provisional forecast \u00b7 ${a.length} stated assumption${a.length === 1 ? "" : "s"}`),
     h("ul", {}, a.map((x) => h("li", {}, x))));
+}
+const avgOf = (rows, k) => { const v = rows.map((r) => r[k]).filter((x) => x != null && isFinite(x)); return v.length ? v.reduce((a, x) => a + x, 0) / v.length : null; };
+/* Accuracy headline from the nested walk-forward benchmark (the only fully out-of-sample numbers) */
+function benchmarkSection(root, B) {
+  const modes = Object.keys(B.summary || {});
+  const mode = modes.includes(state.benchMode) ? state.benchMode : (modes.includes("post_quali") ? "post_quali" : modes[0]);
+  const S = B.summary[mode], rows = B.per_race.filter((r) => r.mode === mode);
+  const vsGrid = S.model_minus_grid_rps, vsPace = S.model_minus_pace_rps;
+  const ref = mode === "post_quali" ? vsGrid : vsPace, refName = mode === "post_quali" ? "the starting grid" : "a pace-only ranking";
+  const rel = (p, base) => (p && base ? -p.mean / base : null);
+  const ci = (p) => (p && p.lo != null ? `${sgn(p.lo, 4)} to ${sgn(p.hi, 4)}` : "n/a");
+  root.append(sectionHead(["How good are ", em("the predictions")],
+    "Every race below was forecast using only what was known before it: the pace model, circuit settings and simulator settings were all re-fitted on earlier races. These 2026 races were also studied while building the model, so this is development evidence; the live record starts at Sepang.",
+    h("div", { class: "seg", role: "group", "aria-label": "Information available" }, modes.map((k) => h("button", { class: k === mode ? "on" : "", "aria-pressed": String(k === mode), onclick: () => { state.benchMode = k; rerender(); } }, MODE_LABEL[k] || k)))));
+  const better = rows.filter((r) => r.model_rps < (mode === "post_quali" ? r.grid_rps : r.pace_rps)).length;
+  root.append(h("div", { class: "grid g-4" },
+    stat(`${better}<small>/${rows.length}</small>`, `Races better than ${mode === "post_quali" ? "the grid" : "pace-only"}`, `lower error than ${refName}`, "good"),
+    stat(ref && ref.mean != null ? pct(rel(ref, mode === "post_quali" ? S.grid_rps : S.pace_rps)) : "n/a", "Less error on average", `95% range of the difference ${ci(ref)} (RPS)`, "cyan"),
+    stat(pct(avgOf(rows, "model_p_winner")), "Chance we gave the winner", mode === "post_quali" ? `grid baseline ${pct(avgOf(rows, "grid_p_winner"))}` : "grid unknown at this point", "accent"),
+    stat(`0<small>races</small>`, "Live record", "first archived forecast: Sepang, 4 Oct", "")));
+  const labels = rows.map((r) => "R" + r.round);
+  const series = [{ name: "Simulator", color: "var(--primary-hi)", values: rows.map((r) => r.model_rps), width: 3 },
+    { name: "Pace-only", color: "var(--data)", values: rows.map((r) => r.pace_rps), dash: "2 4", opacity: .85 }];
+  if (mode === "post_quali") series.splice(1, 0, { name: "Grid baseline", color: "#9aa3b0", values: rows.map((r) => r.grid_rps), dash: "6 5" });
+  root.append(h("div", { class: "mt" }, panel(nerd() ? "Ranked probability score per race" : "Error per race",
+    mode === "post_quali" ? "lower is better \u00b7 simulator vs the starting grid and a pace-only ranking" : "lower is better \u00b7 before the weekend the grid is unknown, so it is not a fair comparison",
+    h("div", { html: lineChart({ labels, yLabel: "RPS", lowerBetter: true, series }) }),
+    h("div", { class: "legend" }, series.map((s) => h("span", {}, h("i", { style: `background:${s.color}` }), s.name))))));
+  if (!nerd()) return;
+  const line = (name, p) => h("tr", {}, h("td", {}, name), h("td", { class: "num mono" }, p?.mean != null ? sgn(p.mean, 4) : "n/a"),
+    h("td", { class: "num mono" }, ci(p)), h("td", { class: "num mono" }, p?.share_better != null ? pct(p.share_better) : "n/a"), h("td", { class: "num mono" }, p?.n ?? "n/a"));
+  const t = h("table", {}, h("thead", {}, h("tr", {}, ["Comparison (model \u2212 baseline)", "Mean", "95% bootstrap range", "Races better", "Races"].map((x, i) => h("th", { class: i ? "num" : "", scope: "col" }, x)))),
+    h("tbody", {}, mode === "post_quali" ? [line("RPS vs grid", S.model_minus_grid_rps), line("Log loss vs grid", S.model_minus_grid_log_loss)] : [],
+      line("RPS vs pace-only", S.model_minus_pace_rps), line("Log loss vs pace-only", S.model_minus_pace_log_loss)));
+  root.append(h("div", { class: "grid g-main mt" },
+    panel("Paired comparison", `${rows.length} races \u00b7 negative = model better \u00b7 races are the independent unit`, h("div", { class: "table-wrap" }, t)),
+    panel("How this was measured", B.id, h("ul", { class: "method" },
+      h("li", {}, `Simulator settings re-tuned before each race on the ${B.config.calib_last_n} races before it (${B.config.calib_sims.toLocaleString()} simulations per race per trial).`),
+      h("li", {}, `Each scored race simulated ${B.config.eval_sims.toLocaleString()} times per mode; Monte Carlo error is far below the differences shown.`),
+      h("li", {}, "Grid baseline: actual grid spread with a grid-to-finish table learned from earlier races. Only used after qualifying."),
+      h("li", {}, "Correction: before 27 Sep 2026 this page said the model beat the grid by 11% in 2026. That backtest scored the same races the simulator settings were tuned on, so it overstated accuracy.")))));
 }
