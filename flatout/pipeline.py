@@ -152,6 +152,10 @@ def build_spec(year, rnd, analyses, hist, models, circuits, params, use_grid=Tru
     elif use_grid and mode in (None, 'auto', 'post_quali'):
         grid = actual_grid(year, rnd, drivers)
     rel = reliability(hist, year, rnd, entry.Team.unique(), c['dnf_rate'], params.get('rel_season_k', 0.0))
+    if params.get('rel_model') == 'hazard':      # challenger R2: exposure-based gamma-Poisson hazard
+        from . import reliability as rel_mod
+        haz = rel_mod.team_probs(rel_mod.fit(hist, year, rnd), year, entry.Team.unique(), info['location'], c['n_laps'])
+        rel = haz or rel
     p_dnf = np.array([rel[t] for t in entry.Team])
     lap1_share = c['lap1_dnf_share']
     n = c['n_laps']
