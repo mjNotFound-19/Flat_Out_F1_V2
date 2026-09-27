@@ -1043,6 +1043,8 @@ function renderLab(root) {
     panel("Pipeline", "python -m flatout weekend runs all of it", h("div", { class: "flow" },
       [["SYNC", "FastF1 → parquet"], ["AUDIT", "every GP checked"], ["ANALYSE", "per-race pace regression"], ["CIRCUITS", "deg · pit loss · SC · passing"], ["FEATURES", "pre-race only"], ["TRAIN", "LightGBM + ridge"], ["SIMULATE", "4M races, lap by lap"], ["EVALUATE", "proper scores vs baselines"], ["CALIBRATE", "tune sim behaviour"]]
         .flatMap(([a, b], i) => [i ? h("span", { class: "arr", "aria-hidden": "true" }, "→") : null, h("div", { class: "step" }, h("b", {}, a), b)]))));
+  const scp = scenarioPanel(state.data.next), rep = reproPanel(state.data.next);
+  if (scp || rep) root.append(h("div", { class: "grid g-main mt" }, scp || h("div"), rep || h("div")));
   const imp = (M.importance || []).slice(0, 12), imax = Math.max(...imp.map((x) => x.gain), 1);
   root.append(h("div", { class: "grid g-3 mt" },
     panel("Pace uncertainty", "walk-forward robust σ, % of lap", h("div", { class: "stack", style: "gap:10px" },
@@ -1235,4 +1237,31 @@ function strategyRecoPanel(nx) {
     h("p", { class: "note" }, nx.meta.status === "provisional"
       ? "Provisional: tyre wear and pit-lane loss here come from other circuits, so these plan rankings could change once practice data exists."
       : "Plans are fixed before the start; reactions to safety cars use the same rules for every plan."));
+}
+/* Lab: precomputed what-if scenarios (static site, no live recomputation) */
+function scenarioPanel(nx) {
+  const S = nx?.scenarios;
+  if (!S || !S.scenarios?.length) return null;
+  const base = S.scenarios[0], fav = base.drivers.slice(0, 5).map((d) => d.Driver);
+  const val = (sc, code) => (sc.drivers.find((d) => d.Driver === code) || {}).win;
+  const t = h("table", {}, h("thead", {}, h("tr", {}, h("th", { scope: "col" }, "Scenario"), fav.map((c) => h("th", { class: "num", scope: "col" }, c)), h("th", { class: "num", scope: "col" }, "P(SC)"))),
+    h("tbody", {}, S.scenarios.map((sc) => h("tr", {}, h("td", {}, sc.label),
+      fav.map((c) => { const v = val(sc, c), b = val(base, c), dlt = v != null && b != null ? v - b : null;
+        return h("td", { class: "num mono" }, v == null ? "\u2013" : pct(v), sc === base || dlt == null ? null : h("small", { class: dlt > 0 ? "up" : "down" }, ` ${dlt > 0 ? "+" : ""}${(dlt * 100).toFixed(1)}`)); }),
+      h("td", { class: "num mono" }, pct(sc.p_sc))))));
+  return panel("What if?", `win chance of today's top five \u00b7 ${S.n_sims.toLocaleString()} races per scenario, same random numbers`,
+    h("div", { class: "table-wrap" }, t),
+    h("p", { class: "note" }, S.note + " " + (S.not_available || []).join(" ")));
+}
+function reproPanel(nx) {
+  const P = nx?.provenance, m = nx?.meta;
+  if (!P) return null;
+  const short = (x) => (x ? String(x).slice(0, 10) : "–");
+  const rows = [["Forecast run", m.run || m.created_utc], ["Mode", MODE_LABEL[m.mode] || m.mode], ["Issued (UTC)", m.created_utc],
+    ["Code", `${short(P.code?.git_rev)}${P.code?.dirty ? " + uncommitted changes " + short(P.code?.dirty_diff_sha256) : ""}`],
+    ["Data store", `${P.data?.store_files ?? "?"} files · ${short(P.data?.store_sha256)}`], ["Pace model", short(P.model_meta_sha256)],
+    ["Sim settings", short(P.sim_params_sha256)], ["Seed", P.seed ? `${P.seed.root ?? P.seed.base} · ${P.seed.scheme}` : "–"],
+    ["Simulations", Number(m.n_sims).toLocaleString()], ["Inputs missing", (m.inputs_missing || []).join(", ") || "none"]];
+  return panel("Reproducibility", "everything needed to re-run this exact forecast",
+    h("table", { class: "kv" }, h("tbody", {}, rows.map(([k, v]) => h("tr", {}, h("th", { scope: "row" }, k), h("td", { class: "mono" }, v))))));
 }

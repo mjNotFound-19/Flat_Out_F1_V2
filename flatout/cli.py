@@ -117,6 +117,14 @@ def cmd_predict(a):
     print(f'\n  saved -> {d}')
     if a.recommend:
         _recommend(d, df, ctx, a)
+    if a.scenarios:
+        import json
+        from . import scenarios
+        print('  what-if scenarios (precomputed for the Lab)...')
+        sc = scenarios.run(ctx['spec'], ctx, n_sims=a.scenario_sims, workers=a.workers)
+        meta = json.loads((d / 'pre_race_meta.json').read_text())
+        (d / 'scenarios.json').write_text(json.dumps(dict(sc, run=meta.get('run')), indent=1, default=float))
+        cmd_export()
     # keep the dashboard in sync
     web = pipeline.OUTPUT.parent / 'web' / 'data'
     if web.exists():
@@ -289,6 +297,8 @@ def main():
     s.add_argument('--grid', help='comma separated driver codes in grid order (validated against the entry list)')
     s.add_argument('--recommend', action='store_true', help='also compare forced strategy plans (static, model-dependent)')
     s.add_argument('--recommend-top', type=int, default=12); s.add_argument('--recommend-sims', type=int, default=40_000)
+    s.add_argument('--scenarios', action='store_true', help='precompute what-if scenarios for the site Lab')
+    s.add_argument('--scenario-sims', type=int, default=200_000)
     s.set_defaults(fn=cmd_predict)
     s = sub.add_parser('evaluate'); s.add_argument('--year', type=int); s.add_argument('--round', type=int)
     s.set_defaults(fn=cmd_evaluate)

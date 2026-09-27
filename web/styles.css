@@ -707,3 +707,6 @@ ul.method { margin: 0; padding-left: 18px; display: grid; gap: 8px; font-size: 1
 .dvc-val .dvc-ci { display: block; font: 500 10px/1.2 var(--mono); color: var(--muted); }
 .unclear-note { margin-top: 6px; font: 500 12px/1.4 var(--body); color: var(--muted); }
 .note.dvc-honest { max-width: 80ch; margin: var(--s4) 0; }
+
+/* lab: scenario deltas */
+td small.up { color: var(--good); } td small.down { color: var(--bad); }
