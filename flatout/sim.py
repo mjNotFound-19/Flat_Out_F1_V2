@@ -15,7 +15,9 @@ Outputs are streamed into counters (finishing-position matrix, DNF, points,
 stop counts, first-stop lap, executed compound sequences, SC count), so memory
 stays constant no matter how many races run.
 """
+import contextlib
 import os
+import sys
 from concurrent.futures import ProcessPoolExecutor
 
 import numpy as np
@@ -294,15 +296,66 @@ def _worker(spec, n, seed, batch):
     return agg
 
 
+# ---- process pools
+# Each simulation worker is single-threaded numpy. Left alone, every worker's BLAS reserves buffers for one
+# thread per core: measured ~1.0 GB committed per worker vs ~0.27 GB with one thread (and faster, since 12
+# workers x 12 threads just contend). 12 default workers used to exhaust the page file on a 16 GB machine.
+_THREAD_VARS = ('OPENBLAS_NUM_THREADS', 'OMP_NUM_THREADS', 'MKL_NUM_THREADS', 'NUMEXPR_NUM_THREADS')
+PER_WORKER_GB = 0.45          # measured peak ~0.27 GB at batch 10-20k, plus headroom
+
+
+def _free_commit_gb():
+    """Memory that new processes can still commit (RAM + page file), in GB; None if unknown."""
+    try:
+        if sys.platform == 'win32':
+            import ctypes
+
+            class MS(ctypes.Structure):
+                _fields_ = [('len', ctypes.c_ulong), ('load', ctypes.c_ulong)] +                            [(k, ctypes.c_ulonglong) for k in ('tot_phys', 'avail_phys', 'tot_pf', 'avail_pf',
+                                                                'tot_virt', 'avail_virt', 'avail_ext')]
+            m = MS(); m.len = ctypes.sizeof(MS)
+            ctypes.windll.kernel32.GlobalMemoryStatusEx(ctypes.byref(m))
+            return m.avail_pf / 2 ** 30
+        return os.sysconf('SC_AVPHYS_PAGES') * os.sysconf('SC_PAGE_SIZE') / 2 ** 30
+    except (AttributeError, OSError, ValueError):
+        return None
+
+
+def default_workers(requested=None, jobs=None):
+    """CPU-based worker count, capped by free memory (keeping ~1.5 GB for the main process and the OS)."""
+    n = requested or max(1, (os.cpu_count() or 2) - 1)
+    free = _free_commit_gb()
+    if free is not None and not requested:
+        n = min(n, max(1, int((free - 1.5) / PER_WORKER_GB)))
+    return max(1, min(n, jobs or n))
+
+
+@contextlib.contextmanager
+def pool(workers):
+    """ProcessPoolExecutor whose workers start with single-threaded BLAS/OpenMP. Workers are spawned lazily
+    while the block runs, so the thread-count env vars stay set until it exits, then the parent's are restored."""
+    saved = {k: os.environ.get(k) for k in _THREAD_VARS}
+    os.environ.update({k: '1' for k in _THREAD_VARS})
+    try:
+        with ProcessPoolExecutor(max_workers=workers) as ex:
+            yield ex
+    finally:
+        for k, v in saved.items():
+            if v is None:
+                os.environ.pop(k, None)
+            else:
+                os.environ[k] = v
+
+
 def simulate(spec, n_sims, workers=None, batch=20000, seed=2026, progress=None):
     spec = _spec_arrays(spec)
-    workers = workers or max(1, (os.cpu_count() or 2) - 1)
+    workers = default_workers(workers)
     if n_sims <= batch or workers == 1:
         return _worker(spec, n_sims, seed, batch)
     chunks = min(workers * 4, max(1, n_sims // batch))
     sizes = [n_sims // chunks + (1 if i < n_sims % chunks else 0) for i in range(chunks)]
     agg = None
-    with ProcessPoolExecutor(max_workers=workers) as ex:
+    with pool(workers) as ex:
         futs = [ex.submit(_worker, spec, sz, seed + 7919 * i, batch) for i, sz in enumerate(sizes)]
         for i, f in enumerate(futs):
             r = f.result()

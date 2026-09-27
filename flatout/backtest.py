@@ -7,7 +7,6 @@ chosen information cut-off (default: after qualifying) is used.
 """
 import json
 import time
-from concurrent.futures import ProcessPoolExecutor
 
 import numpy as np
 import pandas as pd
@@ -58,7 +57,9 @@ def run(year, first=1, last=99, n_sims=20000, mode='post_quali', workers=None, l
     events = _events(hist, year, first, last)
     specs = prepare_specs(events, analyses, hist, ds, params, mode, log)
     rows, errs = [], []
-    with ProcessPoolExecutor(max_workers=workers) as ex:
+    workers = sim.default_workers(workers, jobs=len(specs))
+    log(f'  simulating {len(specs)} races x {n_sims:,} on {workers} workers')
+    with sim.pool(workers) as ex:
         aggs = list(ex.map(_sim_one, [(s, n_sims, 11 + i) for i, (_, _, s, _) in enumerate(specs)]))
     for (y, r, spec, ctx), agg in zip(specs, aggs):
         summ, dist, extra = pipeline.summarise(agg, ctx)
@@ -136,7 +137,7 @@ def calibrate(year=None, last_n=14, n_sims=6000, rounds=2, workers=None, log=pri
             s = dict(s)
             s['params'] = p
             jobs.append((s, n_sims, 1000 + i))
-        with ProcessPoolExecutor(max_workers=workers) as ex:
+        with sim.pool(sim.default_workers(workers, jobs=len(jobs))) as ex:
             aggs = list(ex.map(_sim_one, jobs))
         for _, _, _, ctx in specs:
             ctx['grid_blend'] = p.get('grid_blend', 0.0)

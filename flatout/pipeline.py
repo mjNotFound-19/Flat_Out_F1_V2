@@ -223,7 +223,12 @@ def run_event(year, rnd, n_sims, analyses, hist, models=None, params=None, worke
     models = models or PaceModels.load()
     spec, ctx = build_spec(year, rnd, analyses, hist, models, circuits, params, use_grid, grid_override, mode)
     t0 = time.time()
-    agg = sim.simulate(spec, n_sims, workers=workers)
+    def progress(done, total):   # one updating line, so a 10-minute run doesn't look frozen
+        el = time.time() - t0
+        eta = el / done * (total - done) if done else 0
+        print(f'\r  simulating: {done:>10,} / {total:,} races  {done / total:4.0%}  '
+              f'elapsed {el / 60:4.1f} min  eta {eta / 60:4.1f} min ', end='' if done < total else '\n', flush=True)
+    agg = sim.simulate(spec, n_sims, workers=workers, progress=progress if log is print else None)
     df, dist, extra = summarise(agg, ctx)
     extra['sim_seconds'] = round(time.time() - t0, 1)
     return df, dist, extra, ctx
