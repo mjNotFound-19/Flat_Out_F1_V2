@@ -136,28 +136,23 @@ def _score(specs_aggs, hist):
     return float(np.mean(rps)), float(np.mean(ll))
 
 
-def calibrate(year=None, last_n=14, n_sims=6000, rounds=2, workers=None, log=print):
-    """Coordinate search over simulator behaviour params, minimising mean RPS (+ small log-loss term)
-    on the most recent `last_n` races, each simulated walk-forward. Common random numbers keep
-    comparisons between parameter values fair."""
-    analyses, hist = pipeline.load_state(log=log)
-    ds = load_dataset(analyses, hist, log)
-    params = pipeline.load_sim_params()
-    ev = hist[['year', 'round']].drop_duplicates().sort_values(['year', 'round'])
-    if year:
-        ev = ev[ev.year == year]
-    ev = [tuple(x) for x in ev.values[-last_n:]]
-    log(f'  calibrating on {len(ev)} races, {n_sims} sims each')
-    specs = prepare_specs(ev, analyses, hist, ds, params, 'post_quali', log=lambda *_: None)
+def search_params(specs, hist, params, n_sims=6000, rounds=2, workers=None, log=print, seed0=1000, ex=None):
+    """Coordinate search over TUNABLE simulator params on prepared (walk-forward) specs, minimising
+    mean RPS + 0.01 * log loss. Common random numbers (seed per race, fixed across trials) keep the
+    comparison between parameter values fair. Returns (params, best_rps, best_ll, history).
+    ex: an open worker pool to reuse (starting 11 workers per trial dominated calibration time)."""
+    if ex is None:
+        with sim.pool(sim.default_workers(workers, jobs=len(specs))) as own:
+            return search_params(specs, hist, params, n_sims, rounds, workers, log, seed0, own)
+    params = dict(params)
 
     def objective(p):
         jobs = []
         for i, (_, _, s, _) in enumerate(specs):
             s = dict(s)
             s['params'] = p
-            jobs.append((s, n_sims, 1000 + i))
-        with sim.pool(sim.default_workers(workers, jobs=len(jobs))) as ex:
-            aggs = list(ex.map(_sim_one, jobs))
+            jobs.append((s, n_sims, seed0 + i))
+        aggs = list(ex.map(_sim_one, jobs))
         for _, _, _, ctx in specs:
             ctx['grid_blend'] = p.get('grid_blend', 0.0)
         rps, ll = _score(list(zip(specs, aggs)), hist)
@@ -180,9 +175,27 @@ def calibrate(year=None, last_n=14, n_sims=6000, rounds=2, workers=None, log=pri
                     best, best_rps, best_ll, params = obj, rps, ll, trial
                     log(f'    {k} -> {v:.3f}   RPS {rps:.4f}  logloss {ll:.3f}')
             history.append(dict(step=f'r{rd}_{k}', rps=best_rps, ll=best_ll, **{kk: params[kk] for kk in TUNABLE}))
+    return params, best_rps, best_ll, history
+
+
+def calibrate(year=None, last_n=14, n_sims=6000, rounds=2, workers=None, log=print):
+    """Tune simulator params on the most recent `last_n` races and save them for forecasting.
+    The saved params are fitted on those races: scoring the same races with them is in-sample
+    (use `python -m flatout nested` for out-of-sample evaluation)."""
+    analyses, hist = pipeline.load_state(log=log)
+    ds = load_dataset(analyses, hist, log)
+    params = pipeline.load_sim_params()
+    ev = hist[['year', 'round']].drop_duplicates().sort_values(['year', 'round'])
+    if year:
+        ev = ev[ev.year == year]
+    ev = [tuple(x) for x in ev.values[-last_n:]]
+    log(f'  calibrating on {len(ev)} races, {n_sims} sims each')
+    specs = prepare_specs(ev, analyses, hist, ds, params, 'post_quali', log=lambda *_: None)
+    params, best_rps, best_ll, history = search_params(specs, hist, params, n_sims, rounds, workers, log)
     (MODELS / 'sim_params.json').write_text(json.dumps(dict(
         params={k: params[k] for k in sim.DEFAULTS}, rps=best_rps, log_loss=best_ll,
-        races=[f'{y}_R{r:02d}' for y, r in ev], n_sims=n_sims, calibrated=time.strftime('%Y-%m-%d %H:%M')), indent=1))
+        races=[f'{y}_R{r:02d}' for y, r in ev], n_sims=n_sims, calibrated=time.strftime('%Y-%m-%d %H:%M'),
+        note='in-sample on the listed races'), indent=1))
     pd.DataFrame(history).to_csv(MODELS / 'calibration_history.csv', index=False)
     log(f'  final: RPS {best_rps:.4f}  logloss {best_ll:.3f}  -> models/sim_params.json')
     return params

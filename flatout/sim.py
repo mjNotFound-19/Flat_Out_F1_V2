@@ -380,7 +380,7 @@ class ProgressBar:
         self.stream.flush()
 
 
-def simulate(spec, n_sims, workers=None, batch=20000, seed=2026, progress=None):
+def simulate(spec, n_sims, workers=None, batch=20000, seed=2026, progress=None, ex=None):
     spec = _spec_arrays(spec)
     workers = default_workers(workers)
     if n_sims <= batch or workers == 1:
@@ -388,7 +388,7 @@ def simulate(spec, n_sims, workers=None, batch=20000, seed=2026, progress=None):
     chunks = min(workers * 4, max(1, n_sims // batch))
     sizes = [n_sims // chunks + (1 if i < n_sims % chunks else 0) for i in range(chunks)]
     agg = None
-    with pool(workers) as ex:
+    with (contextlib.nullcontext(ex) if ex is not None else pool(workers)) as ex:
         futs = [ex.submit(_worker, spec, sz, seed + 7919 * i, batch) for i, sz in enumerate(sizes)]
         for i, f in enumerate(futs):
             r = f.result()

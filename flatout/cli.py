@@ -183,6 +183,18 @@ def cmd_calibrate(a):
     backtest.calibrate(year=a.year, last_n=a.last_n, n_sims=a.sims, workers=a.workers)
 
 
+def cmd_nested(a):
+    from . import nested
+    modes = tuple(m.strip() for m in a.modes.split(','))
+    nested.run(a.year, a.first, a.last, modes=modes, eval_sims=a.sims, calib_sims=a.calib_sims,
+               calib_last_n=a.last_n, workers=a.workers, label=a.label)
+
+
+def cmd_snapshot(a):
+    from . import provenance
+    provenance.snapshot(a.label)
+
+
 def cmd_ratings(a):
     from . import ratings
     analyses, hist = pipeline.load_state()
@@ -255,6 +267,15 @@ def main():
     s = sub.add_parser('calibrate'); s.add_argument('--year', type=int); s.add_argument('--last-n', type=int, default=14)
     s.add_argument('--sims', type=int, default=6000); s.add_argument('--workers', type=int)
     s.set_defaults(fn=cmd_calibrate)
+    s = sub.add_parser('nested', help='out-of-sample benchmark: sim params re-tuned before each race')
+    s.add_argument('--year', type=int, required=True); s.add_argument('--first', type=int, default=3)
+    s.add_argument('--last', type=int, default=99); s.add_argument('--modes', default='post_quali,pre_weekend')
+    s.add_argument('--sims', type=int, default=300_000, help='per race and mode (MC error << model differences)')
+    s.add_argument('--calib-sims', type=int, default=6000); s.add_argument('--last-n', type=int, default=13)
+    s.add_argument('--workers', type=int); s.add_argument('--label', default='nested')
+    s.set_defaults(fn=cmd_nested)
+    s = sub.add_parser('snapshot', help='copy uncommitted generated outputs + sha256 manifest')
+    s.add_argument('--label', required=True); s.set_defaults(fn=cmd_snapshot)
     s = sub.add_parser('ratings'); s.add_argument('--year', type=int); s.set_defaults(fn=cmd_ratings)
     s = sub.add_parser('status'); s.add_argument('--year', type=int); s.set_defaults(fn=cmd_status)
     s = sub.add_parser('export'); s.set_defaults(fn=cmd_export)
