@@ -735,3 +735,18 @@ table.repro th, table.repro td { white-space: normal; }
 /* accuracy: season + mode switches, verdict line */
 .seg-row { display: flex; flex-wrap: wrap; gap: 10px; }
 .note.bench-verdict { margin: 0 0 var(--s4); max-width: 80ch; }
+
+/* link back to the portfolio */
+.home-link { margin-left: auto; flex-shrink: 0; display: inline-flex; align-items: center; gap: 6px; min-height: 44px; min-width: 44px; padding: 0 12px; border-radius: 10px; text-decoration: none; color: var(--muted); font: 600 13px/1 var(--display); letter-spacing: .04em; transition: color var(--t-fast), background var(--t-fast); }
+.home-link:hover, .home-link:focus-visible { color: var(--text); background: rgba(255, 255, 255, .05); }
+.home-link svg { width: 16px; height: 16px; }
+.home-link + .mode-switch { margin-left: 0; }
+.home-link .short, .home-link .house { display: none; }
+@media (max-width: 1100px) { .home-link .long { display: none; } .home-link .short { display: inline; } .home-link { padding: 0 8px; gap: 3px; } }
+@media (max-width: 700px) {
+  .topbar { column-gap: 6px; }
+  .home-link { min-width: 40px; padding: 0; justify-content: center; }
+  .home-link .short, .home-link .chev { display: none; }
+  .home-link .house { display: block; width: 20px; height: 20px; }
+  .mode-switch button { padding: 0 12px; }
+}

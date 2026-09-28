@@ -1157,7 +1157,7 @@ async function init() {
   document.body.dataset.mode = state.mode;
   document.querySelectorAll(".mode-switch button").forEach((b) => b.setAttribute("aria-checked", String(b.dataset.mode === state.mode)));
   $("#footer").append(h("span", {}, `Data refreshed ${new Date(state.data.generated).toLocaleString()} · season ${state.data.season} · photos & logos © Formula 1 / teams, flags flagcdn.com`),
-    h("span", {}, "Refresh with ", h("code", {}, "python -m flatout weekend"), " · ", h("a", { href: "legacy/" }, "v2 dashboard")));
+    h("span", {}, h("a", { href: "https://manasjha.online/" }, "← Back to manasjha.online"), " · Refresh with ", h("code", {}, "python -m flatout weekend"), " · ", h("a", { href: "legacy/" }, "v2 dashboard")));
   window.addEventListener("hashchange", route);
   state.tab = null;
   route();
