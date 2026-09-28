@@ -4,7 +4,7 @@
   "pass_scale": 0.25,
   "min_gap": 0.35,
   "start_gap": 0.22,
-  "start_sd": 0.162,
+  "start_sd": 0.12960000000000002,
   "lap1_thr_mult": 1.5,
   "pace_sd_mult": 0.46240000000000003,
   "lap_sd_mult": 0.6,
@@ -20,10 +20,14 @@
   "slow_stop_mean": 4.0,
   "lap1_dnf_mult": 6.0,
   "pace_df": 4.0,
-  "grid_blend": 0.192
+  "new_venue_mode": "sd_mult",
+  "force_unseen": false,
+  "rel_model": "hazard",
+  "rel_season_k": 0.0,
+  "grid_blend": 0.15360000000000001
  },
- "rps": 0.10722685301277364,
- "log_loss": 2.516491698405392,
+ "rps": 0.10523830691353672,
+ "log_loss": 2.482064483705562,
  "races": [
   "2026_R03",
   "2026_R04",
@@ -40,5 +44,6 @@
   "2026_R15"
  ],
  "n_sims": 6000,
- "calibrated": "2026-09-26 17:24"
+ "calibrated": "2026-09-27 21:10",
+ "note": "in-sample on the listed races"
 }
