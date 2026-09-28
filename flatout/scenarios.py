@@ -41,10 +41,11 @@ def _apply(spec, ctx, change, fav):
     return s
 
 
-def run(spec, ctx, n_sims=200_000, seed=31, workers=None, top=8):
+def run(spec, ctx, n_sims=200_000, seed=31, workers=None, top=8, progress=True):
     names = ctx['drivers']
     base = None
     out = []
+    bar = sim.ProgressBar(len(SCENARIOS), label='what-if scenarios', unit='scenarios') if progress else None
     with sim.pool(sim.default_workers(workers)) as ex:
         for key, label, change in SCENARIOS:
             fav = int(np.argmax(base['pos'][:, 0])) if base is not None else 0
@@ -58,6 +59,8 @@ def run(spec, ctx, n_sims=200_000, seed=31, workers=None, top=8):
                          stops=float(np.dot(agg['stops'][d] / agg['stops'][d].sum(), np.arange(6))))
                     for d in range(D)]
             rows.sort(key=lambda r: -r['win'])
+            if bar:
+                bar.update(len(out) + 1, label)
             out.append(dict(key=key, label=label, change=change, drivers=rows[:top],
                             p_sc=float(1 - agg['sc'][0] / agg['n'])))
     return dict(n_sims=n_sims, seed=seed, scenarios=out, not_available=NOT_AVAILABLE,

@@ -23,7 +23,7 @@ SCOPE = ('Static pre-race plan comparison under the model, common random numbers
          'policy; opponents do not react; values inherit all model assumptions.')
 
 
-def recommend(spec, ctx, drivers=None, top_plans=6, n_sims=40_000, seed=77, workers=None, ex=None):
+def recommend(spec, ctx, drivers=None, top_plans=6, n_sims=40_000, seed=77, workers=None, ex=None, progress=True):
     """For each driver: behaviour-mix outcome and forced-plan outcomes for the most likely `top_plans`
     candidates. Returns {driver: dict(behaviour=..., plans=[...], best=..., scope=SCOPE)}."""
     D = spec['D']
@@ -32,6 +32,9 @@ def recommend(spec, ctx, drivers=None, top_plans=6, n_sims=40_000, seed=77, work
     cands = ctx['cands']
     base = sim.simulate(spec, n_sims, workers=workers, seed=seed, ex=ex)
     out = {}
+    total = len(idx) * min(top_plans, len(cands))
+    bar = sim.ProgressBar(total, label='strategy plans', unit='plans') if progress else None
+    done = 0
     for d in idx:
         order = np.argsort(-spec['strat_p'][d])[:top_plans]
         plans = []
@@ -42,6 +45,9 @@ def recommend(spec, ctx, drivers=None, top_plans=6, n_sims=40_000, seed=77, work
             p[d, k] = 1.0
             s['strat_p'] = p
             agg = sim.simulate(s, n_sims, workers=workers, seed=seed, ex=ex)
+            done += 1
+            if bar:
+                bar.update(done, names[d])
             plans.append(dict(plan=strategy.label(cands[k]['seq']), lens=[int(x) for x in cands[k]['lens']],
                               p_behaviour=float(spec['strat_p'][d, k]), **_outcome(agg, d, D)))
         best = min(plans, key=lambda x: x['exp_pos'])
