@@ -19,6 +19,8 @@ CHECK='async () => {
   return JSON.stringify({ overflowX: document.documentElement.scrollWidth - innerWidth, stuck, broken, clipped, small });
 }'
 playwright-cli open "$BASE" >/dev/null 2>&1 || playwright-cli goto "$BASE" >/dev/null   # own session
+# warm-up: the first load after opening the browser also downloads fonts/GSAP; let it settle before measuring
+playwright-cli eval "() => new Promise(r => setTimeout(r, 4000))" >/dev/null
 for size in "1440 900 desk" "390 844 phone"; do
   set -- $size
   playwright-cli resize "$1" "$2" >/dev/null
