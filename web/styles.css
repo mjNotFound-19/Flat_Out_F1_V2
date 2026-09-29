@@ -742,7 +742,9 @@ table.repro th, table.repro td { white-space: normal; }
 .home-link svg { width: 16px; height: 16px; }
 .home-link + .mode-switch { margin-left: 0; }
 .home-link .short, .home-link .house { display: none; }
-@media (max-width: 1100px) { .home-link .long { display: none; } .home-link .short { display: inline; } .home-link { padding: 0 8px; gap: 3px; } }
+/* laptops: compact icon so every tab (incl. Lab in Nerd mode) fits without hidden scrolling */
+@media (max-width: 1366px) { .home-link .long, .home-link .short, .home-link .chev { display: none; } .home-link .house { display: block; width: 20px; height: 20px; } .home-link { padding: 0; min-width: 44px; justify-content: center; } }
+@media (max-width: 1240px) and (min-width: 701px) { .tabs a { padding: 0 9px; font-size: 14px; letter-spacing: .04em; } .topbar { column-gap: 12px; } }
 @media (max-width: 700px) {
   .topbar { column-gap: 6px; }
   .home-link { min-width: 40px; padding: 0; justify-content: center; }
@@ -750,3 +752,5 @@ table.repro th, table.repro td { white-space: normal; }
   .home-link .house { display: block; width: 20px; height: 20px; }
   .mode-switch button { padding: 0 12px; }
 }
+/* narrow windows: tabs on their own row so every tab (incl. Lab) stays visible */
+@media (max-width: 1080px) { .topbar { flex-wrap: wrap; height: auto; padding-top: 8px; row-gap: 8px; } .tabs { order: 3; flex-basis: 100%; } }
